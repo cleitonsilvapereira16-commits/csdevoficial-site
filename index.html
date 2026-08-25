@@ -39,45 +39,84 @@
     <!-- HEADER / NAVBAR -->
     <header class="border-b border-slate-800 bg-brand-dark/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-black tracking-wider text-white">CS <span class="text-indigo-500">DEV</span></span>
+            <!-- LOGO DA CS DEV EM DESTAQUE -->
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="CS DEV Logo" class="w-12 h-12 rounded-xl object-contain drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]">
+                <div>
+                    <span class="text-xl font-black tracking-wider text-white">CS <span class="text-indigo-500">DEV</span></span>
+                    <span class="block text-[10px] text-slate-400 tracking-widest uppercase font-semibold">Software Solutions</span>
+                </div>
             </div>
+
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
                 <a href="#solucoes" class="hover:text-indigo-400 transition">Soluções</a>
                 <a href="#planos" class="hover:text-indigo-400 transition">Planos</a>
                 <a href="#simulador" class="hover:text-indigo-400 transition">Simulador</a>
+                <a href="#painel-gestor" class="hover:text-indigo-400 transition">Painel do Gestor</a>
             </nav>
-            <a href="#simulador" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl transition">
+            <a href="#simulador" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl transition shadow-lg shadow-indigo-600/20">
                 Solicitar Orçamento
             </a>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section class="py-24 px-6 max-w-7xl mx-auto text-center">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-6">
-            Desenvolvimento Web & Inteligência de Dados
-        </span>
+    <section class="py-20 px-6 max-w-7xl mx-auto text-center relative">
+        <div class="absolute inset-0 -z-10 flex items-center justify-center">
+            <div class="w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+            Desenvolvimento Web &amp; Inteligência de Dados
+        </div>
+
         <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
-            Transforme sua Operação com <br class="hidden md:block"/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Sistemas & Automações de Alta Performance</span>
+            Transforme sua Operação com <br class="hidden md:block"/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-indigo-500">Sistemas &amp; Automações de Alta Performance</span>
         </h1>
         <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
             Desenvolvemos ecossistemas web sob medida, landing pages de alta conversão, dashboards estratégicos e automações que otimizam sua escala comercial.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#simulador" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-lg shadow-indigo-600/20">
+            <a href="#simulador" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-lg shadow-indigo-600/30">
                 Simular Projeto Agora
             </a>
-            <a href="#planos" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl border border-slate-700 transition">
-                Ver Planos
+            <a href="#painel-gestor" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl border border-slate-700 transition">
+                Conhecer Painel
             </a>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAIS / SOLUÇÕES -->
+    <section id="solucoes" class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
+                <div class="text-indigo-400 text-2xl mb-3">⚡</div>
+                <h3 class="text-lg font-bold text-white mb-2">Sistemas Web &amp; APIs</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Aplicações escaláveis com integração Supabase e banco de dados relacional.</p>
+            </div>
+            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
+                <div class="text-indigo-400 text-2xl mb-3">📊</div>
+                <h3 class="text-lg font-bold text-white mb-2">Dashboards &amp; BI</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Visualização estratégica de métricas em tempo real para tomada de decisão.</p>
+            </div>
+            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
+                <div class="text-indigo-400 text-2xl mb-3">🤖</div>
+                <h3 class="text-lg font-bold text-white mb-2">Automação Inteligente</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Fluxos automatizados via WhatsApp e sistemas comerciais de cobrança.</p>
+            </div>
+            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
+                <div class="text-indigo-400 text-2xl mb-3">🔒</div>
+                <h3 class="text-lg font-bold text-white mb-2">Segurança &amp; Escala</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Arquitetura protegida, autenticação segura e alta velocidade de resposta.</p>
+            </div>
         </div>
     </section>
 
     <!-- PLANOS DE SERVIÇO -->
     <section id="planos" class="py-16 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-white mb-4">Planos & Modelos de Trabalho</h2>
+            <h2 class="text-3xl font-bold text-white mb-4">Planos &amp; Modelos de Trabalho</h2>
             <p class="text-slate-400">Escolha a estrutura ideal para o momento do seu negócio</p>
         </div>
 
@@ -88,7 +127,7 @@
                     <h3 class="text-xl font-bold text-white mb-2">Prime</h3>
                     <p class="text-slate-400 text-sm mb-6">Entrada ideal para novos projetos com estrutura essencial de alta performance.</p>
                     <ul class="text-slate-300 space-y-3 text-sm mb-8">
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Design Responsivo & Premium</li>
+                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Design Responsivo &amp; Premium</li>
                         <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Otimização de Velocidade (SEO)</li>
                         <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Integração Comercial Direct WhatsApp</li>
                     </ul>
@@ -105,7 +144,7 @@
                     <ul class="text-slate-300 space-y-3 text-sm mb-8">
                         <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Tudo do Plano Prime</li>
                         <li class="flex items-center gap-2"><span class="text-indigo-400 font-bold">✓</span> <strong>30 Dias de Suporte Gratuito</strong></li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Formulários Dinâmicos & Banco de Dados</li>
+                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Formulários Dinâmicos &amp; Banco de Dados</li>
                         <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Dashboard Integrado de Métricas</li>
                     </ul>
                 </div>
@@ -121,7 +160,7 @@
                         <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Sistemas Web Customizados</li>
                         <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Automações de IA e WhatsApp</li>
                         <li class="flex items-center gap-2"><span class="text-indigo-400 font-bold">✓</span> <strong>60 Dias de Suporte Gratuito</strong></li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Integração de APIs & Supabase</li>
+                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Integração de APIs &amp; Supabase</li>
                     </ul>
                 </div>
                 <a href="#simulador" class="w-full text-center py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl border border-slate-700 transition">Montar no Simulador</a>
@@ -163,9 +202,9 @@
 
                 <label class="flex items-center justify-between p-5 rounded-2xl border border-slate-800 bg-slate-900/60 cursor-pointer hover:border-indigo-500 transition">
                     <div class="flex items-center gap-4">
-                        <input type="checkbox" onchange="calculateTotal()" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Dashboard & BI" data-price="2200">
+                        <input type="checkbox" onchange="calculateTotal()" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Dashboard &amp; BI" data-price="2200">
                         <div>
-                            <p class="text-white font-semibold">Dashboard & BI</p>
+                            <p class="text-white font-semibold">Dashboard &amp; BI</p>
                             <p class="text-xs text-slate-400">Gráficos dinâmicos e relatórios em tempo real</p>
                         </div>
                     </div>
@@ -202,12 +241,95 @@
         </div>
     </section>
 
+    <!-- CALCULADORA DE ROI -->
+    <section class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="bg-brand-card p-8 md:p-12 rounded-3xl border border-slate-800">
+            <h2 class="text-2xl font-bold text-white mb-2">Simulador de Economia Operacional (ROI)</h2>
+            <p class="text-slate-400 text-sm mb-8">Descubra quanto sua empresa economiza ao automatizar processos manuais:</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Horas manuais gastas por mês:</label>
+                    <input type="number" id="roiHours" value="40" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Custo médio por hora (R$):</label>
+                    <input type="number" id="roiCost" value="50" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Economia Anual Estimada:</label>
+                    <div id="roiDisplay" class="text-2xl font-black text-cyan-400 py-2.5">R$ 19.200,00</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAINEL CENTRAL DO GESTOR -->
+    <section id="painel-gestor" class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="bg-brand-card p-8 md:p-12 rounded-3xl border border-slate-800">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <span class="text-indigo-400 text-xs font-bold uppercase tracking-wider">Módulo de Gestão Comercial</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mt-1">Central de Fechamento &amp; Pagamento</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="switchTab('pix')" id="tabPix" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold transition">Cobrança PIX</button>
+                    <button onclick="switchTab('contrato')" id="tabContrato" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-700 transition">Contrato Digital</button>
+                </div>
+            </div>
+
+            <!-- TAB PIX -->
+            <div id="contentPix" class="space-y-6">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 grid md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Pagamento Direto via PIX Instantâneo</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Gere a chave Pix Copia e Cola diretamente para aprovação do projeto e entrada de sinal.</p>
+                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-indigo-300 break-all mb-4">
+                            00020126580014BR.GOV.BCB.PIX0136csdev-solucoes-tecnologia-chavedigital5204000053039865802BR5925CS DEV SOFTWARE SOLUTIONS6009BRASILIA62070503***6304E8A2
+                        </div>
+                        <button onclick="navigator.clipboard.writeText('00020126580014BR.GOV.BCB.PIX0136csdev-solucoes-tecnologia-chavedigital5204000053039865802BR5925CS DEV SOFTWARE SOLUTIONS6009BRASILIA62070503***6304E8A2'); alert('Chave PIX copiada!')" class="px-4 py-2 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl text-xs font-semibold hover:bg-indigo-600/30 transition">
+                            📋 Copiar Chave PIX
+                        </button>
+                    </div>
+                    <div class="flex flex-col items-center justify-center p-6 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="w-36 h-36 bg-white rounded-xl p-2 flex items-center justify-center mb-3">
+                            <div class="w-full h-full bg-slate-900 rounded flex items-center justify-center text-slate-500 text-[10px] text-center p-2 font-mono">
+                                [ QR CODE PIX CS DEV ]
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-400">Chave CNPJ / Aleatória Verificada</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB CONTRATO -->
+            <div id="contentContrato" class="hidden space-y-6">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+                    <h3 class="text-lg font-bold text-white mb-2">Termos de Prestação de Serviço CS DEV</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Todos os projetos contam com garantia legal, suporte técnico dedicado de 30 a 60 dias conforme o plano escolhido e entregáveis documentados.</p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li>• Suporte técnico garantido com canal direto via WhatsApp.</li>
+                        <li>• Propriedade total do código fonte transferida para o cliente após aprovação.</li>
+                        <li>• Hospedagem com alta estabilidade e certificado SSL incluído.</li>
+                    </ul>
+                    <button onclick="generateProposalPDF()" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-500 transition">
+                        📄 Baixar Minuta em PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="border-t border-slate-800 py-12 px-6 text-center text-slate-500 text-sm">
+        <div class="flex items-center justify-center gap-3 mb-4">
+            <img src="logo.png" alt="CS DEV Logo" class="w-8 h-8 rounded-lg object-contain">
+            <span class="text-lg font-black text-white">CS <span class="text-indigo-500">DEV</span></span>
+        </div>
         <p>© 2026 CS DEV - Soluções em Tecnologia. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT DE LÓGICA E PDF -->
+    <!-- JAVASCRIPT DE LÓGICA -->
     <script>
         let totalPrice = 0;
         let selectedModules = [];
@@ -230,6 +352,35 @@
                 `R$ ${totalPrice.toLocaleString('pt-BR')},00`;
         }
 
+        function calculateROI() {
+            const hours = parseFloat(document.getElementById('roiHours').value) || 0;
+            const cost = parseFloat(document.getElementById('roiCost').value) || 0;
+            const monthlySaving = hours * cost * 0.8;
+            const annualSaving = monthlySaving * 12;
+
+            document.getElementById('roiDisplay').innerText = 
+                `R$ ${annualSaving.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+        }
+
+        function switchTab(tab) {
+            const tabPix = document.getElementById('tabPix');
+            const tabContrato = document.getElementById('tabContrato');
+            const contentPix = document.getElementById('contentPix');
+            const contentContrato = document.getElementById('contentContrato');
+
+            if (tab === 'pix') {
+                tabPix.className = "px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold transition";
+                tabContrato.className = "px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-700 transition";
+                contentPix.classList.remove('hidden');
+                contentContrato.classList.add('hidden');
+            } else {
+                tabContrato.className = "px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold transition";
+                tabPix.className = "px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-700 transition";
+                contentContrato.classList.remove('hidden');
+                contentPix.classList.add('hidden');
+            }
+        }
+
         function generateProposalPDF() {
             if (selectedModules.length === 0) {
                 alert('Selecione ao menos um módulo no simulador para gerar a proposta!');
@@ -239,7 +390,6 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Cabeçalho PDF
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(20);
             doc.text('CS DEV - Proposta de Projeto', 20, 20);
@@ -247,9 +397,8 @@
             doc.setFontSize(10);
             doc.setFont('helvetica', 'normal');
             doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, 20, 30);
-            doc.text('--------------------------------------------------=========', 20, 35);
+            doc.text('-----------------------------------------------------------', 20, 35);
 
-            // Módulos
             doc.setFontSize(12);
             doc.setFont('helvetica', 'bold');
             doc.text('Módulos Selecionados:', 20, 45);
