@@ -18,6 +18,17 @@
             brand: {
               50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#0f172a'
             }
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'logo-pop': 'logoPop 0.8s ease-out forwards'
+          },
+          keyframes: {
+            logoPop: {
+              '0%': { transform: 'scale(0.8)', opacity: '0' },
+              '50%': { transform: 'scale(1.1)', opacity: '1' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            }
           }
         }
       }
@@ -31,6 +42,23 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col">
+
+  <!-- ==================== SPLASH SCREEN ESTILO NETFLIX ==================== -->
+  <div id="splash-screen" class="fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center hidden transition-opacity duration-500">
+    <div class="text-center space-y-6 animate-logo-pop">
+      <!-- Logo CS Animada -->
+      <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-500 rounded-3xl flex items-center justify-center font-black text-white text-4xl sm:text-5xl shadow-2xl shadow-blue-500/50 mx-auto animate-pulse-fast border border-blue-400/30">
+        CS
+      </div>
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-widest uppercase font-mono">CSDev</h2>
+        <p class="text-xs text-blue-400 font-mono tracking-wider mt-2 flex items-center justify-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+          Autenticando no ecossistema...
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== CABEÇALHO / NAVEGAÇÃO PRINCIPAL ==================== -->
   <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800/80">
@@ -219,7 +247,7 @@
       </div>
     </section>
 
-    <!-- ==================== SIMULADOR DE ROI (BUG DO GRÁFICO CORRIGIDO) ==================== -->
+    <!-- ==================== SIMULADOR DE ROI ==================== -->
     <section id="simulador" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-10 backdrop-blur-sm">
       <div class="lg:col-span-6 space-y-6">
         <div>
@@ -270,7 +298,6 @@
           </div>
         </div>
 
-        <!-- Gráfico Ajustado (Sem sobreposição de textos) -->
         <div class="pt-4 border-t border-slate-800 space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-[11px] text-slate-400 font-bold uppercase">Comparativo Anual de Custos</span>
@@ -278,14 +305,12 @@
           </div>
 
           <div class="flex items-end justify-center gap-12 h-44 bg-slate-950 p-6 rounded-xl border border-slate-800/80">
-            <!-- Barra Custo Sem Automação -->
             <div class="flex flex-col items-center gap-2 w-28 h-full justify-end">
               <span id="label-custo-atual" class="text-[10px] font-bold text-red-400 font-mono truncate max-w-full">R$ 32.400,00</span>
               <div id="bar-custo-atual" class="w-full bg-red-500/30 border border-red-500 rounded-t-md transition-all duration-500 h-28"></div>
               <span class="text-[10px] text-slate-400 font-bold text-center leading-tight">Custo Sem Automação</span>
             </div>
 
-            <!-- Barra Custo CSDev -->
             <div class="flex flex-col items-center gap-2 w-28 h-full justify-end">
               <span id="label-custo-csdev" class="text-[10px] font-bold text-emerald-400 font-mono truncate max-w-full">R$ 5.000,00</span>
               <div id="bar-custo-csdev" class="w-full bg-emerald-500/30 border border-emerald-500 rounded-t-md transition-all duration-500 h-8"></div>
@@ -300,7 +325,7 @@
       </div>
     </section>
 
-    <!-- ==================== PORTAL DE TRANSPARÊNCIA DO CLIENTE (LOGIN OBRIGATÓRIO) ==================== -->
+    <!-- ==================== PORTAL DE TRANSPARÊNCIA DO CLIENTE (SPLASH ANIMATION) ==================== -->
     <section id="portal" class="max-w-4xl mx-auto space-y-6">
       <div class="text-center space-y-2">
         <h2 class="text-2xl font-black text-white">Portal de Transparência do Cliente</h2>
@@ -309,7 +334,7 @@
 
       <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
         
-        <!-- Tela de Login Inicial (Se não autenticado) -->
+        <!-- Tela de Login Inicial -->
         <div id="portal-login-box" class="space-y-4">
           <div class="p-4 bg-blue-950/50 border border-blue-800/80 rounded-xl text-xs text-blue-300">
             🔒 <b>Acesso Restrito:</b> Digite seu e-mail cadastrado para entrar no painel de acompanhamento de projetos.
@@ -323,13 +348,14 @@
               <label class="block text-xs font-bold text-slate-300 mb-1">Senha de Acesso:</label>
               <input type="password" id="cliente-senha-login" required placeholder="••••••••" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500" />
             </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
-              Entrar no Portal do Cliente
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3.5 rounded-xl font-bold text-xs transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+              <span>Entrar no Portal do Cliente</span>
+              <span>&rarr;</span>
             </button>
           </form>
         </div>
 
-        <!-- Área Logada (Visível somente após autenticar) -->
+        <!-- Área Logada (Exibida após Splash Screen) -->
         <div id="portal-conteudo-logado" class="hidden space-y-6">
           <div class="flex justify-between items-center border-b border-slate-800 pb-4">
             <div>
@@ -512,7 +538,7 @@
         </button>
       </form>
 
-      <!-- Dashboard ADM (Exibida após Autenticação) -->
+      <!-- Dashboard ADM -->
       <div id="adm-dashboard-view" class="hidden space-y-6">
         <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
           <div>
@@ -524,7 +550,6 @@
           </button>
         </div>
 
-        <!-- Indicadores Financeiros -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
             <span class="text-[10px] text-slate-400 block font-bold mb-1">CONTRATOS ATIVOS</span>
@@ -543,7 +568,6 @@
           </div>
         </div>
 
-        <!-- Tabela de Contratos Recentes -->
         <div class="space-y-3">
           <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Últimos Contratos Registrados</h4>
           <div class="overflow-x-auto bg-slate-950 rounded-xl border border-slate-800">
@@ -584,7 +608,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL TERMOS DE SERVIÇO ==================== -->
+  <!-- ==================== MODAIS DE TERMOS E PRIVACIDADE ==================== -->
   <div id="modal-termos" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -594,12 +618,10 @@
       <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
         <p><b>1. Propriedade do Código-Fonte:</b> Todo o código desenvolvido pela CSDev (CNPJ: 67.054.464/0001-51) é integralmente transferido ao contratante após o pagamento integral dos honorários acordados.</p>
         <p><b>2. Garantia e Suporte:</b> Oferecemos garantia operacional de 90 dias após a homologação para correção de falhas técnicas sem custos adicionais.</p>
-        <p><b>3. Faturamento:</b> Os pagamentos e parcelamentos são vinculados à emissão regular de Nota Fiscal Eletrônica de Serviços (NFS-e).</p>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL POLITICA DE PRIVACIDADE ==================== -->
   <div id="modal-privacidade" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -607,8 +629,7 @@
         <button onclick="toggleModal('modal-privacidade')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
       </div>
       <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
-        <p><b>1. Proteção de Dados:</b> Em conformidade com a Lei Geral de Proteção de Dados (LGPD), todas as informações coletadas nos simuladores e formulários são criptografadas e utilizadas estritamente para contato comercial.</p>
-        <p><b>2. Segurança dos Bancos de Dados:</b> As instâncias gerenciadas no Supabase utilizam autenticação por token e controle de acesso em nível de linha (RLS).</p>
+        <p><b>1. Proteção de Dados:</b> Em conformidade com a LGPD, todas as informações coletadas são criptografadas e utilizadas estritamente para contato e gestão de projetos contratados.</p>
       </div>
     </div>
   </div>
@@ -639,11 +660,10 @@
     </div>
   </footer>
 
-  <!-- ==================== LÓGICA JAVASCRIPT COMPLETA ==================== -->
+  <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
   <script>
     let contadorCliquesLogo = 0;
 
-    // Função de Atalho Secreto para Abrir ADM (3 cliques no Logo ou Atalho de Teclado)
     function registrarCliqueLogo() {
       contadorCliquesLogo++;
       if (contadorCliquesLogo >= 3) {
@@ -652,7 +672,6 @@
       }
     }
 
-    // Atalho de teclado: Ctrl + Shift + A
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
         e.preventDefault();
@@ -660,7 +679,52 @@
       }
     });
 
-    // Simulador de ROI
+    // Animação da Splash Screen estilo Netflix ao autenticar
+    function executarSplashScreen(callback) {
+      const splash = document.getElementById('splash-screen');
+      splash.classList.remove('hidden');
+      
+      setTimeout(() => {
+        splash.classList.add('opacity-0');
+        setTimeout(() => {
+          splash.classList.add('hidden');
+          splash.classList.remove('opacity-0');
+          if (callback) callback();
+        }, 500);
+      }, 1800);
+    }
+
+    function realizarLoginCliente(e) {
+      e.preventDefault();
+      const email = document.getElementById('cliente-email-login').value.trim();
+      if (!email) return;
+
+      executarSplashScreen(() => {
+        localStorage.setItem('csdev_cliente_logado', email);
+        verificarSessaoCliente();
+      });
+    }
+
+    function verificarSessaoCliente() {
+      const emailSalvo = localStorage.getItem('csdev_cliente_logado');
+      const loginBox = document.getElementById('portal-login-box');
+      const conteudoLogado = document.getElementById('portal-conteudo-logado');
+
+      if (emailSalvo) {
+        loginBox.classList.add('hidden');
+        conteudoLogado.classList.remove('hidden');
+        document.getElementById('sessao-cliente-email').innerText = emailSalvo;
+      } else {
+        loginBox.classList.remove('hidden');
+        conteudoLogado.classList.add('hidden');
+      }
+    }
+
+    function logoutCliente() {
+      localStorage.removeItem('csdev_cliente_logado');
+      verificarSessaoCliente();
+    }
+
     function atualizarECalcularROI() {
       const horas = document.getElementById('input-horas').value;
       const custoHora = document.getElementById('input-custo-hora').value;
@@ -703,37 +767,6 @@
       }
     }
 
-    // Login Obrigatório do Portal do Cliente
-    function realizarLoginCliente(e) {
-      e.preventDefault();
-      const email = document.getElementById('cliente-email-login').value.trim();
-      if (!email) return;
-
-      localStorage.setItem('csdev_cliente_logado', email);
-      verificarSessaoCliente();
-    }
-
-    function verificarSessaoCliente() {
-      const emailSalvo = localStorage.getItem('csdev_cliente_logado');
-      const loginBox = document.getElementById('portal-login-box');
-      const conteudoLogado = document.getElementById('portal-conteudo-logado');
-
-      if (emailSalvo) {
-        loginBox.classList.add('hidden');
-        conteudoLogado.classList.remove('hidden');
-        document.getElementById('sessao-cliente-email').innerText = emailSalvo;
-      } else {
-        loginBox.classList.remove('hidden');
-        conteudoLogado.classList.add('hidden');
-      }
-    }
-
-    function logoutCliente() {
-      localStorage.removeItem('csdev_cliente_logado');
-      verificarSessaoCliente();
-    }
-
-    // Assistente com Respostas Livres
     function enviarMensagemIA() {
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
@@ -771,7 +804,6 @@
       }, 500);
     }
 
-    // Funções dos Modais e Autenticação ADM
     function toggleModal(id) {
       document.getElementById(id).classList.toggle('hidden');
     }
@@ -794,7 +826,6 @@
       toggleModal('modal-agendamento');
     }
 
-    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
       atualizarECalcularROI();
       verificarSessaoCliente();
