@@ -1,523 +1,471 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark scroll-smooth">
+<html lang="pt-BR" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS DEV - Soluções em Tecnologia & Gestão</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- jsPDF CDN para Geração de Propostas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                dark: '#070a12',
-                card: '#0d111d',
-                border: '#1e293b',
-                accent: '#6366f1',
-                accentHover: '#4f46e5'
-              }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSDEV - Soluções em Tecnologia & Inteligência Artificial</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
             }
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #070a12;
-        color: #f8fafc;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      }
-    </style>
+    }
+  </script>
+  <style>
+    /* Custom scrollbar for chat box */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #111827;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 3px;
+    }
+  </style>
 </head>
-<body class="bg-brand-dark text-slate-100 antialiased font-sans selection:bg-indigo-500 selection:text-white">
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col justify-between">
 
-    <!-- HEADER / NAVBAR -->
-    <header class="border-b border-slate-800 bg-brand-dark/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- LOGO DA CS DEV -->
-            <div class="flex items-center gap-3">
-                <img src="logo.png" alt="CS DEV Logo" class="w-12 h-12 rounded-xl object-contain drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]">
-                <div>
-                    <span class="text-xl font-black tracking-wider text-white">CS <span class="text-indigo-500">DEV</span></span>
-                    <span class="block text-[10px] text-slate-400 tracking-widest uppercase font-semibold">Software Solutions</span>
-                </div>
-            </div>
-
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                <a href="#solucoes" class="hover:text-indigo-400 transition">Soluções</a>
-                <a href="#planos" class="hover:text-indigo-400 transition">Planos</a>
-                <a href="#simulador" class="hover:text-indigo-400 transition">Simulador</a>
-                <a href="#painel-gestor" class="hover:text-indigo-400 transition">Painel do Gestor</a>
-            </nav>
-            <a href="#simulador" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl transition shadow-lg shadow-indigo-600/20">
-                Solicitar Orçamento
-            </a>
+  <!-- HEADER / NAVBAR -->
+  <header class="border-b border-gray-800 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-blue-500/30">
+          CS
         </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section class="py-20 px-6 max-w-7xl mx-auto text-center relative">
-        <div class="absolute inset-0 -z-10 flex items-center justify-center">
-            <div class="w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-3xl"></div>
+        <div>
+          <h1 class="font-bold text-lg text-white leading-none">CSDEV OFICIAL</h1>
+          <span class="text-xs text-blue-400">Tecnologia & Agentes de IA</span>
         </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-gray-300 font-medium">
+        <a href="#simulador" class="hover:text-blue-400 transition">Simulador ROI</a>
+        <a href="#modo-ia" class="hover:text-blue-400 transition">Modo IA</a>
+        <a href="#fiscal" class="hover:text-blue-400 transition">Dados Fiscais & Pix</a>
+        <button onclick="abrirModalAdmin()" class="bg-gray-800 hover:bg-gray-700 text-xs px-3 py-1.5 rounded border border-gray-700 transition text-gray-300">
+          🔒 Painel Gestor
+        </button>
+      </nav>
+    </div>
+  </header>
 
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-6">
-            <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-            Desenvolvimento Web &amp; Inteligência de Dados
-        </div>
+  <main class="max-w-7xl mx-auto px-4 py-8 space-y-12 flex-grow w-full">
 
-        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">
-            Transforme sua Operação com <br class="hidden md:block"/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-indigo-500">Sistemas &amp; Automações de Alta Performance</span>
-        </h1>
-        <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-            Desenvolvemos ecossistemas web sob medida, landing pages de alta conversão, dashboards estratégicos e automações que otimizam sua escala comercial.
+    <!-- SEÇÃO HERO / SIMULADOR -->
+    <section id="simulador" class="grid lg:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4">
+        <span class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold rounded-full">
+          Orçamento & Retorno Financeiro
+        </span>
+        <h2 class="text-3xl lg:text-4xl font-extrabold text-white leading-tight">
+          Simule seu Projeto & Calcule o Retorno do Investimento (ROI)
+        </h2>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Selecione os módulos necessários para o seu negócio e veja em tempo real o custo total do desenvolvimento, prazo de entrega e a estimativa de tempo de retorno do investimento (Payback).
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#simulador" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-lg shadow-indigo-600/30">
-                Simular Projeto Agora
-            </a>
-            <a href="#painel-gestor" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl border border-slate-700 transition">
-                Conhecer Painel
-            </a>
+
+        <!-- SELEÇÃO DE MÓDULOS -->
+        <div class="bg-gray-800/60 p-6 rounded-xl border border-gray-700/50 space-y-4">
+          <h3 class="font-bold text-white text-base">Selecione os Módulos do Sistema:</h3>
+          <div class="space-y-2 text-sm" id="lista-modulos">
+            <label class="flex items-center justify-between p-3 bg-gray-900/80 rounded border border-gray-700/60 hover:border-blue-500/50 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <input type="checkbox" value="1500" data-nome="Website Institucional / Landing Page" onchange="calcularSimulacao()" class="modulo-check rounded bg-gray-800 border-gray-600 text-blue-600 focus:ring-blue-500">
+                <span>Website / Landing Page Alta Conversão</span>
+              </span>
+              <span class="font-semibold text-blue-400">R$ 1.500,00</span>
+            </label>
+
+            <label class="flex items-center justify-between p-3 bg-gray-900/80 rounded border border-gray-700/60 hover:border-blue-500/50 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <input type="checkbox" value="2500" data-nome="Agente de IA / Automação WhatsApp" onchange="calcularSimulacao()" class="modulo-check rounded bg-gray-800 border-gray-600 text-blue-600 focus:ring-blue-500">
+                <span>Agente Inteligente com IA + WhatsApp</span>
+              </span>
+              <span class="font-semibold text-blue-400">R$ 2.500,00</span>
+            </label>
+
+            <label class="flex items-center justify-between p-3 bg-gray-900/80 rounded border border-gray-700/60 hover:border-blue-500/50 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <input type="checkbox" value="3200" data-nome="Painel Gestor + Supabase Database" onchange="calcularSimulacao()" class="modulo-check rounded bg-gray-800 border-gray-600 text-blue-600 focus:ring-blue-500">
+                <span>Painel Administrativo + Banco Supabase</span>
+              </span>
+              <span class="font-semibold text-blue-400">R$ 3.200,00</span>
+            </label>
+
+            <label class="flex items-center justify-between p-3 bg-gray-900/80 rounded border border-gray-700/60 hover:border-blue-500/50 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <input type="checkbox" value="1800" data-nome="Módulo Financeiro / Cobrança Pix Automática" onchange="calcularSimulacao()" class="modulo-check rounded bg-gray-800 border-gray-600 text-blue-600 focus:ring-blue-500">
+                <span>Cobrança Pix & Automação Financeira</span>
+              </span>
+              <span class="font-semibold text-blue-400">R$ 1.800,00</span>
+            </label>
+          </div>
         </div>
+      </div>
+
+      <!-- RESUMO DE SIMULAÇÃO E FORMULÁRIO DE PROPOSTA -->
+      <div class="bg-gray-800/80 p-6 rounded-xl border border-blue-500/30 space-y-6">
+        <div class="border-b border-gray-700 pb-4">
+          <h3 class="text-xl font-bold text-white">Resumo da Proposta Comercial</h3>
+          <p class="text-xs text-gray-400">Valores calculados em tempo real</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <span class="text-xs text-gray-400 block">Investimento Total</span>
+            <span id="display-valor-total" class="text-2xl font-black text-green-400">R$ 0,00</span>
+          </div>
+          <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+            <span class="text-xs text-gray-400 block">Payback Estimado</span>
+            <span id="display-payback" class="text-lg font-bold text-blue-400">-- meses</span>
+          </div>
+        </div>
+
+        <!-- FORMULÁRIO DE PROPOSTA -->
+        <form id="form-proposta" onsubmit="processarEnvioProposta(event)" class="space-y-4 text-sm">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Seu Nome / Razão Social *</label>
+            <input type="text" id="prop-nome" required placeholder="Ex: João Silva" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Nome da Empresa (Opcional)</label>
+            <input type="text" id="prop-empresa" placeholder="Ex: Tech Ltda" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Negociar Diretamente Com:</label>
+            <select id="prop-destinatario" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded text-white focus:outline-none focus:border-blue-500">
+              <option value="isabella">Isabella (Consultora Administrativa)</option>
+              <option value="cleiton">Cleiton (Gestor de Tecnologia)</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 pt-1">
+            <input type="checkbox" id="prop-nota" class="rounded bg-gray-900 border-gray-700 text-blue-600 focus:ring-blue-500">
+            <label for="prop-nota" class="text-xs text-gray-300 cursor-pointer">Solicitar Emissão de Nota Fiscal (NFS-e)</label>
+          </div>
+
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded transition shadow-lg shadow-blue-600/30">
+            Enviar Proposta & Abrir WhatsApp
+          </button>
+        </form>
+      </div>
     </section>
 
-    <!-- DIFERENCIAIS / SOLUÇÕES -->
-    <section id="solucoes" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-4 gap-6">
-            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
-                <div class="text-indigo-400 text-2xl mb-3">⚡</div>
-                <h3 class="text-lg font-bold text-white mb-2">Sistemas Web &amp; APIs</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Aplicações escaláveis com integração Supabase e banco de dados relacional.</p>
+    <!-- SEÇÃO 3: PLAYGROUND MODO IA -->
+    <section id="modo-ia" class="pt-6">
+      <div class="text-center max-w-2xl mx-auto mb-6">
+        <span class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-semibold rounded-full mb-2">
+          Demonstração Interativa
+        </span>
+        <h3 class="text-2xl font-bold text-white">Playground Inteligente (Modo IA)</h3>
+        <p class="text-xs text-gray-400">Experimente como a IA da CSDev responde dúvidas comerciais e operacionais em tempo real.</p>
+      </div>
+
+      <!-- PLAYGROUND MODO IA - CSDEV -->
+      <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-blue-500/30 max-w-lg mx-auto my-4">
+        <div class="flex items-center justify-between border-b border-gray-700 pb-3 mb-4">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🤖</span>
+            <div>
+              <h4 class="font-bold text-white">Assistente de IA CSDev</h4>
+              <span class="text-xs text-green-400 flex items-center gap-1">
+                <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span> Online
+              </span>
             </div>
-            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
-                <div class="text-indigo-400 text-2xl mb-3">📊</div>
-                <h3 class="text-lg font-bold text-white mb-2">Dashboards &amp; BI</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Visualização estratégica de métricas em tempo real para tomada de decisão.</p>
-            </div>
-            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
-                <div class="text-indigo-400 text-2xl mb-3">🤖</div>
-                <h3 class="text-lg font-bold text-white mb-2">Automação Inteligente</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Fluxos automatizados via WhatsApp e sistemas comerciais de cobrança.</p>
-            </div>
-            <div class="bg-brand-card p-6 rounded-2xl border border-slate-800">
-                <div class="text-indigo-400 text-2xl mb-3">🔒</div>
-                <h3 class="text-lg font-bold text-white mb-2">Segurança &amp; Escala</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Arquitetura protegida, autenticação segura e alta velocidade de resposta.</p>
-            </div>
+          </div>
+          <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Supabase Sync</span>
         </div>
+
+        <!-- Caixa de Mensagens -->
+        <div id="chat-messages" class="h-64 overflow-y-auto mb-4 p-3 bg-gray-900 rounded space-y-3 scrollbar-thin">
+          <div class="flex gap-2">
+            <span class="text-sm">🤖</span>
+            <div class="bg-gray-700 text-white p-2.5 rounded-lg text-sm max-w-[80%]">
+              Olá! Sou a Inteligência Artificial integrada ao ecossistema da CSDev. Quer ver como eu posso automatizar processos na sua empresa? Pergunte-me algo!
+            </div>
+          </div>
+        </div>
+
+        <!-- Entrada do Usuário -->
+        <div class="flex gap-2">
+          <input type="text" id="input-chat" onkeydown="if(event.key==='Enter') enviarMensagemIA()" placeholder="Escreva sua pergunta para a IA..." class="flex-grow p-3 bg-gray-700 text-white rounded border border-gray-600 focus:outline-none focus:border-blue-500 text-sm">
+          <button onclick="enviarMensagemIA()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded font-semibold text-sm transition">Enviar</button>
+        </div>
+      </div>
     </section>
 
-    <!-- PLANOS DE SERVIÇO -->
-    <section id="planos" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-white mb-4">Planos &amp; Modelos de Trabalho</h2>
-            <p class="text-slate-400">Escolha a estrutura ideal para o momento do seu negócio</p>
+    <!-- SEÇÃO 4: RECIBO, PIX E DADOS FISCAIS -->
+    <section id="fiscal" class="pt-6">
+      <div class="max-w-2xl mx-auto bg-gray-800/90 p-6 rounded-xl border border-green-500/30 shadow-xl">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-8 h-8 rounded bg-green-500/20 text-green-400 flex items-center justify-center font-bold">
+            ✓
+          </div>
+          <div>
+            <h4 class="font-bold text-green-400 text-base">Chave Pix Gerada de Forma Segura</h4>
+            <p class="text-xs text-gray-400">Dados Fiscais para faturamento e liquidação de contratos.</p>
+          </div>
+        </div>
+        
+        <p class="text-xs text-gray-300 mb-4 leading-relaxed">
+          Todas as operações de faturamento contam com emissão de nota fiscal obrigatória vinculada ao nosso CNPJ registrado.
+        </p>
+        
+        <div class="bg-gray-900/90 p-4 rounded border border-gray-700/80 space-y-2 text-xs text-gray-300 mb-4">
+          <div class="flex justify-between border-b border-gray-800 pb-1">
+            <span class="text-gray-400">Razão Social:</span>
+            <span class="font-bold text-white">67.054.464 CLEITON DA SILVA PEREIRA</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-1">
+            <span class="text-gray-400">CNPJ Oficial:</span>
+            <span class="font-mono text-blue-400 font-bold">67.054.464/0001-51</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-1">
+            <span class="text-gray-400">Data de Registro:</span>
+            <span>29/05/2026</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-800 pb-1">
+            <span class="text-gray-400">Empresário Civil:</span>
+            <span>CLEITON DA SILVA PEREIRA (CPF: 084.034.601-80)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Garantia Fiscal:</span>
+            <span class="text-green-400 font-semibold">Emissão imediata de NFS-e por projeto concluído.</span>
+          </div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- PLANO PRIME -->
-            <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Prime</h3>
-                    <p class="text-slate-400 text-sm mb-6">Entrada ideal para novos projetos com estrutura essencial de alta performance.</p>
-                    <ul class="text-slate-300 space-y-3 text-sm mb-8">
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Design Responsivo &amp; Premium</li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Otimização de Velocidade (SEO)</li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Integração Comercial Direct WhatsApp</li>
-                    </ul>
-                </div>
-                <a href="#simulador" class="w-full text-center py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl border border-slate-700 transition">Montar no Simulador</a>
-            </div>
-
-            <!-- PLANO PREMIUM -->
-            <div class="bg-brand-card p-8 rounded-2xl border-2 border-indigo-500 relative flex flex-col justify-between shadow-xl shadow-indigo-500/10">
-                <span class="absolute -top-3.5 right-6 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Mais Recomendado</span>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Premium</h3>
-                    <p class="text-slate-400 text-sm mb-6">Liberações estendidas e capacidade de escala com suporte dedicado.</p>
-                    <ul class="text-slate-300 space-y-3 text-sm mb-8">
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Tudo do Plano Prime</li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400 font-bold">✓</span> <strong>30 Dias de Suporte Gratuito</strong></li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Formulários Dinâmicos &amp; Banco de Dados</li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Dashboard Integrado de Métricas</li>
-                    </ul>
-                </div>
-                <a href="#simulador" class="w-full text-center py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition shadow-lg shadow-indigo-600/30">Montar no Simulador</a>
-            </div>
-
-            <!-- PLANO ENTERPRISE -->
-            <div class="bg-brand-card p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Standard / Enterprise</h3>
-                    <p class="text-slate-400 text-sm mb-6">Foco total em Inteligência Artificial, automações avançadas e suporte estendido.</p>
-                    <ul class="text-slate-300 space-y-3 text-sm mb-8">
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Sistemas Web Customizados</li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Automações de IA e WhatsApp</li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400 font-bold">✓</span> <strong>60 Dias de Suporte Gratuito</strong></li>
-                        <li class="flex items-center gap-2"><span class="text-indigo-400">✓</span> Integração de APIs &amp; Supabase</li>
-                    </ul>
-                </div>
-                <a href="#simulador" class="w-full text-center py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl border border-slate-700 transition">Montar no Simulador</a>
-            </div>
+        <div class="flex items-center justify-between bg-green-950/40 p-3 rounded border border-green-800/50">
+          <span class="text-xs text-green-300">Chave Pix CNPJ: <strong class="font-mono">67054464000151</strong></span>
+          <button onclick="navigator.clipboard.writeText('67054464000151'); alert('Chave Pix copiada!')" class="text-xs bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded transition">
+            Copiar Chave
+          </button>
         </div>
+      </div>
     </section>
 
-    <!-- NOVO SIMULADOR DE ORÇAMENTO E CALCULADORA DE ROI ATIVA -->
-    <section id="simulador" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="bg-brand-card p-8 md:p-12 rounded-3xl border border-slate-800 shadow-2xl">
-            <div class="mb-10 text-center md:text-left">
-                <h2 class="text-3xl font-bold text-white mb-2">Simulador de Orçamento Instantâneo</h2>
-                <p class="text-slate-400">Selecione os módulos necessários para calcular o investimento estimado do seu sistema:</p>
-            </div>
+  </main>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Lado Esquerdo: Seleção de Módulos e Suporte -->
-                <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800 space-y-4">
-                    <h3 class="text-lg font-bold text-indigo-400 mb-4">Escolha os Módulos</h3>
+  <!-- MODAL DE ACESSO ADMIN (SENHA 2522) -->
+  <div id="modal-admin" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-gray-800 border border-gray-700 p-6 rounded-xl max-w-sm w-full space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+        <h3 class="font-bold text-white text-base">Painel do Gestor CSDev</h3>
+        <button onclick="fecharModalAdmin()" class="text-gray-400 hover:text-white">&times;</button>
+      </div>
+      <p class="text-xs text-gray-400">Digite a senha master para acessar as métricas de negociação e administração.</p>
+      
+      <div>
+        <input type="password" id="senha-admin" placeholder="Senha de Acesso" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded text-white focus:outline-none focus:border-blue-500 text-sm">
+        <p id="mensagem-erro-admin" class="text-xs text-red-400 mt-1 hidden"></p>
+      </div>
 
-                    <label class="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-900 cursor-pointer hover:border-indigo-500 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" id="chk-landing" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Landing Page Premium" data-price="1800" onchange="atualizarSimulador()">
-                            <div>
-                                <p class="text-white font-semibold text-sm">Landing Page Premium</p>
-                                <p class="text-xs text-slate-400">Design moderno, alta conversão e SEO</p>
-                            </div>
-                        </div>
-                        <span class="text-indigo-400 font-bold text-sm">R$ 1.800</span>
-                    </label>
+      <div class="flex gap-2">
+        <button onclick="fecharModalAdmin()" class="w-1/2 bg-gray-700 hover:bg-gray-600 text-white text-xs py-2 rounded transition">Cancelar</button>
+        <button onclick="verificarAcessoAdmin()" class="w-1/2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 rounded transition">Acessar</button>
+      </div>
+    </div>
+  </div>
 
-                    <label class="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-900 cursor-pointer hover:border-indigo-500 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" id="chk-sistema" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Sistema Web Customizado" data-price="4500" onchange="atualizarSimulador()">
-                            <div>
-                                <p class="text-white font-semibold text-sm">Sistema Web Customizado</p>
-                                <p class="text-xs text-slate-400">Painéis de gestão, autenticação e Supabase</p>
-                            </div>
-                        </div>
-                        <span class="text-indigo-400 font-bold text-sm">R$ 4.500</span>
-                    </label>
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-800 bg-gray-950 py-6 text-center text-xs text-gray-500 mt-12">
+    <p>© 2026 CSDev Oficial — 67.054.464 CLEITON DA SILVA PEREIRA. Todos os direitos reservados.</p>
+  </footer>
 
-                    <label class="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-900 cursor-pointer hover:border-indigo-500 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" id="chk-dashboard" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Dashboard & BI" data-price="2200" onchange="atualizarSimulador()">
-                            <div>
-                                <p class="text-white font-semibold text-sm">Dashboard &amp; BI</p>
-                                <p class="text-xs text-slate-400">Gráficos dinâmicos e relatórios em tempo real</p>
-                            </div>
-                        </div>
-                        <span class="text-indigo-400 font-bold text-sm">R$ 2.200</span>
-                    </label>
+  <!-- SCRIPT DE LÓGICA INTEGRADAS (SUPABASE, ADMIN & CHAT IA) -->
+  <script>
+    // Inicialização do Supabase (Substitua pelas suas chaves do projeto se necessário)
+    const SUPABASE_URL = 'https://seu-projeto.supabase.co';
+    const SUPABASE_ANON_KEY = 'sua-chave-anon-aqui';
+    const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-                    <label class="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-900 cursor-pointer hover:border-indigo-500 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" id="chk-whats" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Automações com WhatsApp" data-price="1500" onchange="atualizarSimulador()">
-                            <div>
-                                <p class="text-white font-semibold text-sm">Automações com WhatsApp</p>
-                                <p class="text-xs text-slate-400">Disparos de notificações e alertas operacionais</p>
-                            </div>
-                        </div>
-                        <span class="text-indigo-400 font-bold text-sm">R$ 1.500</span>
-                    </label>
+    // CONFIGURAÇÕES ADMINISTRATIVAS CSDEV
+    const CONFIG_ADMIN = {
+      senhaMaster: "2522",
+      consultora: {
+        nome: "Isabella",
+        cargo: "Consultora Administrativa",
+        cnpj: "67.054.464/0001-51",
+        razaoSocial: "67.054.464 CLEITON DA SILVA PEREIRA"
+      },
+      gestor: {
+        nome: "Cleiton da Silva Pereira",
+        cargo: "Gestor de Tecnologia",
+        cpf: "084.034.601-80"
+      }
+    };
 
-                    <!-- NOVOS MÓDULOS -->
-                    <label class="flex items-center justify-between p-4 rounded-xl border border-indigo-500/30 bg-indigo-950/20 cursor-pointer hover:border-indigo-500 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" id="chk-ia" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Automações com Inteligência Artificial" data-price="2500" onchange="atualizarSimulador()">
-                            <div>
-                                <p class="text-indigo-300 font-semibold text-sm">🤖 Automações com Inteligência Artificial</p>
-                                <p class="text-xs text-slate-400">Agentes inteligentes e respostas automáticas</p>
-                            </div>
-                        </div>
-                        <span class="text-indigo-400 font-bold text-sm">R$ 2.500</span>
-                    </label>
+    // 1. CÁLCULO DE ORÇAMENTO & ROI
+    let valorTotalCalculado = 0;
+    let modulosSelecionados = [];
 
-                    <label class="flex items-center justify-between p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20 cursor-pointer hover:border-emerald-500 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" id="chk-supabase" class="module-checkbox w-5 h-5 accent-indigo-600 rounded" data-name="Upgrade Banco de Dados & Segurança" data-price="1200" onchange="atualizarSimulador()">
-                            <div>
-                                <p class="text-emerald-300 font-semibold text-sm">🔥 Upgrade Banco de Dados &amp; Segurança</p>
-                                <p class="text-xs text-slate-400">Banco relacional Supabase e login seguro</p>
-                            </div>
-                        </div>
-                        <span class="text-indigo-400 font-bold text-sm">R$ 1.200</span>
-                    </label>
+    function calcularSimulacao() {
+      const checkboxes = document.querySelectorAll('.modulo-check:checked');
+      valorTotalCalculado = 0;
+      modulosSelecionados = [];
 
-                    <!-- SELETOR DE SUPORTE -->
-                    <div class="mt-6 pt-6 border-t border-slate-800">
-                        <label for="select-suporte" class="block text-xs font-semibold uppercase text-slate-400 mb-2">Período de Suporte Técnico Dedicado:</label>
-                        <select id="select-suporte" class="w-full p-3 bg-slate-900 rounded-xl text-white border border-slate-800 focus:outline-none focus:border-indigo-500 text-sm" onchange="atualizarSimulador()">
-                            <option value="30" data-price="0">30 Dias de Suporte (Incluso no Premium)</option>
-                            <option value="60" data-price="500">60 Dias de Suporte (+ R$ 500 - Incluso no Enterprise)</option>
-                            <option value="90" data-price="900">90 Dias de Suporte Estendido (+ R$ 900)</option>
-                        </select>
-                    </div>
-                </div>
+      checkboxes.forEach(cb => {
+        valorTotalCalculado += parseFloat(cb.value);
+        modulosSelecionados.push(cb.getAttribute('data-nome'));
+      });
 
-                <!-- Lado Direito: Exibição de Investimento e Calculadora de ROI -->
-                <div class="flex flex-col justify-between gap-6">
-                    <!-- Display de Investimento -->
-                    <div class="bg-gradient-to-br from-indigo-900/40 to-slate-900 p-6 rounded-2xl border border-indigo-500/30 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-300 mb-1">Investimento Total Estimado:</h3>
-                        <p id="investimento-total" class="text-4xl font-black text-white">R$ 0,00</p>
-                    </div>
+      document.getElementById('display-valor-total').innerText = 
+        valorTotalCalculado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-                    <!-- SIMULADOR DE ROI ATIVO -->
-                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
-                        <h3 class="text-lg font-bold text-emerald-400 mb-2">Simulador de Economia Operacional (ROI)</h3>
-                        <p class="text-xs text-slate-400 mb-6">Insira seus dados operacionais para ver o retorno estimado sobre o investimento da automação:</p>
+      // Cálculo simplificado de payback (estimando economia/receita de ~R$ 1.200/mês)
+      if (valorTotalCalculado > 0) {
+        const mesesPayback = Math.ceil(valorTotalCalculado / 1200);
+        document.getElementById('display-payback').innerText = `~${mesesPayback} Mês(es)`;
+      } else {
+        document.getElementById('display-payback').innerText = '-- meses';
+      }
+    }
 
-                        <div class="space-y-4 mb-6">
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1">Nº de colaboradores fazendo tarefas manuais:</label>
-                                <input type="number" id="roi-colaboradores" min="0" placeholder="Ex: 3" class="w-full p-3 bg-slate-900 rounded-xl text-white border border-slate-800 focus:outline-none focus:border-emerald-500 text-sm" oninput="atualizarSimulador()">
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">Horas manuais semanais (por pessoa):</label>
-                                    <input type="number" id="roi-horas" min="0" placeholder="Ex: 10" class="w-full p-3 bg-slate-900 rounded-xl text-white border border-slate-800 focus:outline-none focus:border-emerald-500 text-sm" oninput="atualizarSimulador()">
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">Custo médio/hora (R$):</label>
-                                    <input type="number" id="roi-custo-hora" min="0" placeholder="Ex: 25" class="w-full p-3 bg-slate-900 rounded-xl text-white border border-slate-800 focus:outline-none focus:border-emerald-500 text-sm" oninput="atualizarSimulador()">
-                                </div>
-                            </div>
-                        </div>
+    // 2. PROCESSAR E ENVIAR PROPOSTA
+    async function processarEnvioProposta(event) {
+      event.preventDefault();
 
-                        <!-- Outputs de Economia -->
-                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800">
-                            <div>
-                                <span class="text-xs text-slate-400">Economia Mensal Estimada:</span>
-                                <p id="economia-mensal" class="text-xl font-bold text-emerald-400">R$ 0,00</p>
-                            </div>
-                            <div>
-                                <span class="text-xs text-slate-400">Tempo de Retorno (Payback):</span>
-                                <p id="tempo-payback" class="text-xl font-bold text-white">0 meses</p>
-                            </div>
-                        </div>
-                    </div>
+      if (valorTotalCalculado === 0) {
+        alert("Por favor, selecione ao menos um módulo do sistema para gerar o orçamento.");
+        return;
+      }
 
-                    <!-- Botões de Ação -->
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="generateProposalPDF()" class="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl border border-slate-700 transition flex items-center justify-center gap-2 text-sm">
-                            📄 Gerar Proposta PDF
-                        </button>
-                        <button onclick="sendToWhatsApp()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 text-sm">
-                            💬 Fechar via WhatsApp
-                        </button>
-                    </div>
-                </div>
-            </div>
+      const clienteNome = document.getElementById('prop-nome').value;
+      const clienteEmpresa = document.getElementById('prop-empresa').value;
+      const destinatario = document.getElementById('prop-destinatario').value;
+      const querNotaFiscal = document.getElementById('prop-nota').checked;
+
+      await enviarPropostaNegociacao({
+        clienteNome,
+        clienteEmpresa,
+        valorTotal: valorTotalCalculado,
+        modulos: modulosSelecionados,
+        destinatario,
+        querNotaFiscal
+      });
+    }
+
+    async function enviarPropostaNegociacao(dadosProposta) {
+      const { clienteNome, clienteEmpresa, valorTotal, modulos, destinatario, querNotaFiscal } = dadosProposta;
+      
+      // Tentativa de gravação no Supabase
+      if (supabase) {
+        const { error } = await supabase
+          .from('propostas')
+          .insert([{
+            cliente_nome: clienteNome,
+            cliente_empresa: clienteEmpresa,
+            valor_proposta: valorTotal,
+            modulos_selecionados: modulos,
+            destinatario_negociacao: destinatario,
+            solicitou_nota_fiscal: querNotaFiscal
+          }]);
+
+        if (error) {
+          console.warn("Aviso ao salvar no Supabase:", error.message);
+        }
+      }
+
+      const nomeDestinatario = destinatario === 'isabella' ? 'Isabella (Consultora)' : 'Cleiton (Gestor)';
+      alert(`Solicitação enviada com sucesso para ${nomeDestinatario}! Redirecionando para o WhatsApp...`);
+      
+      // Redirecionamento WhatsApp com mensagem estruturada
+      const textoWhats = encodeURIComponent(
+        `Olá! Meu nome é ${clienteNome}${clienteEmpresa ? ' da ' + clienteEmpresa : ''}.\n\n` +
+        `Simulei uma proposta no valor de R$ ${valorTotal.toLocaleString('pt-BR')} no site da CSDev.\n` +
+        `Módulos: ${modulos.join(', ')}.\n` +
+        `Solicitou NF: ${querNotaFiscal ? 'Sim' : 'Não'}.\n\n` +
+        `Gostaria de negociar detalhes com ${destinatario === 'isabella' ? 'Isabella' : 'Cleiton'}.`
+      );
+      
+      window.open(`https://wa.me/5561999999999?text=${textoWhats}`, '_blank');
+    }
+
+    // 3. PLAYGROUND MODO IA
+    async function enviarMensagemIA() {
+      const input = document.getElementById('input-chat');
+      const container = document.getElementById('chat-messages');
+      const msgTexto = input.value.trim();
+      
+      if (!msgTexto) return;
+
+      // Renderiza mensagem do usuário
+      container.innerHTML += `
+        <div class="flex gap-2 justify-end">
+          <div class="bg-blue-600 text-white p-2.5 rounded-lg text-sm max-w-[80%]">
+            ${msgTexto}
+          </div>
+          <span class="text-sm">👤</span>
         </div>
-    </section>
+      `;
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
 
-    <!-- PAINEL CENTRAL DO GESTOR -->
-    <section id="painel-gestor" class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="bg-brand-card p-8 md:p-12 rounded-3xl border border-slate-800">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
-                    <span class="text-indigo-400 text-xs font-bold uppercase tracking-wider">Módulo de Gestão Comercial</span>
-                    <h2 class="text-2xl md:text-3xl font-bold text-white mt-1">Central de Fechamento &amp; Pagamento</h2>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="switchTab('pix')" id="tabPix" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold transition">Cobrança PIX</button>
-                    <button onclick="switchTab('contrato')" id="tabContrato" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-700 transition">Contrato Digital</button>
-                </div>
-            </div>
-
-            <!-- TAB PIX -->
-            <div id="contentPix" class="space-y-6">
-                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 grid md:grid-cols-2 gap-6 items-center">
-                    <div>
-                        <h3 class="text-lg font-bold text-white mb-2">Pagamento Direto via PIX Instantâneo</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">Gere a chave Pix Copia e Cola diretamente para aprovação do projeto e entrada de sinal.</p>
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-indigo-300 break-all mb-4">
-                            00020126580014BR.GOV.BCB.PIX0136csdev-solucoes-tecnologia-chavedigital5204000053039865802BR5925CS DEV SOFTWARE SOLUTIONS6009BRASILIA62070503***6304E8A2
-                        </div>
-                        <button onclick="navigator.clipboard.writeText('00020126580014BR.GOV.BCB.PIX0136csdev-solucoes-tecnologia-chavedigital5204000053039865802BR5925CS DEV SOFTWARE SOLUTIONS6009BRASILIA62070503***6304E8A2'); alert('Chave PIX copiada!')" class="px-4 py-2 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl text-xs font-semibold hover:bg-indigo-600/30 transition">
-                            📋 Copiar Chave PIX
-                        </button>
-                    </div>
-                    <div class="flex flex-col items-center justify-center p-6 bg-slate-950 rounded-2xl border border-slate-800">
-                        <div class="w-36 h-36 bg-white rounded-xl p-2 flex items-center justify-center mb-3">
-                            <div class="w-full h-full bg-slate-900 rounded flex items-center justify-center text-slate-500 text-[10px] text-center p-2 font-mono">
-                                [ QR CODE PIX CS DEV ]
-                            </div>
-                        </div>
-                        <span class="text-xs text-slate-400">Chave CNPJ / Aleatória Verificada</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB CONTRATO -->
-            <div id="contentContrato" class="hidden space-y-6">
-                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
-                    <h3 class="text-lg font-bold text-white mb-2">Termos de Prestação de Serviço CS DEV</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Todos os projetos contam com garantia legal, suporte técnico dedicado de 30 a 90 dias conforme a opção selecionada e entregáveis documentados.</p>
-                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                        <li>• Suporte técnico garantido com canal direto via WhatsApp.</li>
-                        <li>• Propriedade total do código fonte transferida para o cliente após aprovação.</li>
-                        <li>• Hospedagem com alta estabilidade e certificado SSL incluído.</li>
-                    </ul>
-                    <button onclick="generateProposalPDF()" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-500 transition">
-                        📄 Baixar Minuta em PDF
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800 py-12 px-6 text-center text-slate-500 text-sm">
-        <div class="flex items-center justify-center gap-3 mb-4">
-            <img src="logo.png" alt="CS DEV Logo" class="w-8 h-8 rounded-lg object-contain">
-            <span class="text-lg font-black text-white">CS <span class="text-indigo-500">DEV</span></span>
-        </div>
-        <p>© 2026 CS DEV - Soluções em Tecnologia. Todos os direitos reservados.</p>
-    </footer>
-
-    <!-- JAVASCRIPT DE LÓGICA ATUALIZADO -->
-    <script>
-        let totalPrice = 0;
-        let selectedModules = [];
-        let selectedSuporteDays = 30;
-        let suportePrice = 0;
-
-        function atualizarSimulador() {
-            totalPrice = 0;
-            selectedModules = [];
-
-            // 1. Calcular Módulos Selecionados
-            const checkboxes = document.querySelectorAll('.module-checkbox');
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    const price = parseFloat(cb.getAttribute('data-price'));
-                    const name = cb.getAttribute('data-name');
-                    totalPrice += price;
-                    selectedModules.push({ name, price });
-                }
-            });
-
-            // 2. Calcular Suporte Selecionado
-            const selectSuporte = document.getElementById('select-suporte');
-            selectedSuporteDays = selectSuporte.value;
-            const selectedOption = selectSuporte.options[selectSuporte.selectedIndex];
-            suportePrice = parseFloat(selectedOption.getAttribute('data-price')) || 0;
-            totalPrice += suportePrice;
-
-            // Display de Investimento Total
-            document.getElementById('investimento-total').innerText = 
-                `R$ ${totalPrice.toLocaleString('pt-BR')},00`;
-
-            // 3. Calcular ROI & Payback
-            const colaboradores = parseFloat(document.getElementById('roi-colaboradores').value) || 0;
-            const horasSemanais = parseFloat(document.getElementById('roi-horas').value) || 0;
-            const custoHora = parseFloat(document.getElementById('roi-custo-hora').value) || 0;
-
-            // Economia Mensal = colaboradores * horasSemanais * 4 semanas * custoHora * 80% (eficiência de automação)
-            const economiaMensal = colaboradores * horasSemanais * 4 * custoHora * 0.8;
-            
-            document.getElementById('economia-mensal').innerText = 
-                `R$ ${economiaMensal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-
-            // Payback (em meses) = Investimento Total / Economia Mensal
-            const paybackElement = document.getElementById('tempo-payback');
-            if (economiaMensal > 0 && totalPrice > 0) {
-                const mesesPayback = (totalPrice / economiaMensal).toFixed(1);
-                paybackElement.innerText = `${mesesPayback} mês(es)`;
-            } else {
-                paybackElement.innerText = '0 meses';
-            }
+      // Resposta simulada
+      setTimeout(() => {
+        let respostaIA = "Interessante! Na CSDev nós integramos APIs de IA com o Supabase para que eu possa consultar seus dados de faturamento e estoque em tempo real de forma segura.";
+        
+        const busca = msgTexto.toLowerCase();
+        if (busca.includes('preço') || busca.includes('valor') || busca.includes('quanto')) {
+          respostaIA = "Nosso desenvolvimento de Agentes Inteligentes custa R$ 2.500 no simulador de orçamento. Ele pode ser totalmente integrado ao WhatsApp e a bancos de dados relacionais.";
+        } else if (busca.includes('whatsapp') || busca.includes('zap')) {
+          respostaIA = "Consigo ler e enviar mensagens pelo WhatsApp de forma totalmente autônoma. Posso agendar reuniões, fechar pedidos e emitir faturas automaticamente.";
+        } else if (busca.includes('cnpj') || busca.includes('pix') || busca.includes('nota')) {
+          respostaIA = "Nossa razão social é 67.054.464 CLEITON DA SILVA PEREIRA (CNPJ: 67.054.464/0001-51). Emitimos NFS-e para todos os projetos!";
         }
 
-        function switchTab(tab) {
-            const tabPix = document.getElementById('tabPix');
-            const tabContrato = document.getElementById('tabContrato');
-            const contentPix = document.getElementById('contentPix');
-            const contentContrato = document.getElementById('contentContrato');
+        container.innerHTML += `
+          <div class="flex gap-2">
+            <span class="text-sm">🤖</span>
+            <div class="bg-gray-700 text-white p-2.5 rounded-lg text-sm max-w-[80%]">
+              ${respostaIA}
+            </div>
+          </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+      }, 800);
+    }
 
-            if (tab === 'pix') {
-                tabPix.className = "px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold transition";
-                tabContrato.className = "px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-700 transition";
-                contentPix.classList.remove('hidden');
-                contentContrato.classList.add('hidden');
-            } else {
-                tabContrato.className = "px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold transition";
-                tabPix.className = "px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-700 transition";
-                contentContrato.classList.remove('hidden');
-                contentPix.classList.add('hidden');
-            }
-        }
+    // 4. MODAL E CONTROLE ADMIN
+    function abrirModalAdmin() {
+      document.getElementById('modal-admin').classList.remove('hidden');
+      document.getElementById('modal-admin').classList.add('flex');
+    }
 
-        function generateProposalPDF() {
-            if (selectedModules.length === 0) {
-                alert('Selecione ao menos um módulo no simulador para gerar a proposta!');
-                return;
-            }
+    fecharModalAdmin = function() {
+      document.getElementById('modal-admin').classList.add('hidden');
+      document.getElementById('modal-admin').classList.remove('flex');
+      document.getElementById('mensagem-erro-admin').classList.add('hidden');
+    }
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(20);
-            doc.text('CS DEV - Proposta de Projeto', 20, 20);
-
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, 20, 30);
-            doc.text(`Suporte Selecionado: ${selectedSuporteDays} Dias`, 20, 35);
-            doc.text('-----------------------------------------------------------', 20, 40);
-
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Módulos Selecionados:', 20, 50);
-
-            let y = 60;
-            doc.setFont('helvetica', 'normal');
-            selectedModules.forEach(m => {
-                doc.text(`- ${m.name}: R$ ${m.price.toLocaleString('pt-BR')},00`, 25, y);
-                y += 10;
-            });
-
-            if (suportePrice > 0) {
-                doc.text(`- Suporte Técnico Estendido (${selectedSuporteDays} dias): R$ ${suportePrice.toLocaleString('pt-BR')},00`, 25, y);
-                y += 10;
-            }
-
-            doc.text('-----------------------------------------------------------', 20, y);
-            y += 10;
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(14);
-            doc.text(`Investimento Total: R$ ${totalPrice.toLocaleString('pt-BR')},00`, 20, y);
-
-            doc.save('Proposta_CSDEV.pdf');
-        }
-
-        function sendToWhatsApp() {
-            if (selectedModules.length === 0) {
-                alert('Selecione ao menos um módulo no simulador antes de entrar em contato!');
-                return;
-            }
-
-            let message = "Olá CS DEV! Montei um orçamento no site com os seguintes módulos:\n\n";
-            selectedModules.forEach(m => {
-                message += `• ${m.name}: R$ ${m.price.toLocaleString('pt-BR')},00\n`;
-            });
-
-            message += `• Suporte Técnico: ${selectedSuporteDays} Dias\n`;
-            message += `\n*Total Estimado: R$ ${totalPrice.toLocaleString('pt-BR')},00*`;
-
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
-        }
-
-        // Inicializa o simulador ao carregar a página
-        window.onload = atualizarSimulador;
-    </script>
+    function verificarAcessoAdmin() {
+      const inputSenha = document.getElementById('senha-admin').value;
+      const mensagemErro = document.getElementById('mensagem-erro-admin');
+      
+      if (inputSenha === CONFIG_ADMIN.senhaMaster) {
+        localStorage.setItem('csdev_admin_logged', 'true');
+        alert("Acesso liberado! Bem-vindo ao painel do gestor.");
+        fecharModalAdmin();
+      } else {
+        mensagemErro.innerText = "Senha de acesso incorreta. Tente novamente.";
+        mensagemErro.classList.remove('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
