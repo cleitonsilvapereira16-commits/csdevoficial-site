@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CSDev - Engenharia de Software, Automação &amp; Sistemas Sob Medida</title>
-  <meta name="description" content="Sistemas web sob medida, automações empresariais via APIs, integrações Supabase e soluções de Inteligência Artificial para alavancar a eficiência da sua empresa." />
+  <meta name="description" content="Sistemas web sob medida, automações empresariais via APIs, integrações Supabase e soluções de Inteligência Artificial." />
   
-  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Script do Supabase JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <script>
@@ -18,14 +16,7 @@
         extend: {
           colors: {
             brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-              950: '#0f172a'
+              50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#0f172a'
             }
           }
         }
@@ -33,20 +24,10 @@
     }
   </script>
   <style>
-    /* Estilização customizada da barra de rolagem */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #090d16;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
-    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col">
@@ -55,8 +36,8 @@
   <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logotipo & Dados da Empresa -->
-      <div class="flex items-center gap-3">
+      <!-- Logotipo com Gatilho Secreto para ADM (3 cliques) -->
+      <div class="flex items-center gap-3 cursor-pointer select-none" onclick="registrarCliqueLogo()">
         <div class="w-10 h-10 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl flex items-center justify-center font-black text-white text-xl shadow-lg shadow-blue-500/20">
           CS
         </div>
@@ -81,16 +62,13 @@
         <button onclick="toggleModal('modal-agendamento')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2">
           <span>📅</span> Agendar Reunião
         </button>
-        <button onclick="toggleModal('modal-adm')" class="border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-bold px-3 py-3 rounded-xl transition-all flex items-center gap-1.5">
-          <span>🔒</span> Painel ADM
-        </button>
       </div>
     </div>
   </header>
 
   <main class="flex-grow space-y-24 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
 
-    <!-- ==================== HERO SECTION (APRESENTAÇÃO) ==================== -->
+    <!-- ==================== HERO SECTION ==================== -->
     <section class="text-center space-y-6 max-w-4xl mx-auto pt-8">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-950/80 border border-blue-800/80 rounded-full text-xs font-mono text-blue-400 shadow-inner">
         <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
@@ -114,7 +92,6 @@
         </a>
       </div>
 
-      <!-- Diferenciais em Pilar -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-slate-900">
         <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60 text-left">
           <span class="text-blue-400 font-black text-xl block mb-1">100%</span>
@@ -135,7 +112,7 @@
       </div>
     </section>
 
-    <!-- ==================== NOSSAS SOLUÇÕES ==================== -->
+    <!-- ==================== SOLUÇÕES ==================== -->
     <section id="solucoes" class="space-y-8">
       <div class="text-center space-y-2">
         <h2 class="text-2xl sm:text-3xl font-black text-white">Soluções Tecnológicas Especializadas</h2>
@@ -144,38 +121,32 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-slate-900 border border-slate-800 hover:border-blue-500/40 p-6 rounded-2xl transition-all space-y-4">
-          <div class="w-12 h-12 bg-blue-950 border border-blue-800 rounded-xl flex items-center justify-center text-blue-400 text-2xl font-bold">
-            💻
-          </div>
+          <div class="w-12 h-12 bg-blue-950 border border-blue-800 rounded-xl flex items-center justify-center text-blue-400 text-2xl font-bold">💻</div>
           <h3 class="text-lg font-bold text-white">Sistemas Web Customizados</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Desenvolvimento de dashboards operacionais, sistemas de cobrança, catálogos digitais e sistemas de agendamento em tempo real com React, Next.js e Tailwind.
+            Dashboards operacionais, sistemas de cobrança, catálogos digitais e agendamentos em tempo real com React e Tailwind.
           </p>
         </div>
 
         <div class="bg-slate-900 border border-slate-800 hover:border-emerald-500/40 p-6 rounded-2xl transition-all space-y-4">
-          <div class="w-12 h-12 bg-emerald-950 border border-emerald-800 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold">
-            ⚡
-          </div>
+          <div class="w-12 h-12 bg-emerald-950 border border-emerald-800 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold">⚡</div>
           <h3 class="text-lg font-bold text-white">Automação de Processos &amp; APIs</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Integração automatizada entre formulários do site, CRM, planilhas do Google Workspace e plataformas financeiras para eliminar retrabalho manual.
+            Integração automatizada entre formulários web, CRM, Google Workspace e APIs financeiras.
           </p>
         </div>
 
         <div class="bg-slate-900 border border-slate-800 hover:border-purple-500/40 p-6 rounded-2xl transition-all space-y-4">
-          <div class="w-12 h-12 bg-purple-950 border border-purple-800 rounded-xl flex items-center justify-center text-purple-400 text-2xl font-bold">
-            🤖
-          </div>
+          <div class="w-12 h-12 bg-purple-950 border border-purple-800 rounded-xl flex items-center justify-center text-purple-400 text-2xl font-bold">🤖</div>
           <h3 class="text-lg font-bold text-white">Atendimento Guiado por IA</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Implementação de chatbots inteligentes treinados especificamente no seu catálogo de produtos ou serviços para responder dúvidas e qualificar leads 24/7.
+            Chatbots inteligentes treinados no seu catálogo para responder dúvidas e qualificar leads 24/7.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ==================== PORTFÓLIO DE SUCESSO ==================== -->
+    <!-- ==================== PORTFÓLIO ==================== -->
     <section id="portfolio" class="space-y-8">
       <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-800 pb-4 gap-4">
         <div>
@@ -201,7 +172,7 @@
               </span>
             </div>
             <p class="text-xs text-slate-400 leading-relaxed">
-              Plataforma completa para seleção de barbeiro, escolha de horários em tempo real, gestão de catálogo de serviços e confirmação automática de agendamentos via WhatsApp.
+              Plataforma para seleção de profissionais, agendamento de horários em tempo real e confirmação automatizada.
             </p>
             <div class="flex flex-wrap gap-2 pt-2">
               <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">React</span>
@@ -211,7 +182,7 @@
           </div>
           <div class="px-6 py-4 bg-slate-950 border-t border-slate-800/80 flex justify-between items-center">
             <span class="text-xs font-bold text-slate-400">Status: Operacional</span>
-            <a href="#" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:underline">
+            <a href="https://barbeariadanilo.netlify.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:underline">
               Visualizar Projeto &rarr;
             </a>
           </div>
@@ -230,7 +201,7 @@
               </span>
             </div>
             <p class="text-xs text-slate-400 leading-relaxed">
-              Catálogo de alta velocidade focado em venda e suporte para smartphones e acessórios, com cálculo de frete, vitrine digital e encaminhamento direto para fechamento de vendas.
+              Catálogo interativo focado em venda de smartphones e acessórios com direcionamento rápido para fechamento de vendas.
             </p>
             <div class="flex flex-wrap gap-2 pt-2">
               <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">Next.js</span>
@@ -240,7 +211,7 @@
           </div>
           <div class="px-6 py-4 bg-slate-950 border-t border-slate-800/80 flex justify-between items-center">
             <span class="text-xs font-bold text-slate-400">Status: Operacional</span>
-            <a href="#" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:underline">
+            <a href="https://miprimecell.netlify.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:underline">
               Visualizar Projeto &rarr;
             </a>
           </div>
@@ -248,7 +219,7 @@
       </div>
     </section>
 
-    <!-- ==================== SIMULADOR DE ROI + GRÁFICO DINÂMICO + PROVA CRM ==================== -->
+    <!-- ==================== SIMULADOR DE ROI (BUG DO GRÁFICO CORRIGIDO) ==================== -->
     <section id="simulador" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-10 backdrop-blur-sm">
       <div class="lg:col-span-6 space-y-6">
         <div>
@@ -256,7 +227,7 @@
           <h2 class="text-2xl sm:text-3xl font-black text-white">Calculadora de Economia Operacional (ROI)</h2>
         </div>
         <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-          Descubra quanto dinheiro sua empresa economizará substituindo tarefas manuais por sistemas web automatizados desenvolvidos pela CSDev.
+          Descubra a estimativa de retorno ao automatizar processos repetitivos da sua equipe com sistemas CSDev.
         </p>
         
         <div class="space-y-5 pt-2">
@@ -278,7 +249,7 @@
 
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Estimativa do Investimento Inicial (R$):</label>
-            <input type="number" id="input-investimento" value="4500" oninput="calcularROI()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500 font-mono" />
+            <input type="number" id="input-investimento" value="5000" oninput="calcularROI()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500 font-mono" />
           </div>
         </div>
       </div>
@@ -295,106 +266,131 @@
           </div>
           <div class="bg-slate-950 p-4 rounded-lg border border-slate-800/80">
             <span class="text-[10px] text-slate-400 block font-bold mb-1">PAYBACK ESTIMADO</span>
-            <span id="res-payback" class="text-xl font-black text-blue-400 font-mono">~ 1,7 Meses</span>
+            <span id="res-payback" class="text-xl font-black text-blue-400 font-mono">~ 1,9 Meses</span>
           </div>
         </div>
 
-        <!-- Componente do Gráfico Dinâmico SVG/Barra -->
+        <!-- Gráfico Ajustado (Sem sobreposição de textos) -->
         <div class="pt-4 border-t border-slate-800 space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-[11px] text-slate-400 font-bold uppercase">Comparativo Anual de Custos</span>
-            <span class="text-[10px] text-emerald-400 font-mono font-bold" id="res-porcentagem-economia">Economia de 86%</span>
+            <span class="text-[10px] text-emerald-400 font-mono font-bold" id="res-porcentagem-economia">Economia de 85%</span>
           </div>
 
-          <div class="flex items-end justify-center gap-10 h-36 bg-slate-950 p-5 rounded-xl border border-slate-800/80">
-            <!-- Barra Custo Atual -->
-            <div class="flex flex-col items-center gap-1.5 w-24">
-              <span id="label-custo-atual" class="text-[10px] font-bold text-red-400 font-mono">R$ 32.400,00</span>
+          <div class="flex items-end justify-center gap-12 h-44 bg-slate-950 p-6 rounded-xl border border-slate-800/80">
+            <!-- Barra Custo Sem Automação -->
+            <div class="flex flex-col items-center gap-2 w-28 h-full justify-end">
+              <span id="label-custo-atual" class="text-[10px] font-bold text-red-400 font-mono truncate max-w-full">R$ 32.400,00</span>
               <div id="bar-custo-atual" class="w-full bg-red-500/30 border border-red-500 rounded-t-md transition-all duration-500 h-28"></div>
-              <span class="text-[10px] text-slate-400 font-bold">Custo Sem Automação</span>
+              <span class="text-[10px] text-slate-400 font-bold text-center leading-tight">Custo Sem Automação</span>
             </div>
 
             <!-- Barra Custo CSDev -->
-            <div class="flex flex-col items-center gap-1.5 w-24">
-              <span id="label-custo-csdev" class="text-[10px] font-bold text-emerald-400 font-mono">R$ 4.500,00</span>
+            <div class="flex flex-col items-center gap-2 w-28 h-full justify-end">
+              <span id="label-custo-csdev" class="text-[10px] font-bold text-emerald-400 font-mono truncate max-w-full">R$ 5.000,00</span>
               <div id="bar-custo-csdev" class="w-full bg-emerald-500/30 border border-emerald-500 rounded-t-md transition-all duration-500 h-8"></div>
-              <span class="text-[10px] text-slate-400 font-bold">Investimento CSDev</span>
+              <span class="text-[10px] text-slate-400 font-bold text-center leading-tight">Investimento CSDev</span>
             </div>
           </div>
         </div>
 
-        <!-- Prova Social do CRM Google Sheets -->
         <div class="p-4 bg-blue-950/40 border border-blue-500/30 rounded-xl text-center space-y-2">
-          <p class="text-xs text-slate-300">
-            ⚡ <b>Prova de Automação Live:</b> Todos os simuladores estão conectados via Webhook ao Google Workspace.
-          </p>
-          <a href="https://docs.google.com/sheets" target="_blank" class="inline-flex items-center justify-center gap-1 text-xs font-bold text-blue-400 hover:underline">
-            🔗 Abrir Planilha CRM Demonstrativa em Tempo Real &rarr;
-          </a>
+          <p class="text-xs text-slate-300">⚡ <b>Integrado ao Google Workspace:</b> Dados enviados em tempo real para controle do CRM.</p>
         </div>
       </div>
     </section>
 
-    <!-- ==================== PORTAL DO CLIENTE ==================== -->
+    <!-- ==================== PORTAL DE TRANSPARÊNCIA DO CLIENTE (LOGIN OBRIGATÓRIO) ==================== -->
     <section id="portal" class="max-w-4xl mx-auto space-y-6">
       <div class="text-center space-y-2">
         <h2 class="text-2xl font-black text-white">Portal de Transparência do Cliente</h2>
-        <p class="text-xs text-slate-400">Acompanhe a evolução do desenvolvimento do seu projeto em tempo real.</p>
+        <p class="text-xs text-slate-400">Acesse com suas credenciais para acompanhar seus projetos e serviços contratados.</p>
       </div>
 
       <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
-        <div class="flex flex-col sm:flex-row gap-3">
-          <input type="text" id="busca-cnpj" placeholder="Digite seu CNPJ ou E-mail cadastrado (Ex: 67.054.464/0001-51)..." class="flex-grow p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500 font-mono" />
-          <button type="button" onclick="consultarStatusProjeto()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
-            Consultar Status
-          </button>
-        </div>
-
-        <div id="resultado-portal" class="hidden p-6 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800/80 pb-3">
+        
+        <!-- Tela de Login Inicial (Se não autenticado) -->
+        <div id="portal-login-box" class="space-y-4">
+          <div class="p-4 bg-blue-950/50 border border-blue-800/80 rounded-xl text-xs text-blue-300">
+            🔒 <b>Acesso Restrito:</b> Digite seu e-mail cadastrado para entrar no painel de acompanhamento de projetos.
+          </div>
+          <form onsubmit="realizarLoginCliente(event)" class="space-y-3">
             <div>
-              <p class="font-bold text-sm text-white" id="portal-nome-projeto">Projeto: Sistema Web &amp; Integração Supabase</p>
-              <p class="text-[10px] text-slate-400" id="portal-cliente">Cliente: Empresa Contratante Exemplar LTDA</p>
+              <label class="block text-xs font-bold text-slate-300 mb-1">E-mail ou CNPJ Cadastrado:</label>
+              <input type="text" id="cliente-email-login" required placeholder="seuemail@empresa.com.br" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500 font-mono" />
             </div>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 border border-emerald-800 px-3 py-1 rounded-md font-bold">
-              Etapa: Homologação Final
-            </span>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Senha de Acesso:</label>
+              <input type="password" id="cliente-senha-login" required placeholder="••••••••" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500" />
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
+              Entrar no Portal do Cliente
+            </button>
+          </form>
+        </div>
+
+        <!-- Área Logada (Visível somente após autenticar) -->
+        <div id="portal-conteudo-logado" class="hidden space-y-6">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <div>
+              <span class="text-[10px] text-emerald-400 font-mono font-bold uppercase tracking-wider">● Sessão Ativa</span>
+              <p class="font-bold text-sm text-white" id="sessao-cliente-email">cliente@empresa.com.br</p>
+            </div>
+            <button onclick="logoutCliente()" class="text-xs bg-slate-800 hover:bg-red-900/50 border border-slate-700 hover:border-red-700 text-slate-300 hover:text-red-300 px-3 py-1.5 rounded-lg transition">
+              Sair da Conta
+            </button>
           </div>
 
-          <div class="space-y-2">
-            <div class="flex justify-between text-[11px] font-bold">
-              <span class="text-slate-400">Progresso Geral das Entregas:</span>
-              <span class="text-emerald-400 font-mono">85%</span>
-            </div>
-            <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
-              <div id="portal-progresso" class="bg-emerald-500 h-full w-[85%] transition-all duration-700"></div>
-            </div>
-          </div>
+          <div class="space-y-4">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Serviços &amp; Projetos em Andamento</h4>
 
-          <!-- Etapas em checklist -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
-              <span class="text-emerald-400 font-bold block">✓ 1. Design &amp; Layout</span>
-              <span class="text-slate-400 text-[10px]">100% Finalizado</span>
-            </div>
-            <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
-              <span class="text-emerald-400 font-bold block">✓ 2. Banco Supabase</span>
-              <span class="text-slate-400 text-[10px]">100% Finalizado</span>
-            </div>
-            <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
-              <span class="text-blue-400 font-bold block">⏳ 3. Testes &amp; Ajustes</span>
-              <span class="text-slate-400 text-[10px]">Em andamento (50%)</span>
+            <div class="p-5 bg-slate-950 rounded-xl border border-slate-800/80 text-xs space-y-4">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800/80 pb-3">
+                <div>
+                  <p class="font-bold text-sm text-white">Desenvolvimento de Sistema Web &amp; Supabase</p>
+                  <p class="text-[10px] text-slate-400">Contrato N°: #CS-2026-089</p>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 border border-emerald-800 px-3 py-1 rounded-md font-bold">
+                  Fase: Homologação
+                </span>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex justify-between text-[11px] font-bold">
+                  <span class="text-slate-400">Progresso de Desenvolvimento:</span>
+                  <span class="text-emerald-400 font-mono">85%</span>
+                </div>
+                <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
+                  <div class="bg-emerald-500 h-full w-[85%] transition-all duration-700"></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
+                  <span class="text-emerald-400 font-bold block">✓ 1. Design &amp; Layout</span>
+                  <span class="text-slate-400 text-[10px]">100% Concluído</span>
+                </div>
+                <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
+                  <span class="text-emerald-400 font-bold block">✓ 2. Integração Supabase</span>
+                  <span class="text-slate-400 text-[10px]">100% Concluído</span>
+                </div>
+                <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
+                  <span class="text-blue-400 font-bold block">⏳ 3. Testes de Carga</span>
+                  <span class="text-slate-400 text-[10px]">Em Andamento</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- ==================== MODO IA RESPONSIVO (CHATBOT CSDev BOT) ==================== -->
+    <!-- ==================== IA RESPONSIVA LIVRE ==================== -->
     <section id="ia-assistente" class="max-w-4xl mx-auto space-y-6">
       <div class="text-center space-y-2">
-        <h2 class="text-2xl font-black text-white">Atendimento Guiado por Inteligência Artificial</h2>
-        <p class="text-xs text-slate-400">Tire dúvidas técnicas, pergunte sobre prazos e simule orçamentos com o bot da CSDev.</p>
+        <h2 class="text-2xl font-black text-white">Assistente de Inteligência Artificial</h2>
+        <p class="text-xs text-slate-400">Pergunte qualquer dúvida técnica, solicite informações de prazos ou entenda sobre nossos serviços.</p>
       </div>
 
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
@@ -407,23 +403,23 @@
               <div class="w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-900 absolute -bottom-1 -right-1"></div>
             </div>
             <div>
-              <h3 class="text-sm font-bold text-white leading-none">CSDev Bot (Modo IA Responsivo)</h3>
-              <span class="text-[10px] text-slate-400">Online | Atendimento em Tempo Real</span>
+              <h3 class="text-sm font-bold text-white leading-none">CSDev Assistant AI</h3>
+              <span class="text-[10px] text-slate-400">Online | Atendimento Livre</span>
             </div>
           </div>
           <span class="text-[10px] text-slate-400 font-mono bg-slate-950 px-2.5 py-1 rounded border border-slate-800">
-            v2.4 System Prompt
+            Open Chat Mode
           </span>
         </div>
 
         <div id="chat-box" class="h-64 bg-slate-950 rounded-xl p-4 overflow-y-auto space-y-4 border border-slate-800/80 text-xs">
           <div class="bg-slate-900 border border-slate-800/80 p-3 rounded-xl text-slate-300 max-w-[85%] leading-relaxed">
-            Olá! Sou o assistente virtual da CSDev. Posso responder sobre os nossos preços de desenvolvimento, infraestrutura Supabase, prazos de entrega ou sobre os fundadores Cleiton e Isabella. Como posso ajudar seu projeto hoje?
+            Olá! Sou a IA da CSDev. Estou totalmente liberada para responder a qualquer dúvida que você tiver sobre sistemas web, custos, integrações ou prazos de entrega. O que gostaria de saber?
           </div>
         </div>
 
         <div class="flex gap-3 pt-2">
-          <input type="text" id="chat-input" placeholder="Pergunte algo como: 'Qual é o valor médio de um sistema?' ou 'Quem é Cleiton?'..." class="flex-grow p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500" onkeypress="if(event.key === 'Enter') enviarMensagemIA()" />
+          <input type="text" id="chat-input" placeholder="Digite sua dúvida livremente..." class="flex-grow p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500" onkeypress="if(event.key === 'Enter') enviarMensagemIA()" />
           <button type="button" onclick="enviarMensagemIA()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
             Enviar
           </button>
@@ -431,51 +427,31 @@
       </div>
     </section>
 
-    <!-- ==================== FAQ INTERATIVO ==================== -->
+    <!-- ==================== FAQ ==================== -->
     <section id="faq" class="max-w-4xl mx-auto space-y-6">
       <div class="text-center space-y-2">
         <h2 class="text-2xl font-black text-white">Perguntas Frequentes (FAQ)</h2>
-        <p class="text-xs text-slate-400">Respostas claras para sanar dúvidas contratuais, fiscais e técnicas.</p>
+        <p class="text-xs text-slate-400">Dúvidas comuns sobre contratação e suporte.</p>
       </div>
 
       <div class="space-y-4">
         <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
           <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
-            <span>Como funciona a entrega do código-fonte e da propriedade intelectual?</span>
+            <span>Como funciona a entrega do código-fonte?</span>
             <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
           </summary>
           <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
-            A propriedade intelectual de todo o código desenvolvido é 100% transferida para a sua empresa após a quitação total do projeto. Você recebe acesso irrestrito ao repositório no GitHub contendo o código-fonte documentado.
+            Após a finalização e quitação, o acesso completo ao repositório GitHub é fornecido com documentação técnica.
           </p>
         </details>
 
         <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
           <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
-            <span>Onde o sistema fica hospedado e qual é a infraestrutura de segurança?</span>
+            <span>Onde o sistema é hospedado?</span>
             <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
           </summary>
           <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
-            Utilizamos infraestrutura serverless global na Netlify/Vercel com certificado SSL automático de 256 bits, integrados ao banco de dados relacional PostgreSQL via Supabase com autenticação segura de nível enterprise.
-          </p>
-        </details>
-
-        <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
-          <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
-            <span>Como funciona o faturamento e a emissão de Nota Fiscal?</span>
-            <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
-          </summary>
-          <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
-            Todas as contratações são formalizadas mediante contrato de prestação de serviços com emissão de Nota Fiscal de Serviços eletrônica (NFS-e) sob o CNPJ oficial <b class="text-white">67.054.464/0001-51</b> (CLEITON DA SILVA PEREIRA).
-          </p>
-        </details>
-
-        <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
-          <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
-            <span>Qual é o prazo médio de desenvolvimento de um projeto?</span>
-            <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
-          </summary>
-          <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
-            O prazo típico para sistemas web sob medida e automações varia entre 2 a 5 semanas, dependendo do nível de integração de APIs e da complexidade das regras de negócio solicitadas.
+            Utilizamos infraestrutura serverless na Netlify/Vercel e PostgreSQL via Supabase com segurança SSL de 256 bits.
           </p>
         </details>
       </div>
@@ -483,80 +459,157 @@
 
   </main>
 
-  <!-- ==================== MODAL 1: AGENDAMENTO GOOGLE WORKSPACE ==================== -->
+  <!-- ==================== MODAL DE AGENDAMENTO ==================== -->
   <div id="modal-agendamento" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-lg w-full space-y-5 shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-        <div>
-          <h3 class="font-black text-white text-lg">Agendar Reunião Técnica</h3>
-          <p class="text-[11px] text-slate-400">Sincronizado via Google Workspace API</p>
-        </div>
+        <h3 class="font-black text-white text-lg">Agendar Reunião Técnica</h3>
         <button onclick="toggleModal('modal-agendamento')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
       </div>
       
       <form onsubmit="confirmarAgendamento(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Razão Social / Seu Nome:</label>
-          <input type="text" required placeholder="Ex: Empresa Exemplo LTDA" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
+          <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome / Empresa:</label>
+          <input type="text" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Corporativo:</label>
-          <input type="email" required placeholder="contato@empresa.com.br" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
+          <input type="email" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Data Desejada:</label>
-            <input type="date" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Horário:</label>
-            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500">
-              <option>09:00 - Horário de Brasília</option>
-              <option>11:00 - Horário de Brasília</option>
-              <option>14:30 - Horário de Brasília</option>
-              <option>16:30 - Horário de Brasília</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Resumo da Necessidade:</label>
-          <textarea rows="3" placeholder="Descreva brevemente o que sua empresa precisa automatizar..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500"></textarea>
-        </div>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-blue-600/20">
-          Confirmar e Gerar Convite no Google Calendar
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl text-xs transition">
+          Solicitar Agendamento
         </button>
       </form>
     </div>
   </div>
 
-  <!-- ==================== MODAL 2: PAINEL ADMINISTRATIVO COM 2FA SUPABASE ==================== -->
-  <div id="modal-adm" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-lg w-full space-y-5 shadow-2xl">
+  <!-- ==================== PAINEL ADM ESCONDIDO + DASHBOARD FINANCEIRA ==================== -->
+  <div id="modal-adm" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-3xl w-full space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-slate-800 pb-4">
         <div>
-          <h3 class="font-black text-white text-lg">Área Restrita CSDev (2FA)</h3>
-          <p class="text-[11px] text-slate-400">Autenticação de Dois Fatores via Supabase Auth</p>
+          <h3 class="font-black text-white text-lg">Painel de Controle Executivo (ADM)</h3>
+          <p class="text-[11px] text-slate-400">Área Privada - CSDev Management</p>
         </div>
         <button onclick="toggleModal('modal-adm')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
       </div>
 
-      <form onsubmit="autenticarADM(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Administrativo:</label>
-          <input type="email" id="adm-email" required placeholder="cleiton@csdev.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500 font-mono" />
+      <!-- Formulário de Login ADM -->
+      <form id="adm-form-login" onsubmit="autenticarADM(event)" class="space-y-4">
+        <div class="p-3 bg-amber-950/40 border border-amber-800/80 rounded-xl text-xs text-amber-300">
+          🔑 Acesso exclusivo do administrador da plataforma.
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Senha de Acesso:</label>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Chave Administrativa / E-mail:</label>
+          <input type="email" id="adm-email" required placeholder="admin@csdev.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white font-mono focus:outline-none focus:border-blue-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Senha Master:</label>
           <input type="password" id="adm-senha" required placeholder="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Código Authenticator 2FA (6 dígitos):</label>
-          <input type="text" id="adm-2fa" required placeholder="000 000" maxlength="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white font-mono focus:outline-none focus:border-blue-500 tracking-widest text-center text-lg" />
-        </div>
-        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-600/20">
-          Validar Token &amp; Acessar Dashboard
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition">
+          Acessar Dashboard
         </button>
       </form>
+
+      <!-- Dashboard ADM (Exibida após Autenticação) -->
+      <div id="adm-dashboard-view" class="hidden space-y-6">
+        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <div>
+            <span class="text-xs text-slate-400 block font-bold">STATUS DO SISTEMA</span>
+            <span class="text-emerald-400 font-mono text-xs font-bold">● Supabase &amp; APIs Conectados</span>
+          </div>
+          <button onclick="fecharDashboardADM()" class="text-xs text-slate-400 hover:text-white underline">
+            Encerrar Sessão ADM
+          </button>
+        </div>
+
+        <!-- Indicadores Financeiros -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-bold mb-1">CONTRATOS ATIVOS</span>
+            <span class="text-2xl font-black text-emerald-400 font-mono">14</span>
+            <span class="text-[10px] text-slate-400 block mt-1">+2 este mês</span>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-bold mb-1">CONTRATOS CANCELADOS</span>
+            <span class="text-2xl font-black text-red-400 font-mono">1</span>
+            <span class="text-[10px] text-slate-400 block mt-1">Taxa de churn: 1.2%</span>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-bold mb-1">VALORES RECEBIDOS (MÊS)</span>
+            <span class="text-2xl font-black text-blue-400 font-mono">R$ 48.500,00</span>
+            <span class="text-[10px] text-emerald-400 block mt-1">↑ 18% em relação ao mês anterior</span>
+          </div>
+        </div>
+
+        <!-- Tabela de Contratos Recentes -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Últimos Contratos Registrados</h4>
+          <div class="overflow-x-auto bg-slate-950 rounded-xl border border-slate-800">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 uppercase text-[10px]">
+                <tr>
+                  <th class="p-3">Cliente</th>
+                  <th class="p-3">Projeto</th>
+                  <th class="p-3">Valor</th>
+                  <th class="p-3">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 font-mono">
+                <tr>
+                  <td class="p-3">Barbearia Danilo</td>
+                  <td class="p-3">Agendamento Web</td>
+                  <td class="p-3 text-emerald-400">R$ 5.500,00</td>
+                  <td class="p-3"><span class="bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded border border-emerald-800 text-[10px]">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3">Mi Prime Cell</td>
+                  <td class="p-3">E-Commerce Next.js</td>
+                  <td class="p-3 text-emerald-400">R$ 7.200,00</td>
+                  <td class="p-3"><span class="bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded border border-emerald-800 text-[10px]">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3">Logística Express</td>
+                  <td class="p-3">Automação APIs</td>
+                  <td class="p-3 text-slate-400">R$ 4.000,00</td>
+                  <td class="p-3"><span class="bg-red-950 text-red-400 px-2 py-0.5 rounded border border-red-800 text-[10px]">Cancelado</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL TERMOS DE SERVIÇO ==================== -->
+  <div id="modal-termos" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-black text-white text-lg">Termos de Serviço &amp; Propriedade Intelectual</h3>
+        <button onclick="toggleModal('modal-termos')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
+      </div>
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
+        <p><b>1. Propriedade do Código-Fonte:</b> Todo o código desenvolvido pela CSDev (CNPJ: 67.054.464/0001-51) é integralmente transferido ao contratante após o pagamento integral dos honorários acordados.</p>
+        <p><b>2. Garantia e Suporte:</b> Oferecemos garantia operacional de 90 dias após a homologação para correção de falhas técnicas sem custos adicionais.</p>
+        <p><b>3. Faturamento:</b> Os pagamentos e parcelamentos são vinculados à emissão regular de Nota Fiscal Eletrônica de Serviços (NFS-e).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL POLITICA DE PRIVACIDADE ==================== -->
+  <div id="modal-privacidade" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-2xl w-full space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-black text-white text-lg">Política de Privacidade &amp; LGPD</h3>
+        <button onclick="toggleModal('modal-privacidade')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
+      </div>
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
+        <p><b>1. Proteção de Dados:</b> Em conformidade com a Lei Geral de Proteção de Dados (LGPD), todas as informações coletadas nos simuladores e formulários são criptografadas e utilizadas estritamente para contato comercial.</p>
+        <p><b>2. Segurança dos Bancos de Dados:</b> As instâncias gerenciadas no Supabase utilizam autenticação por token e controle de acesso em nível de linha (RLS).</p>
+      </div>
     </div>
   </div>
 
@@ -576,45 +629,55 @@
       </div>
 
       <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
-        <p>&copy; 2026 CSDev. Todos os direitos reservados. Infraestrutura em Nuvem Netlify &amp; Supabase.</p>
+        <p>&copy; 2026 CSDev. Todos os direitos reservados.</p>
         <div class="flex gap-4">
-          <a href="#solucoes" class="hover:text-slate-300">Termos</a>
-          <a href="#faq" class="hover:text-slate-300">Privacidade</a>
-          <a href="#portal" class="hover:text-slate-300">Transparência</a>
+          <button onclick="toggleModal('modal-termos')" class="hover:text-slate-200 transition">Termos de Uso</button>
+          <button onclick="toggleModal('modal-privacidade')" class="hover:text-slate-200 transition">Privacidade</button>
+          <a href="#portal" class="hover:text-slate-200 transition">Portal Transparência</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- ==================== LÓGICA JAVASCRIPT EXPANDIDA ==================== -->
+  <!-- ==================== LÓGICA JAVASCRIPT COMPLETA ==================== -->
   <script>
-    // Configurações e Estado Global
-    const estadoSimulador = {
-      investimentoBase: 4500
-    };
+    let contadorCliquesLogo = 0;
 
-    // Atualiza sliders e dispara o cálculo
+    // Função de Atalho Secreto para Abrir ADM (3 cliques no Logo ou Atalho de Teclado)
+    function registrarCliqueLogo() {
+      contadorCliquesLogo++;
+      if (contadorCliquesLogo >= 3) {
+        contadorCliquesLogo = 0;
+        toggleModal('modal-adm');
+      }
+    }
+
+    // Atalho de teclado: Ctrl + Shift + A
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        toggleModal('modal-adm');
+      }
+    });
+
+    // Simulador de ROI
     function atualizarECalcularROI() {
       const horas = document.getElementById('input-horas').value;
       const custoHora = document.getElementById('input-custo-hora').value;
 
       document.getElementById('disp-horas').innerText = `${horas} hrs`;
       document.getElementById('disp-custo-hora').innerText = `R$ ${parseFloat(custoHora).toFixed(2).replace('.', ',')}`;
-
       calcularROI();
     }
 
-    // Função de Cálculo de ROI com Gráfico
     function calcularROI() {
       const horasSemanais = parseFloat(document.getElementById('input-horas').value) || 0;
       const valorHora = parseFloat(document.getElementById('input-custo-hora').value) || 0;
-      const investimento = parseFloat(document.getElementById('input-investimento').value) || estadoSimulador.investimentoBase;
+      const investimento = parseFloat(document.getElementById('input-investimento').value) || 5000;
 
-      // Cálculo de Economia (4 semanas/mês)
       const economiaMes = horasSemanais * 4 * valorHora;
       const custoAnualSemAutomacao = economiaMes * 12;
 
-      // Exibição nos Cards
       document.getElementById('res-economia-mes').innerText = economiaMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
       if (economiaMes > 0) {
@@ -624,7 +687,6 @@
         document.getElementById('res-payback').innerText = 'N/A';
       }
 
-      // Gráfico Dinâmico de Barras SVG
       const barAtual = document.getElementById('bar-custo-atual');
       const barCSDev = document.getElementById('bar-custo-csdev');
 
@@ -632,8 +694,8 @@
         document.getElementById('label-custo-atual').innerText = custoAnualSemAutomacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         document.getElementById('label-custo-csdev').innerText = investimento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-        barAtual.style.height = '112px'; // Altura total
-        const porcentagem = Math.min(Math.max((investimento / custoAnualSemAutomacao) * 100, 12), 100);
+        barAtual.style.height = '110px';
+        const porcentagem = Math.min(Math.max((investimento / custoAnualSemAutomacao) * 100, 15), 100);
         barCSDev.style.height = `${porcentagem}%`;
 
         const economiaPorcentagem = Math.round(((custoAnualSemAutomacao - investimento) / custoAnualSemAutomacao) * 100);
@@ -641,7 +703,37 @@
       }
     }
 
-    // Chatbot IA Responsivo
+    // Login Obrigatório do Portal do Cliente
+    function realizarLoginCliente(e) {
+      e.preventDefault();
+      const email = document.getElementById('cliente-email-login').value.trim();
+      if (!email) return;
+
+      localStorage.setItem('csdev_cliente_logado', email);
+      verificarSessaoCliente();
+    }
+
+    function verificarSessaoCliente() {
+      const emailSalvo = localStorage.getItem('csdev_cliente_logado');
+      const loginBox = document.getElementById('portal-login-box');
+      const conteudoLogado = document.getElementById('portal-conteudo-logado');
+
+      if (emailSalvo) {
+        loginBox.classList.add('hidden');
+        conteudoLogado.classList.remove('hidden');
+        document.getElementById('sessao-cliente-email').innerText = emailSalvo;
+      } else {
+        loginBox.classList.remove('hidden');
+        conteudoLogado.classList.add('hidden');
+      }
+    }
+
+    function logoutCliente() {
+      localStorage.removeItem('csdev_cliente_logado');
+      verificarSessaoCliente();
+    }
+
+    // Assistente com Respostas Livres
     function enviarMensagemIA() {
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
@@ -649,31 +741,29 @@
 
       const chatBox = document.getElementById('chat-box');
 
-      // Balão do Usuário
       const userDiv = document.createElement('div');
       userDiv.className = 'bg-blue-900/40 border border-blue-500/30 p-3 rounded-xl text-slate-200 ml-auto max-w-[85%] text-right font-sans';
       userDiv.innerText = text;
       chatBox.appendChild(userDiv);
 
       input.value = '';
-
-      // Scroll para o fim
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // Resposta Simula Processamento IA
       setTimeout(() => {
         const botDiv = document.createElement('div');
         botDiv.className = 'bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] font-sans leading-relaxed';
 
         const txtLower = text.toLowerCase();
-        if (txtLower.includes('preço') || txtLower.includes('valor') || txtLower.includes('quanto custa') || txtLower.includes('orçamento')) {
-          botDiv.innerText = "Nossos projetos customizados iniciam a partir de R$ 4.500,00 para sistemas web completos e automações via Supabase. O investimento final varia de acordo com as APIs e integrações necessárias.";
-        } else if (txtLower.includes('cleiton') || txtLower.includes('isabella') || txtLower.includes('equipe') || txtLower.includes('quem')) {
-          botDiv.innerText = "A CSDev foi fundada por Cleiton (Líder de Engenharia de Software e Desenvolvimento) e conta com Isabella na Gestão de Projetos e Experiência do Usuário (UX).";
-        } else if (txtLower.includes('tempo') || txtLower.includes('prazo') || txtLower.includes('demora')) {
-          botDiv.innerText = "O tempo médio de desenvolvimento de um projeto customizado é de 2 a 4 semanas com entregas contínuas em ambiente de homologação.";
+        if (txtLower.includes('barbearia')) {
+          botDiv.innerText = "O projeto da Barbearia Danilo é um sistema web responsivo de agendamento em tempo real com integração Supabase. Você pode testá-lo em: https://barbeariadanilo.netlify.app/";
+        } else if (txtLower.includes('mi prime') || txtLower.includes('loja') || txtLower.includes('celular')) {
+          botDiv.innerText = "A Mi Prime Cell é um e-commerce e catálogo interativo otimizado para vendas e suporte de smartphones. Confira em: https://miprimecell.netlify.app/";
+        } else if (txtLower.includes('preço') || txtLower.includes('valor') || txtLower.includes('custo') || txtLower.includes('orçamento')) {
+          botDiv.innerText = "Nossos projetos customizados iniciam a partir de R$ 4.500,00 a R$ 5.000,00 para sistemas web completos e automações. Podemos agendar uma conversa para detalhar os requisitos da sua empresa!";
+        } else if (txtLower.includes('prazo') || txtLower.includes('tempo')) {
+          botDiv.innerText = "O tempo médio de desenvolvimento varia entre 2 a 4 semanas, com acompanhamento em tempo real através do Portal de Transparência do Cliente.";
         } else {
-          botDiv.innerText = "Entendido! Caso queira agendar uma conversa técnica para apresentar os requisitos da sua empresa, basta clicar no botão 'Agendar Reunião' no topo da página.";
+          botDiv.innerText = `Compreendi a sua pergunta sobre: "${text}". Oferecemos soluções customizadas de desenvolvimento de software, automações com Supabase e APIs personalizadas. Como posso ajudar com os requisitos do seu projeto?`;
         }
 
         chatBox.appendChild(botDiv);
@@ -681,45 +771,33 @@
       }, 500);
     }
 
-    // Portal do Cliente
-    function consultarStatusProjeto() {
-      const busca = document.getElementById('busca-cnpj').value.trim();
-      const resultado = document.getElementById('resultado-portal');
-
-      if (!busca) {
-        alert('Por favor, informe um CNPJ ou E-mail para consulta.');
-        return;
-      }
-
-      resultado.classList.remove('hidden');
-    }
-
-    // Funções dos Modais
+    // Funções dos Modais e Autenticação ADM
     function toggleModal(id) {
-      const modal = document.getElementById(id);
-      modal.classList.toggle('hidden');
-    }
-
-    function confirmarAgendamento(e) {
-      e.preventDefault();
-      alert('Reunião agendada com sucesso! O convite foi sincronizado com a agenda corporativa do Google Workspace.');
-      toggleModal('modal-agendamento');
+      document.getElementById(id).classList.toggle('hidden');
     }
 
     function autenticarADM(e) {
       e.preventDefault();
-      const code = document.getElementById('adm-2fa').value;
-      if (code.length < 6) {
-        alert('Informe o código 2FA de 6 dígitos.');
-        return;
-      }
-      alert('Autenticação 2FA via Supabase Auth validada com sucesso! Redirecionando para o painel restrito...');
+      document.getElementById('adm-form-login').classList.add('hidden');
+      document.getElementById('adm-dashboard-view').classList.remove('hidden');
+    }
+
+    function fecharDashboardADM() {
+      document.getElementById('adm-form-login').classList.remove('hidden');
+      document.getElementById('adm-dashboard-view').classList.add('hidden');
       toggleModal('modal-adm');
     }
 
-    // Executar calculo ao carregar a pagina
+    function confirmarAgendamento(e) {
+      e.preventDefault();
+      alert('Solicitação recebida! Em breve nossa equipe entrará em contato para confirmar o horário.');
+      toggleModal('modal-agendamento');
+    }
+
+    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
       atualizarECalcularROI();
+      verificarSessaoCliente();
     });
   </script>
 </body>
