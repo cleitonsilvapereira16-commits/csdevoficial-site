@@ -59,22 +59,32 @@
     </div>
   </div>
 
-  <!-- ==================== 2. TELA DE ACESSO / CADASTRO DE ENTRADA ==================== -->
+  <!-- ==================== 2. TELA DE ACESSO COM BOTÃO ESCONDIDO DE GESTOR ==================== -->
   <div id="auth-container" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 max-w-md w-full space-y-6 shadow-2xl relative">
+      
+      <!-- BOTÃO ESCONDIDO DO GESTOR (Posicionado sutilmente acima do topo do formulário) -->
+      <div class="flex justify-end mb-[-12px]">
+        <button type="button" onclick="ativarModoGestor()" class="text-[10px] text-slate-600 hover:text-blue-400 transition-colors cursor-pointer select-none font-mono">
+          [ Acesso Gestor ]
+        </button>
+      </div>
+
       <div class="text-center space-y-2">
         <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center font-black text-white text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-3">
           CS
         </div>
-        <h2 class="text-2xl font-black text-white tracking-tight">Acessar Ecossistema CSDev</h2>
-        <p class="text-xs text-slate-400">Entre com os dados da sua empresa para liberar o portal.</p>
+        <h2 id="auth-titulo" class="text-2xl font-black text-white tracking-tight">Acessar Ecossistema CSDev</h2>
+        <p id="auth-subtitulo" class="text-xs text-slate-400">Entre com os dados da sua empresa para liberar o portal.</p>
       </div>
 
       <form onsubmit="processarAutenticacaoEntrada(event)" class="space-y-4">
-        <div>
+        <!-- Campo Nome Empresa (Ocultado se for modo Gestor) -->
+        <div id="campo-empresa-container">
           <label class="block text-xs font-bold text-slate-300 mb-1">Nome Fantasia / Empresa:</label>
-          <input type="text" id="auth-nome-empresa" required placeholder="Sua Empresa Ltda" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500 font-sans" />
+          <input type="text" id="auth-nome-empresa" placeholder="Sua Empresa Ltda" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500 font-sans" />
         </div>
+
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Corporativo:</label>
           <input type="email" id="auth-email" required placeholder="contato@suaempresa.com" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500 font-mono" />
@@ -84,7 +94,7 @@
           <input type="password" id="auth-senha" required placeholder="••••••••" class="w-full p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500" />
         </div>
 
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-blue-600/30">
+        <button type="submit" id="btn-submit-auth" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-blue-600/30">
           Entrar / Cadastrar
         </button>
       </form>
@@ -95,7 +105,7 @@
   <div id="site-principal" class="hidden flex-col min-h-screen">
     
     <!-- BANNER DE BOAS-VINDAS -->
-    <div class="bg-blue-600 text-white py-2.5 px-4 text-center text-xs font-bold flex justify-center items-center gap-2 shadow-md">
+    <div id="banner-boas-vindas" class="bg-blue-600 text-white py-2.5 px-4 text-center text-xs font-bold flex justify-center items-center gap-2 shadow-md">
       <span>🎉</span>
       <span id="mensagem-boas-vindas">Bem-vindo(a)!</span>
     </div>
@@ -441,7 +451,7 @@
               </div>
               <div>
                 <h3 class="text-sm font-bold text-white leading-none">CSDev Assistant AI</h3>
-                <span class="text-[10px] text-slate-400">Online | Atendimento Libre</span>
+                <span class="text-[10px] text-slate-400">Online | Atendimento Livre</span>
               </div>
             </div>
           </div>
@@ -534,7 +544,7 @@
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">Chave Administrativa / E-mail:</label>
-            <input type="email" id="adm-email" required placeholder="admin@csdev.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white font-mono focus:outline-none focus:border-blue-500" />
+            <input type="email" id="adm-email" required placeholder="cleiton@csdev.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white font-mono focus:outline-none focus:border-blue-500" />
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">Senha Master:</label>
@@ -600,6 +610,11 @@
   <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
   <script>
     let contadorCliquesLogo = 0;
+    let modoGestor = false;
+
+    // CREDENCIAIS GESTOR CONFIGURADAS
+    const GESTOR_EMAIL = "cleiton@csdev.com";
+    const GESTOR_SENHA = "2522";
 
     // 1. Apresentação Inicial Netflix -> Abre a Tela de Login
     window.addEventListener('DOMContentLoaded', () => {
@@ -618,32 +633,84 @@
       }, 1800);
     });
 
-    // 2. Processa o Cadastro/Login
-    function processarAutenticacaoEntrada(e) {
-      e.preventDefault();
-      const nomeEmpresa = document.getElementById('auth-nome-empresa').value.trim();
-      
-      if (!nomeEmpresa) return;
+    // Ativa o modo gestor no formulário
+    function ativarModoGestor() {
+      modoGestor = !modoGestor;
+      const campoEmpresa = document.getElementById('campo-empresa-container');
+      const inputEmpresa = document.getElementById('auth-nome-empresa');
+      const titulo = document.getElementById('auth-titulo');
+      const subtitulo = document.getElementById('auth-subtitulo');
+      const btnSubmit = document.getElementById('btn-submit-auth');
+      const inputEmail = document.getElementById('auth-email');
 
-      localStorage.setItem('csdev_empresa_nome', nomeEmpresa);
-      iniciarSessaoPrincipal(nomeEmpresa);
+      if (modoGestor) {
+        campoEmpresa.classList.add('hidden');
+        inputEmpresa.removeAttribute('required');
+        titulo.innerText = "Acesso Gestor CSDev";
+        subtitulo.innerText = "Insira suas credenciais administrativas para gerenciar a plataforma.";
+        btnSubmit.innerText = "Entrar como Gestor";
+        btnSubmit.className = "w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-600/30";
+        inputEmail.placeholder = "cleiton@csdev.com";
+      } else {
+        campoEmpresa.classList.remove('hidden');
+        inputEmpresa.setAttribute('required', 'true');
+        titulo.innerText = "Acessar Ecossistema CSDev";
+        subtitulo.innerText = "Entre com os dados da sua empresa para liberar o portal.";
+        btnSubmit.innerText = "Entrar / Cadastrar";
+        btnSubmit.className = "w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-blue-600/30";
+        inputEmail.placeholder = "contato@suaempresa.com";
+      }
     }
 
-    // 3. Exibe o painel principal com a mensagem de boas-vindas
-    function iniciarSessaoPrincipal(nomeEmpresa) {
+    // 2. Processa a Autenticação (Cliente ou Gestor)
+    function processarAutenticacaoEntrada(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value.trim();
+      const senha = document.getElementById('auth-senha').value.trim();
+
+      if (modoGestor) {
+        if (email === GESTOR_EMAIL && senha === GESTOR_SENHA) {
+          localStorage.setItem('csdev_empresa_nome', 'Gestor Cleiton');
+          localStorage.setItem('csdev_is_gestor', 'true');
+          iniciarSessaoPrincipal('Gestor Cleiton (Administrador)', true);
+        } else {
+          alert('Credenciais de Gestor inválidas!');
+        }
+      } else {
+        const nomeEmpresa = document.getElementById('auth-nome-empresa').value.trim();
+        if (!nomeEmpresa) return;
+
+        localStorage.setItem('csdev_empresa_nome', nomeEmpresa);
+        localStorage.removeItem('csdev_is_gestor');
+        iniciarSessaoPrincipal(nomeEmpresa, false);
+      }
+    }
+
+    // 3. Exibe a interface liberada
+    function iniciarSessaoPrincipal(nome, isGestor = false) {
       document.getElementById('auth-container').classList.add('hidden');
       
       const sitePrincipal = document.getElementById('site-principal');
       sitePrincipal.classList.remove('hidden');
       sitePrincipal.classList.add('flex');
 
-      document.getElementById('mensagem-boas-vindas').innerText = `Bem-vindo(a), ${nomeEmpresa}!`;
-      document.getElementById('sessao-cliente-nome').innerText = nomeEmpresa;
+      const isGestorSalvo = localStorage.getItem('csdev_is_gestor') === 'true';
+
+      if (isGestor || isGestorSalvo) {
+        document.getElementById('mensagem-boas-vindas').innerText = `Bem-vindo, Gestor Cleiton! Painel Administrativo Ativo.`;
+        document.getElementById('banner-boas-vindas').className = "bg-emerald-600 text-white py-2.5 px-4 text-center text-xs font-bold flex justify-center items-center gap-2 shadow-md";
+        document.getElementById('sessao-cliente-nome').innerText = "CSDev Management (Visão Gestor)";
+      } else {
+        document.getElementById('mensagem-boas-vindas').innerText = `Bem-vindo(a), ${nome}!`;
+        document.getElementById('sessao-cliente-nome').innerText = nome;
+      }
+
       atualizarECalcularROI();
     }
 
     function encerrarSessaoEntrada() {
       localStorage.removeItem('csdev_empresa_nome');
+      localStorage.removeItem('csdev_is_gestor');
       location.reload();
     }
 
@@ -746,8 +813,15 @@
 
     function autenticarADM(e) {
       e.preventDefault();
-      document.getElementById('adm-form-login').classList.add('hidden');
-      document.getElementById('adm-dashboard-view').classList.remove('hidden');
+      const email = document.getElementById('adm-email').value.trim();
+      const senha = document.getElementById('adm-senha').value.trim();
+
+      if (email === GESTOR_EMAIL && senha === GESTOR_SENHA) {
+        document.getElementById('adm-form-login').classList.add('hidden');
+        document.getElementById('adm-dashboard-view').classList.remove('hidden');
+      } else {
+        alert('Credenciais incorretas.');
+      }
     }
 
     function fecharDashboardADM() {
