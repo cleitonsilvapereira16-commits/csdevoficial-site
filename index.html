@@ -56,13 +56,10 @@
         <button type="button" onclick="alternarAba('comercial-ia')" id="tab-btn-comercial-ia" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition border border-slate-700">
           🤖 Comercial + IA
         </button>
-      </nav>
-
-      <div class="flex items-center gap-3">
-        <button type="button" onclick="abrirModalAdmin()" class="bg-slate-850 hover:bg-slate-800 text-blue-400 border border-blue-500/30 px-3 py-2 rounded text-xs font-bold transition flex items-center gap-1.5 hover:border-blue-500/60">
+        <button type="button" onclick="alternarAba('painel-adm')" id="tab-btn-painel-adm" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold bg-blue-900/50 text-blue-300 hover:bg-blue-800 transition border border-blue-500/50">
           🔑 Painel ADM
         </button>
-      </div>
+      </nav>
     </div>
   </header>
 
@@ -90,7 +87,6 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
-        <!-- Lista de Serviços (Efeitos Hover) -->
         <div class="lg:col-span-7 bg-slate-900 p-6 rounded-xl border border-slate-800 space-y-4">
           <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">🛠️ Selecione os Módulos</h3>
 
@@ -161,7 +157,6 @@
           </label>
         </div>
 
-        <!-- Resumo Financeiro & ROI -->
         <div class="lg:col-span-5 space-y-6">
           <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-6 rounded-xl border border-blue-500/30 shadow-lg">
             <h3 class="text-xs font-semibold text-blue-300 mb-1 uppercase tracking-wider">Investimento Total Estimado</h3>
@@ -173,7 +168,6 @@
             </div>
           </div>
 
-          <!-- Calculadora ROI -->
           <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
             <h3 class="text-base font-bold text-emerald-400 mb-3 flex items-center gap-2">📊 Retorno Financeiro (ROI)</h3>
             <div class="space-y-3 mb-4">
@@ -207,7 +201,7 @@
       </div>
     </div>
 
-    <!-- ABA 2: PROJETOS (Hover Reativo) -->
+    <!-- ABA 2: PROJETOS -->
     <div id="aba-projetos" class="aba-conteudo hidden">
       <div class="text-center mb-8">
         <h2 class="text-2xl font-black mb-2">Portfólio de Projetos Ativos</h2>
@@ -215,7 +209,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <!-- Barbearia -->
         <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-blue-500/40 transition-all duration-300 shadow-lg p-6 group">
           <div class="flex items-center justify-between mb-4">
             <span class="text-xs font-bold text-blue-400 tracking-wider uppercase">✂️ Agendamentos & Serviços</span>
@@ -228,7 +221,6 @@
           </a>
         </div>
 
-        <!-- Mi Prime Cell -->
         <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-emerald-500/40 transition-all duration-300 shadow-lg p-6 group">
           <div class="flex items-center justify-between mb-4">
             <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase">📱 E-Commerce & Vendas</span>
@@ -271,7 +263,7 @@
       </div>
     </div>
 
-    <!-- ABA 4: COMERCIAL + IA (Glow Neon no Chat) -->
+    <!-- ABA 4: COMERCIAL + IA -->
     <div id="aba-comercial-ia" class="aba-conteudo hidden">
       <div class="text-center mb-8">
         <h2 class="text-2xl font-black mb-2">Área Comercial & Atendimento com IA</h2>
@@ -279,7 +271,6 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <!-- Agendador comercial -->
         <div class="bg-slate-900 p-6 rounded-xl border border-blue-500/20 space-y-4">
           <h3 class="text-base font-bold text-blue-300 flex items-center gap-2">📅 Agendar Reunião de Negociação</h3>
           <div>
@@ -310,7 +301,6 @@
           <div id="sched-success" class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs text-emerald-400 hidden"></div>
         </div>
 
-        <!-- Chat de IA com Glow Neon (shadow-blue-500/10) e Resposta Dinâmica -->
         <div class="bg-slate-900 p-6 rounded-xl border border-blue-500/40 shadow-2xl shadow-blue-500/10 flex flex-col justify-between space-y-4">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
@@ -322,7 +312,6 @@
             </div>
           </div>
 
-          <!-- Log de Mensagens -->
           <div id="chat-messages" class="h-56 overflow-y-auto p-3 bg-slate-950 rounded-lg space-y-3 scrollbar-thin border border-slate-800/80">
             <div class="flex gap-2">
               <span class="text-xs">🤖</span>
@@ -332,11 +321,89 @@
             </div>
           </div>
 
-          <!-- Input -->
           <div class="flex gap-2">
             <input type="text" id="input-chat" placeholder="Digite sua dúvida aqui..." class="flex-grow p-2.5 bg-slate-950 text-white rounded-lg border border-slate-800 text-xs focus:outline-none focus:border-blue-500" onkeydown="verificarTeclaEnter(event)">
             <button type="button" onclick="enviarMensagemIA()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-lg font-bold text-xs transition shadow-md shadow-blue-500/20">Enviar</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 5: PAINEL ADM DE GESTÃO (VISÍVEL E ACESSÍVEL) -->
+    <div id="aba-painel-adm" class="aba-conteudo hidden">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-black mb-2 text-blue-400">Painel de Controle e Gestão ADM</h2>
+        <p class="text-slate-400 text-xs">Visão geral do ecossistema CSDev, controle de orçamentos e relatórios em tempo real</p>
+      </div>
+
+      <!-- Métricas Principais -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 text-[10px] uppercase block font-bold">Total em Propostas</span>
+          <p class="text-2xl font-black text-emerald-400 mt-1">R$ 13.700,00</p>
+          <span class="text-[10px] text-slate-500">Últimos 30 dias</span>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 text-[10px] uppercase block font-bold">Projetos Ativos</span>
+          <p class="text-2xl font-black text-blue-400 mt-1">2 Aplicações</p>
+          <span class="text-[10px] text-slate-500">Barbearia & Mi Prime</span>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 text-[10px] uppercase block font-bold">Interações com IA</span>
+          <p class="text-2xl font-black text-purple-400 mt-1">148 Respostas</p>
+          <span class="text-[10px] text-slate-500">Taxa de retenção: 92%</span>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 text-[10px] uppercase block font-bold">Status da Infraestrutura</span>
+          <p class="text-2xl font-black text-emerald-400 mt-1">Online (Supabase)</p>
+          <span class="text-[10px] text-slate-500">Latência: 24ms</span>
+        </div>
+      </div>
+
+      <!-- Tabela de Oportunidades & Clientes -->
+      <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-4">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">📋 Propostas & Oportunidades Recentes</h3>
+          <button type="button" onclick="alternarAba('propostas')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded text-xs font-bold transition">
+            + Nova Proposta
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] border-b border-slate-800">
+              <tr>
+                <th class="p-3">Cliente / Empresa</th>
+                <th class="p-3">Módulos Solicitados</th>
+                <th class="p-3">Valor Estimado</th>
+                <th class="p-3">Status</th>
+                <th class="p-3 text-right">Ação</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-300">
+              <tr class="hover:bg-slate-850">
+                <td class="p-3 font-bold text-white">Barbearia Danilo</td>
+                <td class="p-3">Landing Page + Agendamento</td>
+                <td class="p-3 font-semibold text-emerald-400">R$ 1.800,00</td>
+                <td class="p-3"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-[10px]">Entregue</span></td>
+                <td class="p-3 text-right"><a href="https://barbeariadanilo.netlify.app/" target="_blank" class="text-blue-400 hover:underline">Ver Site</a></td>
+              </tr>
+              <tr class="hover:bg-slate-850">
+                <td class="p-3 font-bold text-white">Mi Prime Cell</td>
+                <td class="p-3">E-Commerce + Catálogo</td>
+                <td class="p-3 font-semibold text-emerald-400">R$ 4.500,00</td>
+                <td class="p-3"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-[10px]">Entregue</span></td>
+                <td class="p-3 text-right"><a href="https://miprimecell.netlify.app/" target="_blank" class="text-blue-400 hover:underline">Ver Site</a></td>
+              </tr>
+              <tr class="hover:bg-slate-850">
+                <td class="p-3 font-bold text-white">Cliente Exemplo LTDA</td>
+                <td class="p-3">Sistema Web + Supabase + IA</td>
+                <td class="p-3 font-semibold text-emerald-400">R$ 8.200,00</td>
+                <td class="p-3"><span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px]">Em Negociação</span></td>
+                <td class="p-3 text-right"><button onclick="alternarAba('propostas')" class="text-blue-400 hover:underline">Editar</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -352,25 +419,7 @@
     </div>
   </footer>
 
-  <!-- MODAL ADM -->
-  <div id="modal-admin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-2xl max-w-sm w-full mx-4">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-sm font-bold text-white flex items-center gap-2">🔑 Autenticação Administrativa</h3>
-        <button type="button" onclick="fecharModalAdmin()" class="text-slate-500 hover:text-white font-bold">&times;</button>
-      </div>
-      <p class="text-xs text-slate-400 mb-4">Insira a credencial do gestor para prosseguir.</p>
-      <div class="space-y-3">
-        <input type="password" id="senha-admin" placeholder="Senha do gestor..." class="w-full p-2.5 bg-slate-950 text-white border border-slate-800 rounded-lg text-xs focus:outline-none focus:border-blue-500">
-        <button type="button" onclick="verificarAcessoAdmin()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg text-xs transition">
-          Entrar no Painel
-        </button>
-        <p id="mensagem-erro-admin" class="text-xs text-red-400 hidden text-center"></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT CORRIGIDO E DINÂMICO -->
+  <!-- JAVASCRIPT -->
   <script>
     // 1. Alternador de Abas
     function alternarAba(nomeAba) {
@@ -496,7 +545,7 @@
       boxSucesso.classList.remove('hidden');
     }
 
-    // 6. Chat de IA Dinâmico e Não-Repetitivo
+    // 6. Chat de IA
     let historicoChat = [];
 
     function verificarTeclaEnter(e) {
@@ -547,40 +596,12 @@
         return "Utilizamos a infraestrutura da Supabase (PostgreSQL), garantindo alta velocidade e segurança de autenticação.";
       }
       if (p.includes('adm') || p.includes('painel') || p.includes('gestor')) {
-        return "O Painel ADM pode ser acessado no topo da página digitando a senha do gestor.";
+        return "Você pode acessar o Painel ADM clicando diretamente no botão '🔑 Painel ADM' no menu superior!";
       }
       if (p.includes('olá') || p.includes('oi') || p.includes('bom dia') || p.includes('boa tarde')) {
         return "Olá! Como posso ajudar você a estruturar seu projeto web ou sistema hoje?";
       }
       return `Entendi sua dúvida sobre "${prompt}". Você pode simular esses módulos na aba 'Simulador & ROI' ou agendar um horário direto com nosso gestor!`;
-    }
-
-    // 7. Modal ADM e Validação de Senha 2522
-    function abrirModalAdmin() {
-      document.getElementById('modal-admin').classList.remove('hidden');
-    }
-
-    function fecharModalAdmin() {
-      document.getElementById('modal-admin').classList.add('hidden');
-      document.getElementById('mensagem-erro-admin').classList.add('hidden');
-    }
-
-    function verificarAcessoAdmin() {
-      const inputSenha = document.getElementById('senha-admin');
-      const senha = inputSenha ? inputSenha.value.trim() : '';
-      const erro = document.getElementById('mensagem-erro-admin');
-
-      if (senha === '2522') {
-        fecharModalAdmin();
-        alternarAba('propostas');
-        if (inputSenha) inputSenha.value = '';
-        alert('Acesso Autorizado! Redirecionado para a Gestão de Propostas.');
-      } else {
-        if (erro) {
-          erro.innerText = 'Senha incorreta. Tente novamente.';
-          erro.classList.remove('hidden');
-        }
-      }
     }
   </script>
 </body>
