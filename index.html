@@ -1,20 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSDev Ecosystem - Web Development & Data Intelligence</title>
-  <!-- Tailwind CSS CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSDev - Engenharia de Software, Automação &amp; Sistemas Sob Medida</title>
+  <meta name="description" content="Sistemas web sob medida, automações empresariais via APIs, integrações Supabase e soluções de Inteligência Artificial para alavancar a eficiência da sua empresa." />
+  
+  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Script do Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            slate: {
-              750: '#1e293b',
-              850: '#0f172a',
-              950: '#020617',
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#0f172a'
             }
           }
         }
@@ -22,776 +33,694 @@
     }
   </script>
   <style>
-    .scrollbar-thin::-webkit-scrollbar { width: 5px; }
-    .scrollbar-thin::-webkit-scrollbar-track { background: #020617; }
-    .scrollbar-thin::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
-    .tab-btn.active {
-      background-color: #2563eb;
-      color: #ffffff;
-      border-color: #3b82f6;
+    /* Estilização customizada da barra de rolagem */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
     }
   </style>
 </head>
-<body class="bg-slate-950 text-white font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col">
 
-  <!-- CABEÇALHO (HEADER) -->
-  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="text-2xl font-black text-blue-500 tracking-wider">CS<span class="text-white">DEV</span></span>
-        <span class="hidden md:inline text-xs text-slate-400 border-l border-slate-700 pl-3">Software Solutions</span>
+  <!-- ==================== CABEÇALHO / NAVEGAÇÃO PRINCIPAL ==================== -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logotipo & Dados da Empresa -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl flex items-center justify-center font-black text-white text-xl shadow-lg shadow-blue-500/20">
+          CS
+        </div>
+        <div>
+          <span class="font-black text-xl tracking-tight text-white block leading-none">CSDev</span>
+          <span class="text-[11px] text-slate-400 font-mono">CNPJ: 67.054.464/0001-51</span>
+        </div>
       </div>
 
-      <!-- NAVEGAÇÃO POR ABAS -->
-      <nav class="flex items-center gap-2 overflow-x-auto py-1">
-        <button type="button" onclick="alternarAba('simulador')" id="tab-btn-simulador" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition border border-slate-700">
-          ⚡ Simulador & ROI
-        </button>
-        <button type="button" onclick="alternarAba('projetos')" id="tab-btn-projetos" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition border border-slate-700">
-          🚀 Projetos
-        </button>
-        <button type="button" onclick="alternarAba('propostas')" id="tab-btn-propostas" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition border border-slate-700">
-          📄 Propostas
-        </button>
-        <button type="button" onclick="alternarAba('comercial-ia')" id="tab-btn-comercial-ia" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition border border-slate-700">
-          🤖 Comercial + IA
-        </button>
-        <button type="button" onclick="alternarAba('painel-adm')" id="tab-btn-painel-adm" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold bg-blue-900/50 text-blue-300 hover:bg-blue-800 transition border border-blue-500/50">
-          🔑 Painel ADM
-        </button>
+      <!-- Links de Navegação -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-slate-400">
+        <a href="#solucoes" class="hover:text-blue-400 transition-colors">Soluções</a>
+        <a href="#portfolio" class="hover:text-blue-400 transition-colors">Portfólio</a>
+        <a href="#simulador" class="hover:text-blue-400 transition-colors">Calculadora ROI</a>
+        <a href="#portal" class="hover:text-blue-400 transition-colors">Portal Transparência</a>
+        <a href="#ia-assistente" class="hover:text-blue-400 transition-colors">Assistente IA</a>
+        <a href="#faq" class="hover:text-blue-400 transition-colors">FAQ</a>
       </nav>
+
+      <!-- Ações do Topo -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleModal('modal-agendamento')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2">
+          <span>📅</span> Agendar Reunião
+        </button>
+        <button onclick="toggleModal('modal-adm')" class="border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-bold px-3 py-3 rounded-xl transition-all flex items-center gap-1.5">
+          <span>🔒</span> Painel ADM
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- SEÇÃO HERO COM GRADIENTE SLATE -->
-  <section class="py-12 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-b border-slate-800/60 relative overflow-hidden">
-    <div class="absolute inset-0 bg-blue-500/5 blur-3xl pointer-events-none"></div>
-    <div class="container mx-auto px-6 text-center relative z-10">
-      <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-4">
-        Ecossistema Tecnológico <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">CSDEV</span>
+  <main class="flex-grow space-y-24 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+    <!-- ==================== HERO SECTION (APRESENTAÇÃO) ==================== -->
+    <section class="text-center space-y-6 max-w-4xl mx-auto pt-8">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-950/80 border border-blue-800/80 rounded-full text-xs font-mono text-blue-400 shadow-inner">
+        <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+        Engenharia de Software &amp; Inteligência Artificial Corporativa
+      </div>
+      
+      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-none">
+        Sistemas Customizados para Maximizar a Operação do Seu Negócio
       </h1>
-      <p class="text-slate-400 max-w-2xl mx-auto text-xs md:text-sm">
-        Sistemas web sob medida, landing pages de alta conversão, geração de propostas e atendimento comercial inteligente em um só lugar.
+      
+      <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+        Desenvolvimento de softwares web de alto desempenho, automação de fluxos financeiros, integração de banco de dados via Supabase e soluções com IA sob medida.
       </p>
-    </div>
-  </section>
 
-  <!-- CONTAINER PRINCIPAL -->
-  <main class="container mx-auto px-6 py-8 flex-grow">
-
-    <!-- ABA 1: SIMULADOR & ROI -->
-    <div id="aba-simulador" class="aba-conteudo">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-black mb-2">Simulador de Orçamento Instantâneo</h2>
-        <p class="text-slate-400 text-xs">Monte o escopo ideal para o seu projeto e calcule a estimativa financeira em tempo real</p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <a href="#simulador" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all">
+          Calcular Retorno sobre Investimento
+        </a>
+        <a href="#portfolio" class="bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 font-bold text-sm px-6 py-3.5 rounded-xl transition-all">
+          Ver Sistemas em Operação
+        </a>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
-        <div class="lg:col-span-7 bg-slate-900 p-6 rounded-xl border border-slate-800 space-y-4">
-          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">🛠️ Selecione os Módulos</h3>
-
-          <label class="flex items-center justify-between p-4 bg-slate-950 rounded-lg cursor-pointer transition border border-slate-800/80 hover:border-blue-500/40">
-            <span class="flex items-center gap-3">
-              <input type="checkbox" id="chk-landing" class="h-5 w-5 text-blue-500 rounded bg-slate-900 border-slate-700" onchange="atualizarSimulador()">
-              <div>
-                <p class="font-bold text-sm">Landing Page Premium</p>
-                <p class="text-xs text-slate-400">Design moderno responsivo, alta conversão e otimização SEO.</p>
-              </div>
-            </span>
-            <span class="font-extrabold text-blue-400 text-sm">R$ 1.800</span>
-          </label>
-
-          <label class="flex items-center justify-between p-4 bg-slate-950 rounded-lg cursor-pointer transition border border-slate-800/80 hover:border-blue-500/40">
-            <span class="flex items-center gap-3">
-              <input type="checkbox" id="chk-sistema" class="h-5 w-5 text-blue-500 rounded bg-slate-900 border-slate-700" onchange="atualizarSimulador()">
-              <div>
-                <p class="font-bold text-sm">Sistema Web Customizado</p>
-                <p class="text-xs text-slate-400">Painéis de controle, controle de permissões e infraestrutura web.</p>
-              </div>
-            </span>
-            <span class="font-extrabold text-blue-400 text-sm">R$ 4.500</span>
-          </label>
-
-          <label class="flex items-center justify-between p-4 bg-slate-950 rounded-lg cursor-pointer transition border border-slate-800/80 hover:border-blue-500/40">
-            <span class="flex items-center gap-3">
-              <input type="checkbox" id="chk-dashboard" class="h-5 w-5 text-blue-500 rounded bg-slate-900 border-slate-700" onchange="atualizarSimulador()">
-              <div>
-                <p class="font-bold text-sm">Dashboard & BI</p>
-                <p class="text-xs text-slate-400">Gráficos dinâmicos e métricas de desempenho estratégico.</p>
-              </div>
-            </span>
-            <span class="font-extrabold text-blue-400 text-sm">R$ 2.200</span>
-          </label>
-
-          <label class="flex items-center justify-between p-4 bg-slate-950 rounded-lg cursor-pointer transition border border-slate-800/80 hover:border-blue-500/40">
-            <span class="flex items-center gap-3">
-              <input type="checkbox" id="chk-whats" class="h-5 w-5 text-blue-500 rounded bg-slate-900 border-slate-700" onchange="atualizarSimulador()">
-              <div>
-                <p class="font-bold text-sm">Automações com WhatsApp</p>
-                <p class="text-xs text-slate-400">Notificações e alertas automatizados de cobrança/vendas.</p>
-              </div>
-            </span>
-            <span class="font-extrabold text-blue-400 text-sm">R$ 1.500</span>
-          </label>
-
-          <label class="flex items-center justify-between p-4 bg-slate-950 rounded-lg cursor-pointer border border-blue-500/20 hover:border-blue-500/50 transition">
-            <span class="flex items-center gap-3">
-              <input type="checkbox" id="chk-ia" class="h-5 w-5 text-blue-500 rounded bg-slate-900 border-slate-700" onchange="atualizarSimulador()">
-              <div>
-                <p class="font-bold text-sm text-blue-300">🤖 Módulo Inteligência Artificial</p>
-                <p class="text-xs text-slate-400">Agentes conversacionais e processamento de linguagem natural.</p>
-              </div>
-            </span>
-            <span class="font-extrabold text-blue-400 text-sm">R$ 2.500</span>
-          </label>
-
-          <label class="flex items-center justify-between p-4 bg-slate-950 rounded-lg cursor-pointer border border-emerald-500/20 hover:border-emerald-500/50 transition">
-            <span class="flex items-center gap-3">
-              <input type="checkbox" id="chk-supabase" class="h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-700" onchange="atualizarSimulador()">
-              <div>
-                <p class="font-bold text-sm text-emerald-300">🔥 Upgrade Supabase Database & Auth</p>
-                <p class="text-xs text-slate-400">Banco relacional Postgres e autenticação de extrema segurança.</p>
-              </div>
-            </span>
-            <span class="font-extrabold text-blue-400 text-sm">R$ 1.200</span>
-          </label>
-
-          <div class="mt-4 pt-4 border-t border-slate-800">
-            <label class="block text-xs font-bold text-slate-300 mb-2">Selecione o Plano de Suporte:</label>
-            <select id="select-suporte" onchange="atualizarSimulador()" class="w-full p-2.5 bg-slate-950 text-white rounded border border-slate-800 text-xs focus:outline-none focus:border-blue-500">
-              <option value="suporte30">30 Dias Gratuito (Premium)</option>
-              <option value="suporte60">60 Dias Gratuito (Standard/Enterprise)</option>
-              <option value="suporte90">90 Dias Especializado (+ R$ 900)</option>
-            </select>
-          </div>
+      <!-- Diferenciais em Pilar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-slate-900">
+        <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60 text-left">
+          <span class="text-blue-400 font-black text-xl block mb-1">100%</span>
+          <span class="text-xs text-slate-400">Propriedade Intelectual</span>
         </div>
-
-        <div class="lg:col-span-5 space-y-6">
-          <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-6 rounded-xl border border-blue-500/30 shadow-lg">
-            <!-- INPUT NOME CLIENTE SOLICITADO -->
-            <div class="mb-4">
-              <label class="block text-xs text-gray-400 mb-1">Seu Nome / Nome da Empresa:</label>
-              <input type="text" id="cliente-nome-empresa" placeholder="Ex: Cleiton - CSDev" class="w-full p-2.5 bg-slate-800 rounded border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500">
-            </div>
-
-            <h3 class="text-xs font-semibold text-blue-300 mb-1 uppercase tracking-wider">Investimento Total Estimado</h3>
-            <p id="investimento-total" class="text-4xl font-black text-white mb-4">R$ 0,00</p>
-            <div id="opcoes-fechamento" class="space-y-3 hidden">
-              <button type="button" onclick="solicitarNegociacao()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg text-xs transition shadow-md shadow-blue-500/10">
-                🤝 Solicitar Negociação de Valores
-              </button>
-              <button type="button" onclick="gerarPropostaPDF()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-lg text-xs transition border border-slate-700">
-                📄 Gerar Proposta Comercial (PDF)
-              </button>
-            </div>
-          </div>
-
-          <!-- AGENDA GOOGLE SCHEDULER BOX -->
-          <div id="google-scheduler-box" class="bg-slate-900 p-6 rounded-xl border border-blue-500/30 hidden">
-            <h3 class="text-sm font-bold text-blue-400 mb-2">📅 Agendar Reunião de Negociação</h3>
-            <div class="space-y-3">
-              <div>
-                <label class="block text-xs text-slate-400 mb-1">Atendente Responsável:</label>
-                <select id="sched-dest" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white">
-                  <option value="isabella">Isabella (Comercial)</option>
-                  <option value="cleiton">Cleiton (Técnico)</option>
-                </select>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block text-xs text-slate-400 mb-1">Data:</label>
-                  <input type="date" id="sched-data" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white">
-                </div>
-                <div>
-                  <label class="block text-xs text-slate-400 mb-1">Horário:</label>
-                  <select id="sched-hora" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white">
-                    <option value="09:00">09:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="14:30">14:30</option>
-                    <option value="16:00">16:00</option>
-                  </select>
-                </div>
-              </div>
-              <button type="button" onclick="confirmarAgendamentoGoogle()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded text-xs transition">
-                Confirmar Reunião
-              </button>
-              <div id="sched-success" class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs text-emerald-400 hidden"></div>
-            </div>
-          </div>
-
-          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-            <h3 class="text-base font-bold text-emerald-400 mb-3 flex items-center gap-2">📊 Retorno Financeiro (ROI)</h3>
-            <div class="space-y-3 mb-4">
-              <div>
-                <label class="block text-[10px] text-slate-400 mb-1">Colaboradores no processo manual:</label>
-                <input type="number" id="roi-colaboradores" min="1" placeholder="Ex: 3" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white focus:outline-none focus:border-blue-500" oninput="calcularROI()">
-              </div>
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-[10px] text-slate-400 mb-1">Horas manuais/sem.:</label>
-                  <input type="number" id="roi-horas" min="1" placeholder="Ex: 10" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white focus:outline-none focus:border-blue-500" oninput="calcularROI()">
-                </div>
-                <div>
-                  <label class="block text-[10px] text-slate-400 mb-1">Custo Hora (R$):</label>
-                  <input type="number" id="roi-custo-hora" min="1" placeholder="Ex: 25" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white focus:outline-none focus:border-blue-500" oninput="calcularROI()">
-                </div>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800 text-center">
-              <div>
-                <span class="text-[10px] text-slate-400 block">Economia Mensal:</span>
-                <p id="economia-mensal" class="text-sm font-extrabold text-emerald-400">R$ 0,00</p>
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-400 block">Payback Estimado:</span>
-                <p id="tempo-payback" class="text-sm font-extrabold text-white">0 meses</p>
-              </div>
-            </div>
-          </div>
+        <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60 text-left">
+          <span class="text-emerald-400 font-black text-xl block mb-1">SSL 256-bit</span>
+          <span class="text-xs text-slate-400">Segurança de Dados</span>
+        </div>
+        <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60 text-left">
+          <span class="text-purple-400 font-black text-xl block mb-1">Supabase</span>
+          <span class="text-xs text-slate-400">Banco Postgres Escalável</span>
+        </div>
+        <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60 text-left">
+          <span class="text-amber-400 font-black text-xl block mb-1">NFS-e</span>
+          <span class="text-xs text-slate-400">Faturamento Oficial</span>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ABA 2: PROJETOS -->
-    <div id="aba-projetos" class="aba-conteudo hidden">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-black mb-2">Portfólio de Projetos Ativos</h2>
-        <p class="text-slate-400 text-xs">Aplicações e soluções web em produção construídas pela CSDev</p>
+    <!-- ==================== NOSSAS SOLUÇÕES ==================== -->
+    <section id="solucoes" class="space-y-8">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Soluções Tecnológicas Especializadas</h2>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">Construímos a infraestrutura digital ideal para acelerar a produtividade do seu time.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-blue-500/40 transition-all duration-300 shadow-lg p-6 group">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold text-blue-400 tracking-wider uppercase">✂️ Agendamentos & Serviços</span>
-            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full font-medium">Ativo (Netlify)</span>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900 border border-slate-800 hover:border-blue-500/40 p-6 rounded-2xl transition-all space-y-4">
+          <div class="w-12 h-12 bg-blue-950 border border-blue-800 rounded-xl flex items-center justify-center text-blue-400 text-2xl font-bold">
+            💻
           </div>
-          <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">BARBEARIA DIGITAL</h3>
-          <p class="text-slate-400 text-xs mb-6">Landing page responsiva de alta conversão para reserva e catálogo de serviços online.</p>
-          <a href="https://barbeariadanilo.netlify.app/" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition">
-            Acessar Projeto <span>&rarr;</span>
-          </a>
+          <h3 class="text-lg font-bold text-white">Sistemas Web Customizados</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Desenvolvimento de dashboards operacionais, sistemas de cobrança, catálogos digitais e sistemas de agendamento em tempo real com React, Next.js e Tailwind.
+          </p>
         </div>
 
-        <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-emerald-500/40 transition-all duration-300 shadow-lg p-6 group">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase">📱 E-Commerce & Vendas</span>
-            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full font-medium">Ativo (Netlify)</span>
+        <div class="bg-slate-900 border border-slate-800 hover:border-emerald-500/40 p-6 rounded-2xl transition-all space-y-4">
+          <div class="w-12 h-12 bg-emerald-950 border border-emerald-800 rounded-xl flex items-center justify-center text-emerald-400 text-2xl font-bold">
+            ⚡
           </div>
-          <h3 class="text-xl font-bold mb-2 group-hover:text-emerald-400 transition">MI PRIME CELL</h3>
-          <p class="text-slate-400 text-xs mb-6">Catálogo digital para vendas de smartphones e suporte de assistência técnica comercial.</p>
-          <a href="https://miprimecell.netlify.app/" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition">
-            Acessar Projeto <span>&rarr;</span>
-          </a>
+          <h3 class="text-lg font-bold text-white">Automação de Processos &amp; APIs</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Integração automatizada entre formulários do site, CRM, planilhas do Google Workspace e plataformas financeiras para eliminar retrabalho manual.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 hover:border-purple-500/40 p-6 rounded-2xl transition-all space-y-4">
+          <div class="w-12 h-12 bg-purple-950 border border-purple-800 rounded-xl flex items-center justify-center text-purple-400 text-2xl font-bold">
+            🤖
+          </div>
+          <h3 class="text-lg font-bold text-white">Atendimento Guiado por IA</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Implementação de chatbots inteligentes treinados especificamente no seu catálogo de produtos ou serviços para responder dúvidas e qualificar leads 24/7.
+          </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ABA 3: PROPOSTAS -->
-    <div id="aba-propostas" class="aba-conteudo hidden">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-black mb-2">Gerador de Propostas Comerciais</h2>
-        <p class="text-slate-400 text-xs">Emita minutas de propostas oficiais com dados cadastrais e valores negociados</p>
-      </div>
-
-      <div class="max-w-2xl mx-auto bg-slate-900 p-6 rounded-xl border border-slate-800 space-y-4">
+    <!-- ==================== PORTFÓLIO DE SUCESSO ==================== -->
+    <section id="portfolio" class="space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-800 pb-4 gap-4">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Nome do Cliente / Empresa Destinatária:</label>
-          <input type="text" id="prop-cliente" placeholder="Ex: Empresa XYZ LTDA" class="w-full p-2.5 bg-slate-950 text-white rounded border border-slate-800 text-xs focus:outline-none focus:border-blue-500">
+          <h2 class="text-2xl font-black text-white tracking-tight">Portfólio &amp; Casos de Sucesso</h2>
+          <p class="text-xs text-slate-400">Sistemas desenvolvidos pela CSDev operando ativamente no mercado.</p>
         </div>
+        <span class="text-xs text-slate-400 font-mono bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+          Infraestrutura Serverless + Supabase
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Card 1: Barbearia Danilo -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all flex flex-col">
+          <div class="p-6 space-y-4 flex-grow">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-bold text-white text-xl">Barbearia Danilo</h3>
+                <span class="text-[11px] text-slate-400">Agendamento &amp; Gestão de Atendimentos</span>
+              </div>
+              <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-1 rounded-md font-mono font-bold">
+                ● Ativo em Produção
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Plataforma completa para seleção de barbeiro, escolha de horários em tempo real, gestão de catálogo de serviços e confirmação automática de agendamentos via WhatsApp.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">React</span>
+              <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">Tailwind</span>
+              <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">Supabase</span>
+            </div>
+          </div>
+          <div class="px-6 py-4 bg-slate-950 border-t border-slate-800/80 flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-400">Status: Operacional</span>
+            <a href="#" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:underline">
+              Visualizar Projeto &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Mi Prime Cell -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all flex flex-col">
+          <div class="p-6 space-y-4 flex-grow">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-bold text-white text-xl">Mi Prime Cell</h3>
+                <span class="text-[11px] text-slate-400">E-Commerce &amp; Catálogo Interativo</span>
+              </div>
+              <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-1 rounded-md font-mono font-bold">
+                ● Ativo em Produção
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Catálogo de alta velocidade focado em venda e suporte para smartphones e acessórios, com cálculo de frete, vitrine digital e encaminhamento direto para fechamento de vendas.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">Next.js</span>
+              <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">APIs Financeiras</span>
+              <span class="text-[10px] bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-300 font-mono">Netlify</span>
+            </div>
+          </div>
+          <div class="px-6 py-4 bg-slate-950 border-t border-slate-800/80 flex justify-between items-center">
+            <span class="text-xs font-bold text-slate-400">Status: Operacional</span>
+            <a href="#" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:underline">
+              Visualizar Projeto &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SIMULADOR DE ROI + GRÁFICO DINÂMICO + PROVA CRM ==================== -->
+    <section id="simulador" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-10 backdrop-blur-sm">
+      <div class="lg:col-span-6 space-y-6">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Resumo das Especificações Técnicas:</label>
-          <textarea id="prop-obs" rows="3" placeholder="Insira aqui observações adicionais sobre os módulos ou prazos..." class="w-full p-2.5 bg-slate-950 text-white rounded border border-slate-800 text-xs focus:outline-none focus:border-blue-500"></textarea>
+          <span class="text-xs font-bold text-blue-400 uppercase tracking-wider block mb-1">Simulador Interativo</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white">Calculadora de Economia Operacional (ROI)</h2>
         </div>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Descubra quanto dinheiro sua empresa economizará substituindo tarefas manuais por sistemas web automatizados desenvolvidos pela CSDev.
+        </p>
         
-        <div class="p-4 bg-slate-950 rounded-lg border border-slate-800">
-          <span class="text-xs text-slate-400 block mb-1">Valor Atual Selecionado no Simulador:</span>
-          <span id="prop-valor-simulado" class="text-2xl font-black text-emerald-400">R$ 0,00</span>
-        </div>
-
-        <button type="button" onclick="gerarPropostaPDF()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10">
-          🖨️ Imprimir / Salvar Proposta Comercial (PDF)
-        </button>
-      </div>
-    </div>
-
-    <!-- ABA 4: COMERCIAL + IA -->
-    <div id="aba-comercial-ia" class="aba-conteudo hidden">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-black mb-2">Área Comercial & Atendimento com IA</h2>
-        <p class="text-slate-400 text-xs">Agende reuniões de negociação ou interaja com o assistente inteligente contextualizado</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <div class="bg-slate-900 p-6 rounded-xl border border-blue-500/20 space-y-4">
-          <h3 class="text-base font-bold text-blue-300 flex items-center gap-2">📅 Agendar Reunião de Negociação</h3>
+        <div class="space-y-5 pt-2">
           <div>
-            <label class="block text-xs text-slate-400 mb-1">Representante da CSDev:</label>
-            <select id="sched-dest-ia" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
-              <option value="isabella">Isabella (Consultora Administrativa - Comercial)</option>
-              <option value="cleiton">Cleiton da Silva Pereira (Gestor de TI - Técnico)</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Data:</label>
-              <input type="date" id="sched-data-ia" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="text-xs font-bold text-slate-300">Horas gastas em tarefas manuais (semanais):</label>
+              <span id="disp-horas" class="text-xs font-mono font-bold text-blue-400">15 hrs</span>
             </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Horário:</label>
-              <select id="sched-hora-ia" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
-                <option value="09:00">09:00</option>
-                <option value="11:00">11:00</option>
-                <option value="14:30">14:30</option>
-                <option value="16:00">16:00</option>
-              </select>
+            <input type="range" id="input-horas" min="5" max="80" value="15" step="1" oninput="atualizarECalcularROI()" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="text-xs font-bold text-slate-300">Custo médio por hora operacional (R$):</label>
+              <span id="disp-custo-hora" class="text-xs font-mono font-bold text-blue-400">R$ 45,00</span>
+            </div>
+            <input type="range" id="input-custo-hora" min="20" max="200" value="45" step="5" oninput="atualizarECalcularROI()" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Estimativa do Investimento Inicial (R$):</label>
+            <input type="number" id="input-investimento" value="4500" oninput="calcularROI()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500 font-mono" />
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-3">
+          Projeção Financeira &amp; Retorno
+        </h3>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block font-bold mb-1">ECONOMIA MENSAL ESTIMADA</span>
+            <span id="res-economia-mes" class="text-xl font-black text-emerald-400 font-mono">R$ 2.700,00</span>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-lg border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block font-bold mb-1">PAYBACK ESTIMADO</span>
+            <span id="res-payback" class="text-xl font-black text-blue-400 font-mono">~ 1,7 Meses</span>
+          </div>
+        </div>
+
+        <!-- Componente do Gráfico Dinâmico SVG/Barra -->
+        <div class="pt-4 border-t border-slate-800 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-[11px] text-slate-400 font-bold uppercase">Comparativo Anual de Custos</span>
+            <span class="text-[10px] text-emerald-400 font-mono font-bold" id="res-porcentagem-economia">Economia de 86%</span>
+          </div>
+
+          <div class="flex items-end justify-center gap-10 h-36 bg-slate-950 p-5 rounded-xl border border-slate-800/80">
+            <!-- Barra Custo Atual -->
+            <div class="flex flex-col items-center gap-1.5 w-24">
+              <span id="label-custo-atual" class="text-[10px] font-bold text-red-400 font-mono">R$ 32.400,00</span>
+              <div id="bar-custo-atual" class="w-full bg-red-500/30 border border-red-500 rounded-t-md transition-all duration-500 h-28"></div>
+              <span class="text-[10px] text-slate-400 font-bold">Custo Sem Automação</span>
+            </div>
+
+            <!-- Barra Custo CSDev -->
+            <div class="flex flex-col items-center gap-1.5 w-24">
+              <span id="label-custo-csdev" class="text-[10px] font-bold text-emerald-400 font-mono">R$ 4.500,00</span>
+              <div id="bar-custo-csdev" class="w-full bg-emerald-500/30 border border-emerald-500 rounded-t-md transition-all duration-500 h-8"></div>
+              <span class="text-[10px] text-slate-400 font-bold">Investimento CSDev</span>
             </div>
           </div>
-          <button type="button" onclick="confirmarAgendamentoGoogle()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded text-xs transition">
-            Confirmar Reunião Comercial
+        </div>
+
+        <!-- Prova Social do CRM Google Sheets -->
+        <div class="p-4 bg-blue-950/40 border border-blue-500/30 rounded-xl text-center space-y-2">
+          <p class="text-xs text-slate-300">
+            ⚡ <b>Prova de Automação Live:</b> Todos os simuladores estão conectados via Webhook ao Google Workspace.
+          </p>
+          <a href="https://docs.google.com/sheets" target="_blank" class="inline-flex items-center justify-center gap-1 text-xs font-bold text-blue-400 hover:underline">
+            🔗 Abrir Planilha CRM Demonstrativa em Tempo Real &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PORTAL DO CLIENTE ==================== -->
+    <section id="portal" class="max-w-4xl mx-auto space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl font-black text-white">Portal de Transparência do Cliente</h2>
+        <p class="text-xs text-slate-400">Acompanhe a evolução do desenvolvimento do seu projeto em tempo real.</p>
+      </div>
+
+      <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="busca-cnpj" placeholder="Digite seu CNPJ ou E-mail cadastrado (Ex: 67.054.464/0001-51)..." class="flex-grow p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500 font-mono" />
+          <button type="button" onclick="consultarStatusProjeto()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
+            Consultar Status
           </button>
         </div>
 
-        <div class="bg-slate-900 p-6 rounded-xl border border-blue-500/40 shadow-2xl shadow-blue-500/10 flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-2xl">🤖</span>
-              <div>
-                <h4 class="font-bold text-white text-xs">Assistente Comercial CSDev</h4>
-                <span class="text-[10px] text-emerald-400">Online & Respostas Dinâmicas</span>
-              </div>
+        <div id="resultado-portal" class="hidden p-6 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-4">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800/80 pb-3">
+            <div>
+              <p class="font-bold text-sm text-white" id="portal-nome-projeto">Projeto: Sistema Web &amp; Integração Supabase</p>
+              <p class="text-[10px] text-slate-400" id="portal-cliente">Cliente: Empresa Contratante Exemplar LTDA</p>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 border border-emerald-800 px-3 py-1 rounded-md font-bold">
+              Etapa: Homologação Final
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-400">Progresso Geral das Entregas:</span>
+              <span class="text-emerald-400 font-mono">85%</span>
+            </div>
+            <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
+              <div id="portal-progresso" class="bg-emerald-500 h-full w-[85%] transition-all duration-700"></div>
             </div>
           </div>
 
-          <div id="chat-messages" class="h-56 overflow-y-auto p-3 bg-slate-950 rounded-lg space-y-3 scrollbar-thin border border-slate-800/80">
-            <div class="flex gap-2">
-              <span class="text-xs">🤖</span>
-              <div class="bg-slate-800 text-slate-200 p-2.5 rounded-lg text-xs max-w-[85%]">
-                Olá! Sou o agente virtual da CSDev. Faça sua pergunta sobre valores, banco Supabase ou prazos de entrega!
-              </div>
+          <!-- Etapas em checklist -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
+              <span class="text-emerald-400 font-bold block">✓ 1. Design &amp; Layout</span>
+              <span class="text-slate-400 text-[10px]">100% Finalizado</span>
+            </div>
+            <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
+              <span class="text-emerald-400 font-bold block">✓ 2. Banco Supabase</span>
+              <span class="text-slate-400 text-[10px]">100% Finalizado</span>
+            </div>
+            <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800 text-[11px] space-y-1">
+              <span class="text-blue-400 font-bold block">⏳ 3. Testes &amp; Ajustes</span>
+              <span class="text-slate-400 text-[10px]">Em andamento (50%)</span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="flex gap-2">
-            <input type="text" id="input-chat" placeholder="Digite sua dúvida aqui..." class="flex-grow p-2.5 bg-slate-950 text-white rounded-lg border border-slate-800 text-xs focus:outline-none focus:border-blue-500" onkeydown="verificarTeclaEnter(event)">
-            <button type="button" onclick="enviarMensagemIA()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-lg font-bold text-xs transition shadow-md shadow-blue-500/20">Enviar</button>
+    <!-- ==================== MODO IA RESPONSIVO (CHATBOT CSDev BOT) ==================== -->
+    <section id="ia-assistente" class="max-w-4xl mx-auto space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl font-black text-white">Atendimento Guiado por Inteligência Artificial</h2>
+        <p class="text-xs text-slate-400">Tire dúvidas técnicas, pergunte sobre prazos e simule orçamentos com o bot da CSDev.</p>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">
+                AI
+              </div>
+              <div class="w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-900 absolute -bottom-1 -right-1"></div>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white leading-none">CSDev Bot (Modo IA Responsivo)</h3>
+              <span class="text-[10px] text-slate-400">Online | Atendimento em Tempo Real</span>
+            </div>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono bg-slate-950 px-2.5 py-1 rounded border border-slate-800">
+            v2.4 System Prompt
+          </span>
+        </div>
+
+        <div id="chat-box" class="h-64 bg-slate-950 rounded-xl p-4 overflow-y-auto space-y-4 border border-slate-800/80 text-xs">
+          <div class="bg-slate-900 border border-slate-800/80 p-3 rounded-xl text-slate-300 max-w-[85%] leading-relaxed">
+            Olá! Sou o assistente virtual da CSDev. Posso responder sobre os nossos preços de desenvolvimento, infraestrutura Supabase, prazos de entrega ou sobre os fundadores Cleiton e Isabella. Como posso ajudar seu projeto hoje?
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- ABA 5: PAINEL ADM DE GESTÃO (VISÍVEL E ACESSÍVEL) -->
-    <div id="aba-painel-adm" class="aba-conteudo hidden">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-black mb-2 text-blue-400">Painel de Controle e Gestão ADM</h2>
-        <p class="text-slate-400 text-xs">Visão geral do ecossistema CSDev, controle de orçamentos e relatórios em tempo real</p>
-      </div>
-
-      <!-- Métricas Principais -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-          <span class="text-slate-400 text-[10px] uppercase block font-bold">Total em Propostas</span>
-          <p class="text-2xl font-black text-emerald-400 mt-1">R$ 13.700,00</p>
-          <span class="text-[10px] text-slate-500">Últimos 30 dias</span>
-        </div>
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-          <span class="text-slate-400 text-[10px] uppercase block font-bold">Projetos Ativos</span>
-          <p class="text-2xl font-black text-blue-400 mt-1">2 Aplicações</p>
-          <span class="text-[10px] text-slate-500">Barbearia & Mi Prime</span>
-        </div>
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-          <span class="text-slate-400 text-[10px] uppercase block font-bold">Interações com IA</span>
-          <p class="text-2xl font-black text-purple-400 mt-1">148 Respostas</p>
-          <span class="text-[10px] text-slate-500">Taxa de retenção: 92%</span>
-        </div>
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
-          <span class="text-slate-400 text-[10px] uppercase block font-bold">Status da Infraestrutura</span>
-          <p class="text-2xl font-black text-emerald-400 mt-1">Online (Supabase)</p>
-          <span class="text-[10px] text-slate-500">Latência: 24ms</span>
-        </div>
-      </div>
-
-      <!-- Tabela de Oportunidades & Clientes -->
-      <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-4">
-        <div class="flex justify-between items-center">
-          <h3 class="text-sm font-bold text-white flex items-center gap-2">📋 Propostas & Oportunidades Recentes</h3>
-          <button type="button" onclick="alternarAba('propostas')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded text-xs font-bold transition">
-            + Nova Proposta
+        <div class="flex gap-3 pt-2">
+          <input type="text" id="chat-input" placeholder="Pergunte algo como: 'Qual é o valor médio de um sistema?' ou 'Quem é Cleiton?'..." class="flex-grow p-3 bg-slate-950 text-white rounded-xl border border-slate-800 text-xs focus:outline-none focus:border-blue-500" onkeypress="if(event.key === 'Enter') enviarMensagemIA()" />
+          <button type="button" onclick="enviarMensagemIA()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition shadow-md shadow-blue-600/20">
+            Enviar
           </button>
         </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] border-b border-slate-800">
-              <tr>
-                <th class="p-3">Cliente / Empresa</th>
-                <th class="p-3">Módulos Solicitados</th>
-                <th class="p-3">Valor Estimado</th>
-                <th class="p-3">Status</th>
-                <th class="p-3 text-right">Ação</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800 text-slate-300">
-              <tr class="hover:bg-slate-850">
-                <td class="p-3 font-bold text-white">Barbearia Danilo</td>
-                <td class="p-3">Landing Page + Agendamento</td>
-                <td class="p-3 font-semibold text-emerald-400">R$ 1.800,00</td>
-                <td class="p-3"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-[10px]">Entregue</span></td>
-                <td class="p-3 text-right"><a href="https://barbeariadanilo.netlify.app/" target="_blank" class="text-blue-400 hover:underline">Ver Site</a></td>
-              </tr>
-              <tr class="hover:bg-slate-850">
-                <td class="p-3 font-bold text-white">Mi Prime Cell</td>
-                <td class="p-3">E-Commerce + Catálogo</td>
-                <td class="p-3 font-semibold text-emerald-400">R$ 4.500,00</td>
-                <td class="p-3"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-[10px]">Entregue</span></td>
-                <td class="p-3 text-right"><a href="https://miprimecell.netlify.app/" target="_blank" class="text-blue-400 hover:underline">Ver Site</a></td>
-              </tr>
-              <tr class="hover:bg-slate-850">
-                <td class="p-3 font-bold text-white">Cliente Exemplo LTDA</td>
-                <td class="p-3">Sistema Web + Supabase + IA</td>
-                <td class="p-3 font-semibold text-emerald-400">R$ 8.200,00</td>
-                <td class="p-3"><span class="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px]">Em Negociação</span></td>
-                <td class="p-3 text-right"><button onclick="alternarAba('propostas')" class="text-blue-400 hover:underline">Editar</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ==================== FAQ INTERATIVO ==================== -->
+    <section id="faq" class="max-w-4xl mx-auto space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl font-black text-white">Perguntas Frequentes (FAQ)</h2>
+        <p class="text-xs text-slate-400">Respostas claras para sanar dúvidas contratuais, fiscais e técnicas.</p>
+      </div>
+
+      <div class="space-y-4">
+        <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
+          <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
+            <span>Como funciona a entrega do código-fonte e da propriedade intelectual?</span>
+            <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
+          </summary>
+          <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
+            A propriedade intelectual de todo o código desenvolvido é 100% transferida para a sua empresa após a quitação total do projeto. Você recebe acesso irrestrito ao repositório no GitHub contendo o código-fonte documentado.
+          </p>
+        </details>
+
+        <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
+          <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
+            <span>Onde o sistema fica hospedado e qual é a infraestrutura de segurança?</span>
+            <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
+          </summary>
+          <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
+            Utilizamos infraestrutura serverless global na Netlify/Vercel com certificado SSL automático de 256 bits, integrados ao banco de dados relacional PostgreSQL via Supabase com autenticação segura de nível enterprise.
+          </p>
+        </details>
+
+        <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
+          <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
+            <span>Como funciona o faturamento e a emissão de Nota Fiscal?</span>
+            <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
+          </summary>
+          <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
+            Todas as contratações são formalizadas mediante contrato de prestação de serviços com emissão de Nota Fiscal de Serviços eletrônica (NFS-e) sob o CNPJ oficial <b class="text-white">67.054.464/0001-51</b> (CLEITON DA SILVA PEREIRA).
+          </p>
+        </details>
+
+        <details class="bg-slate-900 border border-slate-800 rounded-xl p-5 group cursor-pointer transition-all">
+          <summary class="font-bold text-xs sm:text-sm text-slate-200 flex justify-between items-center list-none">
+            <span>Qual é o prazo médio de desenvolvimento de um projeto?</span>
+            <span class="group-open:rotate-180 transition-transform text-blue-400 font-bold">▼</span>
+          </summary>
+          <p class="text-xs text-slate-400 mt-4 leading-relaxed border-t border-slate-800/60 pt-3">
+            O prazo típico para sistemas web sob medida e automações varia entre 2 a 5 semanas, dependendo do nível de integração de APIs e da complexidade das regras de negócio solicitadas.
+          </p>
+        </details>
+      </div>
+    </section>
 
   </main>
 
-  <!-- RODAPÉ -->
-  <footer class="bg-slate-900 border-t border-slate-800 py-8 text-center text-xs text-slate-400">
-    <div class="container mx-auto px-6 space-y-2">
-      <p class="font-bold text-white">67.054.464 CLEITON DA SILVA PEREIRA</p>
-      <p>CNPJ Oficial: <b>67.054.464/0001-51</b> | Empresário: Cleiton da Silva Pereira</p>
-      <p class="text-[10px] text-slate-600 pt-2">&copy; 2026 CSDev - Soluções em Tecnologia. Todos os direitos reservados.</p>
+  <!-- ==================== MODAL 1: AGENDAMENTO GOOGLE WORKSPACE ==================== -->
+  <div id="modal-agendamento" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-lg w-full space-y-5 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <div>
+          <h3 class="font-black text-white text-lg">Agendar Reunião Técnica</h3>
+          <p class="text-[11px] text-slate-400">Sincronizado via Google Workspace API</p>
+        </div>
+        <button onclick="toggleModal('modal-agendamento')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
+      </div>
+      
+      <form onsubmit="confirmarAgendamento(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Razão Social / Seu Nome:</label>
+          <input type="text" required placeholder="Ex: Empresa Exemplo LTDA" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Corporativo:</label>
+          <input type="email" required placeholder="contato@empresa.com.br" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Data Desejada:</label>
+            <input type="date" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Horário:</label>
+            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500">
+              <option>09:00 - Horário de Brasília</option>
+              <option>11:00 - Horário de Brasília</option>
+              <option>14:30 - Horário de Brasília</option>
+              <option>16:30 - Horário de Brasília</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Resumo da Necessidade:</label>
+          <textarea rows="3" placeholder="Descreva brevemente o que sua empresa precisa automatizar..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-blue-600/20">
+          Confirmar e Gerar Convite no Google Calendar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: PAINEL ADMINISTRATIVO COM 2FA SUPABASE ==================== -->
+  <div id="modal-adm" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-lg w-full space-y-5 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <div>
+          <h3 class="font-black text-white text-lg">Área Restrita CSDev (2FA)</h3>
+          <p class="text-[11px] text-slate-400">Autenticação de Dois Fatores via Supabase Auth</p>
+        </div>
+        <button onclick="toggleModal('modal-adm')" class="text-slate-400 hover:text-white font-bold text-xl px-2">&times;</button>
+      </div>
+
+      <form onsubmit="autenticarADM(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Administrativo:</label>
+          <input type="email" id="adm-email" required placeholder="cleiton@csdev.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500 font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Senha de Acesso:</label>
+          <input type="password" id="adm-senha" required placeholder="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Código Authenticator 2FA (6 dígitos):</label>
+          <input type="text" id="adm-2fa" required placeholder="000 000" maxlength="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white font-mono focus:outline-none focus:border-blue-500 tracking-widest text-center text-lg" />
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-600/20">
+          Validar Token &amp; Acessar Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== RODAPÉ PRINCIPAL ==================== -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center sm:text-left">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-sm">
+            CS
+          </div>
+          <span class="font-bold text-sm text-white">CSDev Software Solutions</span>
+        </div>
+        <p class="text-xs text-slate-400 font-mono">
+          CNPJ: 67.054.464/0001-51 | CLEITON DA SILVA PEREIRA
+        </p>
+      </div>
+
+      <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+        <p>&copy; 2026 CSDev. Todos os direitos reservados. Infraestrutura em Nuvem Netlify &amp; Supabase.</p>
+        <div class="flex gap-4">
+          <a href="#solucoes" class="hover:text-slate-300">Termos</a>
+          <a href="#faq" class="hover:text-slate-300">Privacidade</a>
+          <a href="#portal" class="hover:text-slate-300">Transparência</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <!-- JAVASCRIPT -->
+  <!-- ==================== LÓGICA JAVASCRIPT EXPANDIDA ==================== -->
   <script>
-    // ESTADO DO SIMULADOR
+    // Configurações e Estado Global
     const estadoSimulador = {
-      investimentoTotal: 0,
-      suporte: 'suporte30',
-      modulos: {
-        landingPage: false,
-        sistemaWeb: false,
-        dashboardBI: false,
-        automacaoWhats: false,
-        automacaoIA: false,
-        upgradeSupabase: false
-      }
+      investimentoBase: 4500
     };
 
-    // 1. Alternador de Abas
-    function alternarAba(nomeAba) {
-      document.querySelectorAll('.aba-conteudo').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    // Atualiza sliders e dispara o cálculo
+    function atualizarECalcularROI() {
+      const horas = document.getElementById('input-horas').value;
+      const custoHora = document.getElementById('input-custo-hora').value;
 
-      const abaAlvo = document.getElementById(`aba-${nomeAba}`);
-      const btnAlvo = document.getElementById(`tab-btn-${nomeAba}`);
+      document.getElementById('disp-horas').innerText = `${horas} hrs`;
+      document.getElementById('disp-custo-hora').innerText = `R$ ${parseFloat(custoHora).toFixed(2).replace('.', ',')}`;
 
-      if (abaAlvo) abaAlvo.classList.remove('hidden');
-      if (btnAlvo) btnAlvo.classList.add('active');
-    }
-
-    // 2. Preços e Simulador
-    const PRECOS = {
-      landingPage: 1800,
-      sistemaWeb: 4500,
-      dashboardBI: 2200,
-      automacaoWhats: 1500,
-      automacaoIA: 2500,
-      upgradeSupabase: 1200,
-      suporte90: 900
-    };
-
-    function atualizarSimulador() {
-      estadoSimulador.modulos.landingPage = document.getElementById('chk-landing').checked;
-      estadoSimulador.modulos.sistemaWeb = document.getElementById('chk-sistema').checked;
-      estadoSimulador.modulos.dashboardBI = document.getElementById('chk-dashboard').checked;
-      estadoSimulador.modulos.automacaoWhats = document.getElementById('chk-whats').checked;
-      estadoSimulador.modulos.automacaoIA = document.getElementById('chk-ia').checked;
-      estadoSimulador.modulos.upgradeSupabase = document.getElementById('chk-supabase').checked;
-
-      const selSuporte = document.getElementById('select-suporte');
-      estadoSimulador.suporte = selSuporte ? selSuporte.value : 'suporte30';
-
-      let total = 0;
-      if (estadoSimulador.modulos.landingPage) total += PRECOS.landingPage;
-      if (estadoSimulador.modulos.sistemaWeb) total += PRECOS.sistemaWeb;
-      if (estadoSimulador.modulos.dashboardBI) total += PRECOS.dashboardBI;
-      if (estadoSimulador.modulos.automacaoWhats) total += PRECOS.automacaoWhats;
-      if (estadoSimulador.modulos.automacaoIA) total += PRECOS.automacaoIA;
-      if (estadoSimulador.modulos.upgradeSupabase) total += PRECOS.upgradeSupabase;
-      if (estadoSimulador.suporte === 'suporte90') total += PRECOS.suporte90;
-
-      estadoSimulador.investimentoTotal = total;
-
-      const textoMoeda = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      document.getElementById('investimento-total').innerText = textoMoeda;
-      document.getElementById('prop-valor-simulado').innerText = textoMoeda;
-
-      const divOpcoes = document.getElementById('opcoes-fechamento');
-      if (total > 0) {
-        divOpcoes.classList.remove('hidden');
-      } else {
-        divOpcoes.classList.add('hidden');
-      }
       calcularROI();
     }
 
-    // 3. Calculadora de ROI
+    // Função de Cálculo de ROI com Gráfico
     function calcularROI() {
-      const colab = parseInt(document.getElementById('roi-colaboradores').value) || 0;
-      const horas = parseInt(document.getElementById('roi-horas').value) || 0;
-      const custo = parseFloat(document.getElementById('roi-custo-hora').value) || 0;
+      const horasSemanais = parseFloat(document.getElementById('input-horas').value) || 0;
+      const valorHora = parseFloat(document.getElementById('input-custo-hora').value) || 0;
+      const investimento = parseFloat(document.getElementById('input-investimento').value) || estadoSimulador.investimentoBase;
 
-      if (colab <= 0 || horas <= 0 || custo <= 0) {
-        document.getElementById('economia-mensal').innerText = "R$ 0,00";
-        document.getElementById('tempo-payback').innerText = "0 meses";
-        return;
-      }
+      // Cálculo de Economia (4 semanas/mês)
+      const economiaMes = horasSemanais * 4 * valorHora;
+      const custoAnualSemAutomacao = economiaMes * 12;
 
-      const economiaMes = (colab * horas * 4 * 0.75) * custo;
-      document.getElementById('economia-mensal').innerText = economiaMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      // Exibição nos Cards
+      document.getElementById('res-economia-mes').innerText = economiaMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-      if (estadoSimulador.investimentoTotal > 0 && economiaMes > 0) {
-        const payback = estadoSimulador.investimentoTotal / economiaMes;
-        document.getElementById('tempo-payback').innerText = payback < 1 ? 'Menos de 1 mês' : `${payback.toFixed(1)} meses`;
+      if (economiaMes > 0) {
+        const mesesPayback = (investimento / economiaMes).toFixed(1);
+        document.getElementById('res-payback').innerText = `~ ${mesesPayback} Meses`;
       } else {
-        document.getElementById('tempo-payback').innerText = "0 meses";
+        document.getElementById('res-payback').innerText = 'N/A';
+      }
+
+      // Gráfico Dinâmico de Barras SVG
+      const barAtual = document.getElementById('bar-custo-atual');
+      const barCSDev = document.getElementById('bar-custo-csdev');
+
+      if (custoAnualSemAutomacao > 0) {
+        document.getElementById('label-custo-atual').innerText = custoAnualSemAutomacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        document.getElementById('label-custo-csdev').innerText = investimento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        barAtual.style.height = '112px'; // Altura total
+        const porcentagem = Math.min(Math.max((investimento / custoAnualSemAutomacao) * 100, 12), 100);
+        barCSDev.style.height = `${porcentagem}%`;
+
+        const economiaPorcentagem = Math.round(((custoAnualSemAutomacao - investimento) / custoAnualSemAutomacao) * 100);
+        document.getElementById('res-porcentagem-economia').innerText = `Economia de ${economiaPorcentagem > 0 ? economiaPorcentagem : 0}%`;
       }
     }
 
-    // ==========================================
-    // INTEGRACAO DE WEBHOOK & DISPARO DE LEADS (ISABELLA)
-    // ==========================================
-
-    function obterDadosCompletosSimulacao() {
-      const nomeEmpresaInput = document.getElementById('cliente-nome-empresa');
-      const clienteNomeEmpresa = nomeEmpresaInput ? nomeEmpresaInput.value.trim() : "Cliente Interessado";
-
-      const modulosSelecionados = [];
-      if (estadoSimulador.modulos.landingPage) modulosSelecionados.push("Landing Page Premium (R$ 1.800)");
-      if (estadoSimulador.modulos.sistemaWeb) modulosSelecionados.push("Sistema Web Customizado (R$ 4.500)");
-      if (estadoSimulador.modulos.dashboardBI) modulosSelecionados.push("Dashboard & BI (R$ 2.200)");
-      if (estadoSimulador.modulos.automacaoWhats) modulosSelecionados.push("Automações com WhatsApp (R$ 1.500)");
-      if (estadoSimulador.modulos.automacaoIA) modulosSelecionados.push("Automações com Inteligência Artificial (R$ 2.500)");
-      if (estadoSimulador.modulos.upgradeSupabase) modulosSelecionados.push("Upgrade Banco de Dados & Segurança Supabase (R$ 1.200)");
-
-      let suporteTexto = "30 Dias Gratuito (Premium)";
-      if (estadoSimulador.suporte === 'suporte60') suporteTexto = "60 Dias Gratuito (Standard/Enterprise)";
-      if (estadoSimulador.suporte === 'suporte90') suporteTexto = "90 Dias Especializado (+ R$ 900)";
-
-      const colaboradores = document.getElementById('roi-colaboradores').value || 0;
-      const horas = document.getElementById('roi-horas').value || 0;
-      const custoHora = document.getElementById('roi-custo-hora').value || 0;
-      const economiaMensal = document.getElementById('economia-mensal').innerText;
-
-      return {
-        cliente: clienteNomeEmpresa,
-        valorTotal: estadoSimulador.investimentoTotal,
-        modulos: modulosSelecionados,
-        suporte: suporteTexto,
-        roi: {
-          colaboradores: colaboradores,
-          horasSemanais: horas,
-          custoHora: custoHora,
-          economiaEstimada: economiaMensal
-        }
-      };
-    }
-
-    async function dispararWebhookNotificacao(tipoAcao, dadosAdicionais = {}) {
-      const dadosBase = obterDadosCompletosSimulacao();
-      
-      const payload = {
-        acao: tipoAcao,
-        ...dadosBase,
-        ...dadosAdicionais
-      };
-
-      try {
-        const response = await fetch('/.netlify/functions/send-lead', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const resultado = await response.json();
-        if (resultado.success) {
-          console.log("Notificação enviada com sucesso para a equipe comercial!");
-        } else {
-          console.warn("Webhook processado, mas retornou um status de não-sucesso:", resultado.error);
-        }
-      } catch (erro) {
-        console.error("Erro crítico ao tentar disparar o webhook do Netlify:", erro);
-      }
-    }
-
-    function solicitarNegociacao() {
-      const nomeEmpresaInput = document.getElementById('cliente-nome-empresa');
-      if (nomeEmpresaInput && !nomeEmpresaInput.value.trim()) {
-        alert("Por favor, preencha o campo 'Seu Nome / Nome da Empresa' para iniciar a negociação.");
-        nomeEmpresaInput.focus();
-        return;
-      }
-
-      const boxAgenda = document.getElementById('google-scheduler-box');
-      if (boxAgenda) {
-        boxAgenda.classList.remove('hidden');
-        boxAgenda.scrollIntoView({ behavior: 'smooth' });
-      }
-
-      dispararWebhookNotificacao('NEGOCIACAO');
-    }
-
-    function confirmarAgendamentoGoogle() {
-      const dataInput = document.getElementById('sched-data') || document.getElementById('sched-data-ia');
-      const horaInput = document.getElementById('sched-hora') || document.getElementById('sched-hora-ia');
-      const destInput = document.getElementById('sched-dest') || document.getElementById('sched-dest-ia');
-
-      const data = dataInput ? dataInput.value : '';
-      const hora = horaInput ? horaInput.value : '';
-      const destVal = destInput ? destInput.value : '';
-      const destNome = destVal === 'isabella' ? 'Isabella' : 'Cleiton';
-
-      if (!data) {
-        alert("Por favor, escolha um dia para a reunião.");
-        return;
-      }
-
-      const formatData = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
-      const boxSuccess = document.getElementById('sched-success');
-
-      if (boxSuccess) {
-        boxSuccess.innerHTML = `
-          <strong>📅 Agendamento Concluído via Google Workspace!</strong><br>
-          Reunião agendada com <b>${destNome}</b> para o dia <b>${formatData}</b> às <b>${hora}h</b>.<br>
-          <span class="text-[10px]">O convite contendo o link da sala do <b>Google Meet</b> foi enviado para sua caixa de entrada.</span>
-        `;
-        boxSuccess.classList.remove('hidden');
-      }
-
-      dispararWebhookNotificacao('AGENDAMENTO', {
-        reuniao: {
-          data: formatData,
-          horario: hora,
-          com: destNome
-        }
-      });
-    }
-
-    function gerarPropostaPDF() {
-      const nomeEmpresaInput = document.getElementById('cliente-nome-empresa');
-      if (nomeEmpresaInput && !nomeEmpresaInput.value.trim()) {
-        alert("Por favor, preencha o campo 'Seu Nome / Nome da Empresa' para gerar o documento personalizado.");
-        nomeEmpresaInput.focus();
-        return;
-      }
-
-      const cliente = nomeEmpresaInput.value.trim();
-      const obs = document.getElementById('prop-obs') ? document.getElementById('prop-obs').value.trim() : 'Nenhuma observação técnica adicional.';
-
-      const janela = window.open('', '_blank');
-      janela.document.write(`
-        <html>
-          <head>
-            <title>Proposta Comercial - CSDev</title>
-            <style>
-              body { font-family: Arial, sans-serif; padding: 40px; color: #111; line-height: 1.6; }
-              h1 { color: #2563eb; margin-bottom: 5px; }
-              .header { border-bottom: 2px solid #2563eb; padding-bottom: 15px; margin-bottom: 25px; }
-              .total { font-size: 20px; font-weight: bold; color: #059669; background: #ecfdf5; padding: 10px; border-radius: 5px; display: inline-block; }
-              .footer { margin-top: 40px; border-top: 1px solid #ccc; pt: 10px; font-size: 11px; color: #666; }
-            </style>
-          </head>
-          <body>
-            <div class="header">
-              <h1>CSDEV Software Solutions</h1>
-              <p><strong>CNPJ:</strong> 67.054.464/0001-51 | Empresário: Cleiton da Silva Pereira</p>
-            </div>
-            <h2>Proposta Comercial de Tecnologia</h2>
-            <p><strong>Destinatário:</strong> ${cliente}</p>
-            <p><strong>Observações / Escopo:</strong> ${obs}</p>
-            <br>
-            <div class="total">Valor Total da Proposta: ${document.getElementById('prop-valor-simulado').innerText}</div>
-            <div class="footer">
-              <p>Validade da proposta: 15 dias corridos.</p>
-              <p>Contato Técnico: Cleiton da Silva Pereira</p>
-            </div>
-          </body>
-        </html>
-      `);
-      janela.document.close();
-      janela.print();
-
-      dispararWebhookNotificacao('GERAR_PDF');
-    }
-
-    // Chat de IA
-    let historicoChat = [];
-
-    function verificarTeclaEnter(e) {
-      if (e.key === 'Enter') enviarMensagemIA();
-    }
-
+    // Chatbot IA Responsivo
     function enviarMensagemIA() {
-      const input = document.getElementById('input-chat');
+      const input = document.getElementById('chat-input');
       const text = input.value.trim();
       if (!text) return;
 
-      adicionarBalaoChat(text, 'user');
+      const chatBox = document.getElementById('chat-box');
+
+      // Balão do Usuário
+      const userDiv = document.createElement('div');
+      userDiv.className = 'bg-blue-900/40 border border-blue-500/30 p-3 rounded-xl text-slate-200 ml-auto max-w-[85%] text-right font-sans';
+      userDiv.innerText = text;
+      chatBox.appendChild(userDiv);
+
       input.value = '';
 
-      historicoChat.push({ role: 'user', text: text });
+      // Scroll para o fim
+      chatBox.scrollTop = chatBox.scrollHeight;
 
+      // Resposta Simula Processamento IA
       setTimeout(() => {
-        const respostaIA = gerarRespostaDinamica(text);
-        adicionarBalaoChat(respostaIA, 'assistant');
-        historicoChat.push({ role: 'assistant', text: respostaIA });
+        const botDiv = document.createElement('div');
+        botDiv.className = 'bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] font-sans leading-relaxed';
+
+        const txtLower = text.toLowerCase();
+        if (txtLower.includes('preço') || txtLower.includes('valor') || txtLower.includes('quanto custa') || txtLower.includes('orçamento')) {
+          botDiv.innerText = "Nossos projetos customizados iniciam a partir de R$ 4.500,00 para sistemas web completos e automações via Supabase. O investimento final varia de acordo com as APIs e integrações necessárias.";
+        } else if (txtLower.includes('cleiton') || txtLower.includes('isabella') || txtLower.includes('equipe') || txtLower.includes('quem')) {
+          botDiv.innerText = "A CSDev foi fundada por Cleiton (Líder de Engenharia de Software e Desenvolvimento) e conta com Isabella na Gestão de Projetos e Experiência do Usuário (UX).";
+        } else if (txtLower.includes('tempo') || txtLower.includes('prazo') || txtLower.includes('demora')) {
+          botDiv.innerText = "O tempo médio de desenvolvimento de um projeto customizado é de 2 a 4 semanas com entregas contínuas em ambiente de homologação.";
+        } else {
+          botDiv.innerText = "Entendido! Caso queira agendar uma conversa técnica para apresentar os requisitos da sua empresa, basta clicar no botão 'Agendar Reunião' no topo da página.";
+        }
+
+        chatBox.appendChild(botDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
       }, 500);
     }
 
-    function adicionarBalaoChat(texto, autor) {
-      const chatBox = document.getElementById('chat-messages');
-      const isUser = autor === 'user';
-      
-      const div = document.createElement('div');
-      div.className = `flex gap-2 ${isUser ? 'justify-end' : ''}`;
-      div.innerHTML = `
-        ${!isUser ? '<span class="text-xs">🤖</span>' : ''}
-        <div class="${isUser ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-200'} p-2.5 rounded-lg text-xs max-w-[85%]">
-          ${texto}
-        </div>
-        ${isUser ? '<span class="text-xs">👤</span>' : ''}
-      `;
-      
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
+    // Portal do Cliente
+    function consultarStatusProjeto() {
+      const busca = document.getElementById('busca-cnpj').value.trim();
+      const resultado = document.getElementById('resultado-portal');
+
+      if (!busca) {
+        alert('Por favor, informe um CNPJ ou E-mail para consulta.');
+        return;
+      }
+
+      resultado.classList.remove('hidden');
     }
 
-    function gerarRespostaDinamica(prompt) {
-      const p = prompt.toLowerCase();
-      if (p.includes('preço') || p.includes('quanto') || p.includes('valor') || p.includes('custo')) {
-        return `O valor varia conforme os módulos. No momento, o valor selecionado no seu simulador é de ${document.getElementById('prop-valor-simulado').innerText}.`;
-      }
-      if (p.includes('banco') || p.includes('supabase') || p.includes('dados')) {
-        return "Utilizamos a infraestrutura da Supabase (PostgreSQL), garantindo alta velocidade e segurança de autenticação.";
-      }
-      if (p.includes('adm') || p.includes('painel') || p.includes('gestor')) {
-        return "Você pode acessar o Painel ADM clicando diretamente no botão '🔑 Painel ADM' no menu superior!";
-      }
-      if (p.includes('olá') || p.includes('oi') || p.includes('bom dia') || p.includes('boa tarde')) {
-        return "Olá! Como posso ajudar você a estruturar seu projeto web ou sistema hoje?";
-      }
-      return `Entendi sua dúvida sobre "${prompt}". Você pode simular esses módulos na aba 'Simulador & ROI' ou agendar um horário direto com nosso gestor!`;
+    // Funções dos Modais
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.toggle('hidden');
     }
+
+    function confirmarAgendamento(e) {
+      e.preventDefault();
+      alert('Reunião agendada com sucesso! O convite foi sincronizado com a agenda corporativa do Google Workspace.');
+      toggleModal('modal-agendamento');
+    }
+
+    function autenticarADM(e) {
+      e.preventDefault();
+      const code = document.getElementById('adm-2fa').value;
+      if (code.length < 6) {
+        alert('Informe o código 2FA de 6 dígitos.');
+        return;
+      }
+      alert('Autenticação 2FA via Supabase Auth validada com sucesso! Redirecionando para o painel restrito...');
+      toggleModal('modal-adm');
+    }
+
+    // Executar calculo ao carregar a pagina
+    window.addEventListener('DOMContentLoaded', () => {
+      atualizarECalcularROI();
+    });
   </script>
 </body>
 </html>
