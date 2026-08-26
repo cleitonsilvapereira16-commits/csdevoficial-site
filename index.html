@@ -155,16 +155,67 @@
             </span>
             <span class="font-extrabold text-blue-400 text-sm">R$ 1.200</span>
           </label>
+
+          <div class="mt-4 pt-4 border-t border-slate-800">
+            <label class="block text-xs font-bold text-slate-300 mb-2">Selecione o Plano de Suporte:</label>
+            <select id="select-suporte" onchange="atualizarSimulador()" class="w-full p-2.5 bg-slate-950 text-white rounded border border-slate-800 text-xs focus:outline-none focus:border-blue-500">
+              <option value="suporte30">30 Dias Gratuito (Premium)</option>
+              <option value="suporte60">60 Dias Gratuito (Standard/Enterprise)</option>
+              <option value="suporte90">90 Dias Especializado (+ R$ 900)</option>
+            </select>
+          </div>
         </div>
 
         <div class="lg:col-span-5 space-y-6">
           <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-6 rounded-xl border border-blue-500/30 shadow-lg">
+            <!-- INPUT NOME CLIENTE SOLICITADO -->
+            <div class="mb-4">
+              <label class="block text-xs text-gray-400 mb-1">Seu Nome / Nome da Empresa:</label>
+              <input type="text" id="cliente-nome-empresa" placeholder="Ex: Cleiton - CSDev" class="w-full p-2.5 bg-slate-800 rounded border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500">
+            </div>
+
             <h3 class="text-xs font-semibold text-blue-300 mb-1 uppercase tracking-wider">Investimento Total Estimado</h3>
             <p id="investimento-total" class="text-4xl font-black text-white mb-4">R$ 0,00</p>
             <div id="opcoes-fechamento" class="space-y-3 hidden">
-              <button type="button" onclick="alternarAba('propostas')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg text-xs transition shadow-md shadow-blue-500/10">
-                📄 Gerar Proposta com Estes Módulos
+              <button type="button" onclick="solicitarNegociacao()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg text-xs transition shadow-md shadow-blue-500/10">
+                🤝 Solicitar Negociação de Valores
               </button>
+              <button type="button" onclick="gerarPropostaPDF()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-lg text-xs transition border border-slate-700">
+                📄 Gerar Proposta Comercial (PDF)
+              </button>
+            </div>
+          </div>
+
+          <!-- AGENDA GOOGLE SCHEDULER BOX -->
+          <div id="google-scheduler-box" class="bg-slate-900 p-6 rounded-xl border border-blue-500/30 hidden">
+            <h3 class="text-sm font-bold text-blue-400 mb-2">📅 Agendar Reunião de Negociação</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">Atendente Responsável:</label>
+                <select id="sched-dest" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+                  <option value="isabella">Isabella (Comercial)</option>
+                  <option value="cleiton">Cleiton (Técnico)</option>
+                </select>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1">Data:</label>
+                  <input type="date" id="sched-data" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1">Horário:</label>
+                  <select id="sched-hora" class="w-full p-2 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+                    <option value="09:00">09:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="16:00">16:00</option>
+                  </select>
+                </div>
+              </div>
+              <button type="button" onclick="confirmarAgendamentoGoogle()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded text-xs transition">
+                Confirmar Reunião
+              </button>
+              <div id="sched-success" class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs text-emerald-400 hidden"></div>
             </div>
           </div>
 
@@ -275,7 +326,7 @@
           <h3 class="text-base font-bold text-blue-300 flex items-center gap-2">📅 Agendar Reunião de Negociação</h3>
           <div>
             <label class="block text-xs text-slate-400 mb-1">Representante da CSDev:</label>
-            <select id="sched-dest" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+            <select id="sched-dest-ia" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
               <option value="isabella">Isabella (Consultora Administrativa - Comercial)</option>
               <option value="cleiton">Cleiton da Silva Pereira (Gestor de TI - Técnico)</option>
             </select>
@@ -283,11 +334,11 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-xs text-slate-400 mb-1">Data:</label>
-              <input type="date" id="sched-data" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+              <input type="date" id="sched-data-ia" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
             </div>
             <div>
               <label class="block text-xs text-slate-400 mb-1">Horário:</label>
-              <select id="sched-hora" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
+              <select id="sched-hora-ia" class="w-full p-2.5 bg-slate-950 rounded border border-slate-800 text-xs text-white">
                 <option value="09:00">09:00</option>
                 <option value="11:00">11:00</option>
                 <option value="14:30">14:30</option>
@@ -298,7 +349,6 @@
           <button type="button" onclick="confirmarAgendamentoGoogle()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded text-xs transition">
             Confirmar Reunião Comercial
           </button>
-          <div id="sched-success" class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs text-emerald-400 hidden"></div>
         </div>
 
         <div class="bg-slate-900 p-6 rounded-xl border border-blue-500/40 shadow-2xl shadow-blue-500/10 flex flex-col justify-between space-y-4">
@@ -421,6 +471,20 @@
 
   <!-- JAVASCRIPT -->
   <script>
+    // ESTADO DO SIMULADOR
+    const estadoSimulador = {
+      investimentoTotal: 0,
+      suporte: 'suporte30',
+      modulos: {
+        landingPage: false,
+        sistemaWeb: false,
+        dashboardBI: false,
+        automacaoWhats: false,
+        automacaoIA: false,
+        upgradeSupabase: false
+      }
+    };
+
     // 1. Alternador de Abas
     function alternarAba(nomeAba) {
       document.querySelectorAll('.aba-conteudo').forEach(el => el.classList.add('hidden'));
@@ -440,26 +504,38 @@
       dashboardBI: 2200,
       automacaoWhats: 1500,
       automacaoIA: 2500,
-      upgradeSupabase: 1200
+      upgradeSupabase: 1200,
+      suporte90: 900
     };
 
-    let totalSimulado = 0;
-
     function atualizarSimulador() {
-      totalSimulado = 0;
-      if (document.getElementById('chk-landing').checked) totalSimulado += PRECOS.landingPage;
-      if (document.getElementById('chk-sistema').checked) totalSimulado += PRECOS.sistemaWeb;
-      if (document.getElementById('chk-dashboard').checked) totalSimulado += PRECOS.dashboardBI;
-      if (document.getElementById('chk-whats').checked) totalSimulado += PRECOS.automacaoWhats;
-      if (document.getElementById('chk-ia').checked) totalSimulado += PRECOS.automacaoIA;
-      if (document.getElementById('chk-supabase').checked) totalSimulado += PRECOS.upgradeSupabase;
+      estadoSimulador.modulos.landingPage = document.getElementById('chk-landing').checked;
+      estadoSimulador.modulos.sistemaWeb = document.getElementById('chk-sistema').checked;
+      estadoSimulador.modulos.dashboardBI = document.getElementById('chk-dashboard').checked;
+      estadoSimulador.modulos.automacaoWhats = document.getElementById('chk-whats').checked;
+      estadoSimulador.modulos.automacaoIA = document.getElementById('chk-ia').checked;
+      estadoSimulador.modulos.upgradeSupabase = document.getElementById('chk-supabase').checked;
 
-      const textoMoeda = totalSimulado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      const selSuporte = document.getElementById('select-suporte');
+      estadoSimulador.suporte = selSuporte ? selSuporte.value : 'suporte30';
+
+      let total = 0;
+      if (estadoSimulador.modulos.landingPage) total += PRECOS.landingPage;
+      if (estadoSimulador.modulos.sistemaWeb) total += PRECOS.sistemaWeb;
+      if (estadoSimulador.modulos.dashboardBI) total += PRECOS.dashboardBI;
+      if (estadoSimulador.modulos.automacaoWhats) total += PRECOS.automacaoWhats;
+      if (estadoSimulador.modulos.automacaoIA) total += PRECOS.automacaoIA;
+      if (estadoSimulador.modulos.upgradeSupabase) total += PRECOS.upgradeSupabase;
+      if (estadoSimulador.suporte === 'suporte90') total += PRECOS.suporte90;
+
+      estadoSimulador.investimentoTotal = total;
+
+      const textoMoeda = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
       document.getElementById('investimento-total').innerText = textoMoeda;
       document.getElementById('prop-valor-simulado').innerText = textoMoeda;
 
       const divOpcoes = document.getElementById('opcoes-fechamento');
-      if (totalSimulado > 0) {
+      if (total > 0) {
         divOpcoes.classList.remove('hidden');
       } else {
         divOpcoes.classList.add('hidden');
@@ -482,18 +558,145 @@
       const economiaMes = (colab * horas * 4 * 0.75) * custo;
       document.getElementById('economia-mensal').innerText = economiaMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-      if (totalSimulado > 0 && economiaMes > 0) {
-        const payback = totalSimulado / economiaMes;
+      if (estadoSimulador.investimentoTotal > 0 && economiaMes > 0) {
+        const payback = estadoSimulador.investimentoTotal / economiaMes;
         document.getElementById('tempo-payback').innerText = payback < 1 ? 'Menos de 1 mês' : `${payback.toFixed(1)} meses`;
       } else {
         document.getElementById('tempo-payback').innerText = "0 meses";
       }
     }
 
-    // 4. Emissão de Proposta PDF
+    // ==========================================
+    // INTEGRACAO DE WEBHOOK & DISPARO DE LEADS (ISABELLA)
+    // ==========================================
+
+    function obterDadosCompletosSimulacao() {
+      const nomeEmpresaInput = document.getElementById('cliente-nome-empresa');
+      const clienteNomeEmpresa = nomeEmpresaInput ? nomeEmpresaInput.value.trim() : "Cliente Interessado";
+
+      const modulosSelecionados = [];
+      if (estadoSimulador.modulos.landingPage) modulosSelecionados.push("Landing Page Premium (R$ 1.800)");
+      if (estadoSimulador.modulos.sistemaWeb) modulosSelecionados.push("Sistema Web Customizado (R$ 4.500)");
+      if (estadoSimulador.modulos.dashboardBI) modulosSelecionados.push("Dashboard & BI (R$ 2.200)");
+      if (estadoSimulador.modulos.automacaoWhats) modulosSelecionados.push("Automações com WhatsApp (R$ 1.500)");
+      if (estadoSimulador.modulos.automacaoIA) modulosSelecionados.push("Automações com Inteligência Artificial (R$ 2.500)");
+      if (estadoSimulador.modulos.upgradeSupabase) modulosSelecionados.push("Upgrade Banco de Dados & Segurança Supabase (R$ 1.200)");
+
+      let suporteTexto = "30 Dias Gratuito (Premium)";
+      if (estadoSimulador.suporte === 'suporte60') suporteTexto = "60 Dias Gratuito (Standard/Enterprise)";
+      if (estadoSimulador.suporte === 'suporte90') suporteTexto = "90 Dias Especializado (+ R$ 900)";
+
+      const colaboradores = document.getElementById('roi-colaboradores').value || 0;
+      const horas = document.getElementById('roi-horas').value || 0;
+      const custoHora = document.getElementById('roi-custo-hora').value || 0;
+      const economiaMensal = document.getElementById('economia-mensal').innerText;
+
+      return {
+        cliente: clienteNomeEmpresa,
+        valorTotal: estadoSimulador.investimentoTotal,
+        modulos: modulosSelecionados,
+        suporte: suporteTexto,
+        roi: {
+          colaboradores: colaboradores,
+          horasSemanais: horas,
+          custoHora: custoHora,
+          economiaEstimada: economiaMensal
+        }
+      };
+    }
+
+    async function dispararWebhookNotificacao(tipoAcao, dadosAdicionais = {}) {
+      const dadosBase = obterDadosCompletosSimulacao();
+      
+      const payload = {
+        acao: tipoAcao,
+        ...dadosBase,
+        ...dadosAdicionais
+      };
+
+      try {
+        const response = await fetch('/.netlify/functions/send-lead', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const resultado = await response.json();
+        if (resultado.success) {
+          console.log("Notificação enviada com sucesso para a equipe comercial!");
+        } else {
+          console.warn("Webhook processado, mas retornou um status de não-sucesso:", resultado.error);
+        }
+      } catch (erro) {
+        console.error("Erro crítico ao tentar disparar o webhook do Netlify:", erro);
+      }
+    }
+
+    function solicitarNegociacao() {
+      const nomeEmpresaInput = document.getElementById('cliente-nome-empresa');
+      if (nomeEmpresaInput && !nomeEmpresaInput.value.trim()) {
+        alert("Por favor, preencha o campo 'Seu Nome / Nome da Empresa' para iniciar a negociação.");
+        nomeEmpresaInput.focus();
+        return;
+      }
+
+      const boxAgenda = document.getElementById('google-scheduler-box');
+      if (boxAgenda) {
+        boxAgenda.classList.remove('hidden');
+        boxAgenda.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      dispararWebhookNotificacao('NEGOCIACAO');
+    }
+
+    function confirmarAgendamentoGoogle() {
+      const dataInput = document.getElementById('sched-data') || document.getElementById('sched-data-ia');
+      const horaInput = document.getElementById('sched-hora') || document.getElementById('sched-hora-ia');
+      const destInput = document.getElementById('sched-dest') || document.getElementById('sched-dest-ia');
+
+      const data = dataInput ? dataInput.value : '';
+      const hora = horaInput ? horaInput.value : '';
+      const destVal = destInput ? destInput.value : '';
+      const destNome = destVal === 'isabella' ? 'Isabella' : 'Cleiton';
+
+      if (!data) {
+        alert("Por favor, escolha um dia para a reunião.");
+        return;
+      }
+
+      const formatData = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+      const boxSuccess = document.getElementById('sched-success');
+
+      if (boxSuccess) {
+        boxSuccess.innerHTML = `
+          <strong>📅 Agendamento Concluído via Google Workspace!</strong><br>
+          Reunião agendada com <b>${destNome}</b> para o dia <b>${formatData}</b> às <b>${hora}h</b>.<br>
+          <span class="text-[10px]">O convite contendo o link da sala do <b>Google Meet</b> foi enviado para sua caixa de entrada.</span>
+        `;
+        boxSuccess.classList.remove('hidden');
+      }
+
+      dispararWebhookNotificacao('AGENDAMENTO', {
+        reuniao: {
+          data: formatData,
+          horario: hora,
+          com: destNome
+        }
+      });
+    }
+
     function gerarPropostaPDF() {
-      const cliente = document.getElementById('prop-cliente').value.trim() || 'Cliente Não Identificado';
-      const obs = document.getElementById('prop-obs').value.trim() || 'Nenhuma observação técnica adicional.';
+      const nomeEmpresaInput = document.getElementById('cliente-nome-empresa');
+      if (nomeEmpresaInput && !nomeEmpresaInput.value.trim()) {
+        alert("Por favor, preencha o campo 'Seu Nome / Nome da Empresa' para gerar o documento personalizado.");
+        nomeEmpresaInput.focus();
+        return;
+      }
+
+      const cliente = nomeEmpresaInput.value.trim();
+      const obs = document.getElementById('prop-obs') ? document.getElementById('prop-obs').value.trim() : 'Nenhuma observação técnica adicional.';
 
       const janela = window.open('', '_blank');
       janela.document.write(`
@@ -527,25 +730,11 @@
       `);
       janela.document.close();
       janela.print();
+
+      dispararWebhookNotificacao('GERAR_PDF');
     }
 
-    // 5. Agendamento
-    function confirmarAgendamentoGoogle() {
-      const data = document.getElementById('sched-data').value;
-      const hora = document.getElementById('sched-hora').value;
-      const dest = document.getElementById('sched-dest').value === 'isabella' ? 'Isabella' : 'Cleiton da Silva Pereira';
-
-      if (!data) {
-        alert("Por favor, escolha a data da reunião.");
-        return;
-      }
-
-      const boxSucesso = document.getElementById('sched-success');
-      boxSucesso.innerText = `✅ Agendamento pré-confirmado com ${dest} para ${data} às ${hora} hrs. O convite foi enviado!`;
-      boxSucesso.classList.remove('hidden');
-    }
-
-    // 6. Chat de IA
+    // Chat de IA
     let historicoChat = [];
 
     function verificarTeclaEnter(e) {
